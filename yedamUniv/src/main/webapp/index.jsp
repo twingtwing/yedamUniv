@@ -7,6 +7,5 @@
 </head>
 <body>
 	<jsp:forward page="all/home.do"/>
-	수정
 </body>
 </html>
