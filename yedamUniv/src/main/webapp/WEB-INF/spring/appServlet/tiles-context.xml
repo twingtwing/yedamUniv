@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- 일반 페이지 -->
+	<definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
+		<put-attribute name="title" value="예담공대"/>
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
+	</definition>
+	
+	<definition name="*/*" extends="layout">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+	</definition>
+	
+	<!-- 학생 페이지 -->
+	<definition name="layout.stu" template="/WEB-INF/views/stu/tiles/stulayout.jsp">
+		<put-attribute name="title" value="예담공대 - 마이페이지"/>
+		<put-attribute name="header" value="/WEB-INF/views/stu/tiles/stuheader.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/views/stu/tiles/stuside.jsp"/>
+		<put-attribute name="body" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/stu/tiles/stufooter.jsp"/>
+	</definition>
+	
+	<definition name="stu/*/*" extends="layout.stu">
+		<put-attribute name="body" value="/WEB-INF/views/stu/{1}/{2}.jsp"/>
+	</definition>
+	
+	<!-- 교수 페이지 -->
+	<definition name="layout.pro" template="/WEB-INF/views/pro/tiles/prolayout.jsp">
+		<put-attribute name="title" value="예담공대 - 마이페이지"/>
+		<put-attribute name="header" value="/WEB-INF/views/pro/tiles/proheader.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/views/pro/tiles/proside.jsp"/>
+		<put-attribute name="body" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/pro/tiles/profooter.jsp"/>
+	</definition>
+	
+	<definition name="pro/*/*" extends="layout.stu">
+		<put-attribute name="body" value="/WEB-INF/views/pro/{1}/{2}.jsp"/>
+	</definition>
+
+	<!-- 관리자 페이지 -->
+	<definition name="layout.admin" template="/WEB-INF/views/admin/tiles/adminlayout.jsp">
+		<put-attribute name="title" value="예담공대 - 관리자페이지"/>
+		<put-attribute name="header" value="/WEB-INF/views/admin/tiles/adminheader.jsp"/>
+		<put-attribute name="side" value="/WEB-INF/views/admin/tiles/adminside.jsp"/>
+		<put-attribute name="body" value=""/>
+	</definition>
+	
+	<definition name="admin/*/*" extends="layout.admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+	</definition>
+
+</tiles-definitions>
