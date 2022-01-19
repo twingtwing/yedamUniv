@@ -31,14 +31,14 @@
 	
 	<!-- 교수 페이지 -->
 	<definition name="layout.pro" template="/WEB-INF/views/pro/tiles/prolayout.jsp">
-		<put-attribute name="title" value="예담공대 - 마이페이지"/>
+		<put-attribute name="title" value="예담공대 - 교수페이지"/>
 		<put-attribute name="header" value="/WEB-INF/views/pro/tiles/proheader.jsp"/>
 		<put-attribute name="side" value="/WEB-INF/views/pro/tiles/proside.jsp"/>
 		<put-attribute name="body" value=""/>
 		<put-attribute name="footer" value="/WEB-INF/views/pro/tiles/profooter.jsp"/>
 	</definition>
 	
-	<definition name="pro/*/*" extends="layout.stu">
+	<definition name="pro/*/*" extends="layout.pro">
 		<put-attribute name="body" value="/WEB-INF/views/pro/{1}/{2}.jsp"/>
 	</definition>
 

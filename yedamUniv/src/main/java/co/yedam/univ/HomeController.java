@@ -16,6 +16,7 @@ public class HomeController {
 	public String stuPage() {
 		return "stu/home/stuMain";
 	}
+	
 	@GetMapping("/pro/pro.do")
 	public String proPage() {
 		return "pro/home/proMain";
