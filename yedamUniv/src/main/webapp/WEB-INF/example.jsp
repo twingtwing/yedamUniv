@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-ㅈㄵㄴ
-이그잼플
+s닌,ㄴ
 </body>
 </html>
