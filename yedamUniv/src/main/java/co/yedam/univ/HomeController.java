@@ -11,6 +11,12 @@ public class HomeController {
 	public String home() {
 		return "home/main";
 	}
+	
+	@RequestMapping("/all/noAuth.do")
+	public String noAuth() {
+		return "home/noAuth";
+	}
+	
 	@GetMapping("/stu/stu.do")
 	public String stuPage() {
 		return "stu/home/stuMain";
