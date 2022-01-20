@@ -96,7 +96,7 @@
 							<div class="dropdown-menu" aria-labelledby="dropdown-a">
 								<a class="dropdown-item" href="blog.html">Blog </a>
 								<a class="dropdown-item" href="blog-single.html">Blog single </a>
-								<a class="dropdown-item" href="board.html">자유게시판 </a>
+								<a class="dropdown-item" href="/univ/board/freeBoardList.do">자유게시판 </a>
 							</div>
 						</li>											
 						<li class="nav-item"><a class="nav-link" href="admin/admin.do">관리자</a></li>
