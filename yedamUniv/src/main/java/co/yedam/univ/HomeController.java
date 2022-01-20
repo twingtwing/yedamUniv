@@ -11,7 +11,8 @@ public class HomeController {
 	public String home() {
 		return "home/main";
 	}
-	
+
+	//권한없을때 갔는지 확인해야함ㄴ
 	@RequestMapping("/all/noAuth.do")
 	public String noAuth() {
 		return "home/noAuth";
