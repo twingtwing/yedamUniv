@@ -25,16 +25,17 @@
         <div class="container">
             <div class="container-fluid">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">학사 </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
-                            <a class="dropdown-item" href="#">학사공지 </a>
-                            <a class="dropdown-item" href="#">학사QnA </a>
-                            <a class="dropdown-item" href="#">학사FAQ </a>
-                            <a class="dropdown-item" href="haksa_plan.html">학사일정 </a>
-                        </div>
-                    </li>
-                </ul>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown-a"
+						data-toggle="dropdown">학사 </a>
+						<div class="dropdown-menu" aria-labelledby="dropdown-a"
+							style="width: 10vw;">
+							<a class="dropdown-item" href="/univ/board/haksaBoardList.do">학사공지 </a> 
+							<a class="dropdown-item" href="/univ/qna/haksaQna.do">학사QnA </a> 
+							<a class="dropdown-item" href="/univ/faq/haksaFaq.do">학사FAQ </a>
+							<a class="dropdown-item" href="/univ/schedule/schedule.do">학사일정 </a>
+						</div></li>
+				</ul>
                 <div class="section-title row text-center">
                     <div class="col-md-8 offset-md-2">
                         <h3>학사 FAQ</h3>

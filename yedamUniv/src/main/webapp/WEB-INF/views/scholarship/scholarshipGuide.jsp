@@ -14,16 +14,16 @@
     <div id="overviews" class="section wb">
         <div class="container">
             <ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">장학 </a>
-						<div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
-							<a class="dropdown-item" href="#">장학공지 </a>
-							<a class="dropdown-item" href="#">장학안내 </a>
-							<a class="dropdown-item" href="#">장학FAQ </a>
-                            <a class="dropdown-item" href="#">장학QnA </a>
-						</div>
-				</li>
-			</ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">장학 </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
+                                <a class="dropdown-item" href="/univ/board/scholarshipBoardList.do">장학공지 </a>
+                                <a class="dropdown-item" href="/univ/scholarship/scholarshipGuide.do">장학안내 </a>
+                                <a class="dropdown-item" href="/univ/faq/scholarshipFaq.do">장학FAQ </a>
+                                <a class="dropdown-item" href="/univ/qna/scholarshipQna.do">장학QnA </a>
+                            </div>
+                    </li>
+               </ul>
             <div class="section-title row text-center">
                 <div class="col-md-8 offset-md-2">
                     <h3>장학제도</h3>

@@ -22,16 +22,16 @@
     <div id="overviews" class="section wb">
         <div class="container">
             <ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">장학 </a>
-						<div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
-							<a class="dropdown-item" href="#">장학공지 </a>
-							<a class="dropdown-item" href="#">장학안내 </a>
-							<a class="dropdown-item" href="#">장학FAQ </a>
-                            <a class="dropdown-item" href="#">장학QnA </a>
-						</div>
-				</li>
-			</ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">장학 </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
+                                <a class="dropdown-item" href="/univ/board/scholarshipBoardList.do">장학공지 </a>
+                                <a class="dropdown-item" href="/univ/scholarship/scholarshipGuide.do">장학안내 </a>
+                                <a class="dropdown-item" href="/univ/faq/scholarshipFaq.do">장학FAQ </a>
+                                <a class="dropdown-item" href="/univ/qna/scholarshipQna.do">장학QnA </a>
+                            </div>
+                    </li>
+            </ul>
             <div class="section-title row text-center m-3">
                 <div class="col-md-8 offset-md-2">
                     <h3>장학 QnA</h3>
@@ -42,7 +42,7 @@
                             <div class="site-search-area">
                                 <form method="get" id="site-searchform" action="#">
                                     <div>
-                                        <input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
+                                        <input class="input-text form-control" name="search-k" id="search-k" placeholder="제목을 검색하세요" type="text">
                                         <input id="searchsubmit" value="Search" type="submit">
                                     </div>
                                 </form>
@@ -79,7 +79,8 @@
                     </table>
                 </div>
                 <div class="row d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;"><i class="fas fa-pen"></i>&nbsp; &nbsp;글쓰기</button>
+                    <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/scholarshipWrite.do'">
+                    	<i class="fas fa-pen"></i>&nbsp; &nbsp;글쓰기</button>
                 </div>
                 <div>
                     <ul class="pagination justify-content-center p-5" style="color: #eea412;;">

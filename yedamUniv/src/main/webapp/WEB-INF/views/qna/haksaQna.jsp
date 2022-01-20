@@ -22,15 +22,17 @@
         <div class="container">
             <div class="container-fluid">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">학사 </a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
-                                <a class="dropdown-item" href="#">학사공지 </a>
-                                <a class="dropdown-item" href="#">학사QnA </a>
-                                <a class="dropdown-item" href="#">학사FAQ </a>
-                            </div>
-                    </li>
-                </ul>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown-a"
+						data-toggle="dropdown">학사 </a>
+						<div class="dropdown-menu" aria-labelledby="dropdown-a"
+							style="width: 10vw;">
+							<a class="dropdown-item" href="/univ/board/haksaBoardList.do">학사공지 </a> 
+							<a class="dropdown-item" href="/univ/qna/haksaQna.do">학사QnA </a> 
+							<a class="dropdown-item" href="/univ/faq/haksaFaq.do">학사FAQ </a>
+							<a class="dropdown-item" href="/univ/schedule/schedule.do">학사일정 </a>
+						</div></li>
+				</ul>
                 <div class="section-title row text-center m-3">
                     <div class="col-md-8 offset-md-2">
                         <h3>학사 QnA</h3>
@@ -76,7 +78,9 @@
                         </table>
                     </div>
                     <div class="row d-flex justify-content-end">
-                        <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;"><i class="fas fa-pen"></i>&nbsp; &nbsp;글쓰기</button>
+                        <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/haksaQnaWrite.do'">
+                        	<i class="fas fa-pen"></i>&nbsp; &nbsp;글쓰기
+                        </button>
                     </div>
                     <div>
                         <ul class="pagination justify-content-center p-5" style="color: #eea412;;">

@@ -27,10 +27,10 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">장학 </a>
                             <div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
-                                <a class="dropdown-item" href="#">장학공지 </a>
-                                <a class="dropdown-item" href="#">장학안내 </a>
-                                <a class="dropdown-item" href="#">장학FAQ </a>
-                                <a class="dropdown-item" href="#">장학QnA </a>
+                                <a class="dropdown-item" href="/univ/board/scholarshipBoardList.do">장학공지 </a>
+                                <a class="dropdown-item" href="/univ/scholarship/scholarshipGuide.do">장학안내 </a>
+                                <a class="dropdown-item" href="/univ/faq/scholarshipFaq.do">장학FAQ </a>
+                                <a class="dropdown-item" href="/univ/qna/scholarshipQna.do">장학QnA </a>
                             </div>
                     </li>
                 </ul>
