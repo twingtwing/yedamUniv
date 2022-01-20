@@ -19,13 +19,13 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">대학소개 </a>
 						<div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
-							<a class="dropdown-item" href="intro.html">인사말 </a>
-							<a class="dropdown-item" href="map.html">캠퍼스안내 </a>
-							<a class="dropdown-item" href="about.html">대학소개 </a>
+							<a class="dropdown-item" href="/univ/intro/pres.do">인사말 </a>
+							<a class="dropdown-item" href="/univ/intro/campus.do">캠퍼스안내 </a>
+							<a class="dropdown-item" href="/univ/intro/about.do">대학소개 </a>
 						</div>
 				</li>
 			</ul>
-			<div class="row">
+			<div class="row" >
 				<div class="col-lg-4 col-md-6 col-12">
 					<div class="inner-hmv">
 						<div class="icon-box-hmv"><i class="flaticon-achievement"></i></div>
