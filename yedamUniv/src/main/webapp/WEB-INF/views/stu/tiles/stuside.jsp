@@ -1,201 +1,94 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<nav class="page-sidebar" id="sidebar">
-            <div id="sidebar-collapse">
-                <div class="admin-block d-flex">
-                    <div>
-                        <img src="/univ/resources/mypage/img/admin-avatar.png" width="45px" />
-                    </div>
-                    <div class="admin-info">
-                        <div class="font-strong">James Brown</div><small>Administrator</small>
-                    </div>
-                </div>
-                <ul class="side-menu metismenu">
-                    <li>
-                        <a class="active" href="index.html"><i class="sidebar-item-icon fa fa-th-large"></i>
-                            <span class="nav-label">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="heading">FEATURES</li>
-                    <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
-                            <span class="nav-label">Basic UI</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="colors.html">Colors</a>
-                            </li>
-                            <li>
-                                <a href="typography.html">Typography</a>
-                            </li>
-                            <li>
-                                <a href="panels.html">Panels</a>
-                            </li>
-                            <li>
-                                <a href="buttons.html">Buttons</a>
-                            </li>
-                            <li>
-                                <a href="tabs.html">Tabs</a>
-                            </li>
-                            <li>
-                                <a href="alerts_tooltips.html">Alerts &amp; Tooltips</a>
-                            </li>
-                            <li>
-                                <a href="badges_progress.html">Badges &amp; Progress</a>
-                            </li>
-                            <li>
-                                <a href="lists.html">List</a>
-                            </li>
-                            <li>
-                                <a href="cards.html">Card</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                            <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="form_basic.html">Basic Forms</a>
-                            </li>
-                            <li>
-                                <a href="form_advanced.html">Advanced Plugins</a>
-                            </li>
-                            <li>
-                                <a href="form_masks.html">Form input masks</a>
-                            </li>
-                            <li>
-                                <a href="form_validation.html">Form Validation</a>
-                            </li>
-                            <li>
-                                <a href="text_editors.html">Text Editors</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-table"></i>
-                            <span class="nav-label">Tables</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="table_basic.html">Basic Tables</a>
-                            </li>
-                            <li>
-                                <a href="datatables.html">Datatables</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
-                            <span class="nav-label">Charts</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="charts_flot.html">Flot Charts</a>
-                            </li>
-                            <li>
-                                <a href="charts_morris.html">Morris Charts</a>
-                            </li>
-                            <li>
-                                <a href="chartjs.html">Chart.js</a>
-                            </li>
-                            <li>
-                                <a href="charts_sparkline.html">Sparkline Charts</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
-                            <span class="nav-label">Maps</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="maps_vector.html">Vector maps</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="icons.html"><i class="sidebar-item-icon fa fa-smile-o"></i>
-                            <span class="nav-label">Icons</span>
-                        </a>
-                    </li>
-                    <li class="heading">PAGES</li>
-                    <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-envelope"></i>
-                            <span class="nav-label">Mailbox</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="mailbox.html">Inbox</a>
-                            </li>
-                            <li>
-                                <a href="mail_view.html">Mail view</a>
-                            </li>
-                            <li>
-                                <a href="mail_compose.html">Compose mail</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="calendar.html"><i class="sidebar-item-icon fa fa-calendar"></i>
-                            <span class="nav-label">Calendar</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-file-text"></i>
-                            <span class="nav-label">Pages</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="invoice.html">Invoice</a>
-                            </li>
-                            <li>
-                                <a href="profile.html">Profile</a>
-                            </li>
-                            <li>
-                                <a href="login.html">Login</a>
-                            </li>
-                            <li>
-                                <a href="register.html">Register</a>
-                            </li>
-                            <li>
-                                <a href="lockscreen.html">Lockscreen</a>
-                            </li>
-                            <li>
-                                <a href="forgot_password.html">Forgot password</a>
-                            </li>
-                            <li>
-                                <a href="error_404.html">404 error</a>
-                            </li>
-                            <li>
-                                <a href="error_500.html">500 error</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
-                            <span class="nav-label">Menu Levels</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-2-level collapse">
-                            <li>
-                                <a href="javascript:;">Level 2</a>
-                            </li>
-                            <li>
-                                <a href="javascript:;">
-                                    <span class="nav-label">Level 2</span><i class="fa fa-angle-left arrow"></i></a>
-                                <ul class="nav-3-level collapse">
-                                    <li>
-                                        <a href="javascript:;">Level 3</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:;">Level 3</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+	pageEncoding="UTF-8"%>
+<nav class="page-sidebar" id="sidebar">
+        <div id="sidebar-collapse">
+          <div class="admin-block d-flex">
+            <div>
+              <img src="/univ/resources/mypage/myPageImages/스펀지밥.png" width="45px" />
             </div>
-        </nav>
-</body>
-</html>
+            <div class="admin-info">
+              <div class="font-strong">스펀지밥</div>
+              <div>데이터학과 3학년</div>
+            </div>
+          </div>
+          <div
+            class="row mb-3 d-flex justify-content-center align-items-center"
+          >
+            <div class="col-lg-5" style="color: white">
+              <a href="#"><i class="ti-email mr-2"></i>쪽지함</a>
+            </div>
+            <div class="col-lg-6" style="color: white">
+              <a href="/univ/stu/myPost.do"
+                ><i class="ti-comment-alt mr-2"></i>내가 쓴 글</a
+              >
+            </div>
+          </div>
+
+          <ul class="side-menu metismenu">
+            <li>
+              <a class="active" href="/univ/stu/stu.do"
+                ><i class="sidebar-item-icon fa fa-th-large"></i>
+                <span class="nav-label">HOME</span>
+              </a>
+            </li>
+            <li class="heading">나의 강의실</li>
+            <li>
+              <a href="javascript:;"
+                ><i class="sidebar-item-icon fa fa-user"></i>
+                <span class="nav-label">학사관리</span
+                ><i class="fa fa-angle-left arrow"></i
+              ></a>
+              <ul class="nav-2-level collapse">
+                <li>
+                  <a href="/univ/stu/studentHome.do">학적사항조회</a>
+                </li>
+                <li>
+                  <a href="/univ/stu/breakSchoolApp.do">휴학/자퇴신청</a>
+                </li>
+                <li>
+                  <a href="/univ/stu/returnSchoolApp.do">복학신청</a>
+                </li>
+                <li>
+                  <a href="/univ/stu/canIgraduate.do">졸업시물레이션</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="javascript:;"
+                ><i class="sidebar-item-icon fa fa-edit"></i>
+                <span class="nav-label">수업</span
+                ><i class="fa fa-angle-left arrow"></i
+              ></a>
+              <ul class="nav-2-level collapse">
+                <li>
+                  <a href="/univ/stu/enrolment.do">수강신청</a>
+                </li>
+                <li>
+                  <a href="/univ/stu/classList.do">수강목록</a>
+                </li>
+                <li>
+                  <a href="/univ/stu/rateClassList.do">강의평가</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="javascript:;"
+                ><i class="sidebar-item-icon fa fa-file-text"></i>
+                <span class="nav-label">성적확인</span
+                ><i class="fa fa-angle-left arrow"></i
+              ></a>
+              <ul class="nav-2-level collapse">
+                <li>
+                  <a href="/univ/stu/lookThisGrade.do">금학기성적조회</a>
+                </li>
+                <li>
+                  <a href="/univ/stu/lookAllGrades.do">전체성적조회</a>
+                </li>
+                <li>
+                  <a href="/univ/stu/helpMyGrade.do">성적이의신청</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
