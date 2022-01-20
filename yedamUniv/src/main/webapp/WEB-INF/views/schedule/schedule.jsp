@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    .container-fluid {
+    .container container-fluid {
         padding-right: 100px;
         padding-left: 100px;
         margin-right: auto;

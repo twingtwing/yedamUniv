@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 
 <style>
-    .container-fluid {
+    .container container-fluid {
         padding-right: 70px;
         padding-left: 70px;
         margin-right: auto;
