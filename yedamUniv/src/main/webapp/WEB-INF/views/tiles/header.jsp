@@ -86,22 +86,38 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">학과소개 </a>
 							<div class="dropdown-menu" aria-labelledby="dropdown-a">
-								<a class="dropdown-item" href="course-grid-2.html">Course Grid 2 </a>
-								<a class="dropdown-item" href="course-grid-3.html">Course Grid 3 </a>
-								<a class="dropdown-item" href="course-grid-4.html">Course Grid 4 </a>
+								<a class="dropdown-item" href="/univ/major/majorList.do">학과소개</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">학사소개 </a>
 							<div class="dropdown-menu" aria-labelledby="dropdown-a">
-								<a class="dropdown-item" href="blog.html">Blog </a>
-								<a class="dropdown-item" href="blog-single.html">Blog single </a>
-								<a class="dropdown-item" href="/univ/board/freeBoardList.do">자유게시판 </a>
+								<a class="dropdown-item" href="/univ/schedule/schedule.do">학사일정</a>
+								<a class="dropdown-item" href="/univ/board/haksaBoardList.do">학사공지</a>
+								<a class="dropdown-item" href="/univ/qna/haksaQna.do">학사QnA </a>
+								<a class="dropdown-item" href="/univ/faq/haksaFaq.do">학사FAQ</a>
+								<a class="dropdown-item" href="/univ/board/freeBoardList.do">자유게시판</a>
 							</div>
-						</li>											
-						<li class="nav-item"><a class="nav-link" href="admin/admin.do">관리자</a></li>
-						<li class="nav-item"><a class="nav-link" href="stu/stu.do">학생페이지</a></li>
-						<li class="nav-item"><a class="nav-link" href="pro/pro.do">교수페이지</a></li>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">장학안내</a>
+							<div class="dropdown-menu" aria-labelledby="dropdown-a">
+								<a class="dropdown-item" href="/univ/scholarship/scholarshipGuide.do">장학제도</a>
+								<a class="dropdown-item" href="/univ/board/scholarshipBoardList.do">장학공지</a>
+								<a class="dropdown-item" href="/univ/qna/scholarshipQna.do">장학QnA </a>
+								<a class="dropdown-item" href="/univ/faq/scholarshipFaq.do">장학FAQ</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">등록안내 </a>
+							<div class="dropdown-menu" aria-labelledby="dropdown-a">
+								<a class="dropdown-item" href="/univ/tuition/tuitionGuide.do">등록금 수납안내</a>
+								<a class="dropdown-item" href="/univ/tuition/tuitionPlan.do">등록금 수납일정</a>
+							</div>
+						</li>													
+						<li class="nav-item"><a class="nav-link" href="/univ/admin/admin.do">관리자</a></li>
+						<li class="nav-item"><a class="nav-link" href="/univ/stu/stu.do">학생페이지</a></li>
+						<li class="nav-item"><a class="nav-link" href="/univ/pro/pro.do">교수페이지</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
                         <li><a class="hover-btn-new log orange" href="#" data-toggle="modal" data-target="#login"><span>LOGIN</span></a></li>
