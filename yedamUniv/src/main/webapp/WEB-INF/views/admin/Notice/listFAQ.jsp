@@ -16,14 +16,6 @@
     <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
-
-    <!-- Styles -->
-    <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
-    <link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet">
-    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/lib/helper.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
     <style>
         #noticeListT:hover{cursor: pointer;}
     </style>
@@ -155,6 +147,8 @@
                                                             </tr>
                                                         </tbody>
                                                     </table><br>
+                                                     <button type="button" class="btn btn-warning btn-md m-b-10 m-l-5 ti-pencil-alt"
+                                                    style="position: absolute; right: 0; margin-right: 30px;" onclick="addFAQFnc()"> 글쓰기</button>
                                                     <ul class="pagination">
                                                         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                                                         <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -254,6 +248,8 @@
                                                             </tr>
                                                         </tbody>
                                                     </table><br>
+                                                     <button type="button" class="btn btn-warning btn-md m-b-10 m-l-5 ti-pencil-alt"
+                                                    style="position: absolute; right: 0; margin-right: 30px;" onclick="addFAQFnc()"> 글쓰기</button>
                                                     <ul class="pagination">
                                                         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                                                         <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -290,6 +286,9 @@
             console.log(event.target);
             document.querySelector("#HaksaT").style.display = "none";
             document.querySelector("#JanghaksaT").style.display = "block";
+        }
+        function addFAQFnc(){
+        	location.href="/univ/admin/addFAQ.do";	
         }
     </script>
     

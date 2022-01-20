@@ -16,14 +16,6 @@
     <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
-
-    <!-- Styles -->
-    <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
-    <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
-    <link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet">
-    <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/lib/helper.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
     <style>
         #noticeListT:hover{cursor: pointer;}
     </style>
@@ -181,7 +173,7 @@
                                 </table>
                             </div>
                             <button type="button" class="btn btn-warning btn-md m-b-10 m-l-5 ti-pencil-alt"
-                            style="position: absolute; right: 0; margin-right: 15px;"> 글쓰기</button>
+                            style="position: absolute; right: 0; margin-right: 15px;" onclick="writeFnc()"> 글쓰기</button>
                             <ul class="pagination">
                                 <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -200,6 +192,12 @@
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+    	function writeFnc(){
+    		location.href="/univ/admin/addJangHaksa.do";
+    	}
+    </script>
     
     <!-- jquery vendor -->
     <script src="assets/js/lib/jquery.min.js"></script>
