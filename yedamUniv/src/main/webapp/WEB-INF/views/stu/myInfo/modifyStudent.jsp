@@ -108,11 +108,11 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <input type="text" class="form-control" placeholder="" aria-label="Phone Number" style="width: 60%;">
-                                                    <button class="ml-3 btn btn-outline-secondary" type="button">검색</button>
+                                                    <button class="ml-3 btn btn-outline-secondary" id="address_kakao" type="button">검색</button>
                                             </div>
                                         </td>
                                         <th>주소</th>
-                                        <td colspan="3"><input type="text" class="form-control" placeholder="" aria-label="Phone Number"></td>
+                                        <td colspan="3"><input type="text" class="form-control" id="sample6_postcode" aria-label="Phone Number"></td>
                                      </tr>
                        
                                  </tbdoy>
@@ -201,6 +201,27 @@
             
         
           <script>
+          <script
+      	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+      <script>
+      window.onload = function () {
+          document
+            .getElementById("address_kakao")
+            .addEventListener("click", function () {
+              //주소입력칸을 클릭하면
+              //카카오 지도 발생
+              new daum.Postcode({
+                oncomplete: function (data) {
+                  //선택시 입력값 세팅
+                  document.getElementById("sample6_postcode").value = data.zonecode;
+                  document.getElementById("sample6_address").value = data.roadAddress; // 주소 넣기
+                  document.querySelector("input[name=addressdetail]").focus(); //상세입력 포커싱
+                },
+              }).open();
+            });
+        };
+          
+          
               const btn = document.querySelector("#modifyBtn");
               const goToTheModifyPage=()=>{
                   let result=confirm("저장하시겠습니까?")
