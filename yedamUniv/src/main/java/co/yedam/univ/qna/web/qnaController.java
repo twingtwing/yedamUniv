@@ -13,11 +13,11 @@ public class qnaController {
 	}
 	
 	// 학사 qna 상세보기
-	@RequestMapping("/haksaQnaRead.do")
+	@RequestMapping("/qna/haksaQnaRead.do")
 	public String haksaQnaRead() {
 		return "qna/haksaQnaRead";
 	}
-	
+	 
 	// 학사 qna 수정폼
 	@RequestMapping("/qna/haksaQnaUpdate.do")
 	public String haksaQnaUpdate() {
