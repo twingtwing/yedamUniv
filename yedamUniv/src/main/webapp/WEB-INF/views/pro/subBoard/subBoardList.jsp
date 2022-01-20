@@ -150,7 +150,6 @@
                 </div>
             </div>
 	<script type="text/javascript">
-	
 		$('.list-tbody > tr').click(function(){
 			location.href="/univ/pro/subBoardSelect.do?bsNo="+$(this).attr('id');
 		});
