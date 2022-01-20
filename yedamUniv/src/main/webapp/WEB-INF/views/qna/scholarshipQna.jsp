@@ -70,7 +70,7 @@
                             
                                 <tr>
                                     <td>1</td>
-                                    <td><a href="haksa_noticeRead.html">제목</a></td>
+                                    <td><a href="/univ/qna/scholarshipRead.do">제목</a></td>
                                     <td>staff</td>
                                     <td>2022.01.11</td>
                                 </tr>
