@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <header class="header">
         <div class="page-brand">
-          <a class="link" href="index.html">
+          <a class="link" href="/univ/all/home.do">
             <span class="brand"
               >YD
               <span class="brand-tip">공대</span>
