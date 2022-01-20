@@ -38,7 +38,7 @@
 		<put-attribute name="footer" value="/WEB-INF/views/pro/tiles/profooter.jsp"/>
 	</definition>
 	
-	<definition name="pro/*/*" extends="layout.stu">
+	<definition name="pro/*/*" extends="layout.pro">
 		<put-attribute name="body" value="/WEB-INF/views/pro/{1}/{2}.jsp"/>
 	</definition>
 
