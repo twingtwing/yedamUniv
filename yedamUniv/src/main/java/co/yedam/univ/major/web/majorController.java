@@ -1,14 +1,14 @@
-package co.yedam.univ.subject.web;
+package co.yedam.univ.major.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class SubjectController {
+public class majorController {
 	
-	@GetMapping("/subject/subjectList.do")
+	@GetMapping("/major/majorList.do")
 	public String subjectList() {
-		return "subject/subjectList";
+		return "major/majorList";
 	}
 
 }
