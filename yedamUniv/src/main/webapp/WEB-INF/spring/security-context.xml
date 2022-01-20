@@ -13,16 +13,14 @@
 		
 		<security:intercept-url pattern="/stu/**" access="permitAll()"/>
 		<security:intercept-url pattern="/pro/**" access="permitAll()"/>
-		<!-- 
 		<security:intercept-url pattern="/admin/**" access="permitAll()"/>
-		 -->
+		 
 		
 		<!-- 권한
 		<security:intercept-url pattern="/stu/**" access="hasAuthority('STU')"/>
 		<security:intercept-url pattern="/pro/**" access="hasAuthority('PRO')"/>
-		-->
 		<security:intercept-url pattern="/admin/**" access="hasAuthority('ADMIN')"/>
-		 
+		 -->
 
 		<!-- login/logout 페이지-->
 		<security:form-login />
