@@ -14,16 +14,17 @@
     <div id="overviews" class="section wb" style="background-color: #F2F2F2;">
         <div class="container">
             <ul class="navbar-nav ml-auto">
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">학사 </a>
-						<div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
-							<a class="dropdown-item" href="#">학사공지 </a>
-							<a class="dropdown-item" href="#">학사QnA </a>
-							<a class="dropdown-item" href="#">학사FAQ </a>
-                            <a class="dropdown-item" href="haksa_plan.html">학사일정 </a>
-						</div>
-				</li>
-			</ul>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="dropdown-a"
+						data-toggle="dropdown">학사 </a>
+						<div class="dropdown-menu" aria-labelledby="dropdown-a"
+							style="width: 10vw;">
+							<a class="dropdown-item" href="/univ/board/haksaBoardList.do">학사공지 </a> 
+							<a class="dropdown-item" href="/univ/qna/haksaQna.do">학사QnA </a> 
+							<a class="dropdown-item" href="/univ/faq/haksaFaq.do">학사FAQ </a>
+							<a class="dropdown-item" href="/univ/schedule/schedule.do">학사일정 </a>
+						</div></li>
+				</ul>
             <div class="section-title row text-center">
                 <div class="col-md-8 offset-md-2">
                     <h3>학사 공지사항</h3>
@@ -48,7 +49,7 @@
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center">
-                        <button type="button" style="background-color: white;" class="btn btn-outline-warning m-3"><i class="fas fa-list"></i>&nbsp; &nbsp;목록가기</button>
+                        <button type="button" style="background-color: white;" class="btn btn-outline-warning m-3" onclick="location.href='/univ/board/haksaBoardList.do'"><i class="fas fa-list"></i>&nbsp; &nbsp;목록가기</button>
                     </div>
                 </div>
             </div>
