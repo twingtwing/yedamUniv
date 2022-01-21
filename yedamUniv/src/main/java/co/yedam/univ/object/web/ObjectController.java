@@ -1,4 +1,4 @@
-package co.yedam.univ.object;
+package co.yedam.univ.object.web;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
