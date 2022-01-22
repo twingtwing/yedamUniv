@@ -1959,13 +1959,13 @@ body.fullscreen-mode {
 .pagination .page-link {
   color: inherit; }
   .pagination .page-link:hover, .pagination .page-link:focus {
-    color: #3498db; }
+    color: #4c5a7d; }
 
 .pagination .page-item.active .page-link,
 .pagination .active > a, .pagination .active > a:hover, .pagination .active > a:focus,
 .pagination .active > span, .pagination .active > span:hover, .pagination .active > span:focus {
-  background-color: #3498db;
-  border-color: #3498db;
+  background-color: #4c5a7d;
+  border-color: #4c5a7d;
   color: #fff; }
 
 .modal-dialog {
