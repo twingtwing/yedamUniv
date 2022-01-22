@@ -37,14 +37,14 @@
                         <div class="post-content">
                             <div class="inner-hmv" style="height: 80vh; background-color: white;">
                                 <div class="row d-flex justify-content-center">
-                                    <h1 class="my-2">제목</h1>
+                                    <h1 class="my-2">${qna.qTitle }</h1>
                                 </div>
                                 <div class="row d-flex justify-content-end m-3">
-                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : &nbsp; &nbsp; &nbsp; 
-                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : </h5>
+                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : ${qna.stuId } &nbsp; &nbsp; &nbsp; 
+                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : ${qna.qDate }</h5>
                                 </div>
                                 <hr style="color: #F2F2F2;">
-                                <p class="m-2">공지내용</p>
+                                <p class="m-2">${qna.qContents }</p>
                             </div>
                         </div>
                     </div>
@@ -53,10 +53,10 @@
                         <div class="post-content">
                             <div class="inner-hmv" style="background-color: white;">
                                 <div class="row d-flex justify-content-start m-2">
-                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : &nbsp; &nbsp; &nbsp; 
-                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : </h5>
+                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : ${empId }&nbsp; &nbsp; &nbsp; 
+                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : ${qna.aDate }</h5>
                                     </div>
-                                <p class="m-2">공지사항 댓글 내용</p>
+                                <p class="m-2">${qna.aContents }</p>
                             </div>
                         </div>
                     </div>

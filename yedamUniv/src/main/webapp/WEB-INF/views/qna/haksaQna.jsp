@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,7 @@
                                 <div class="site-search-area">
                                     <form method="get" id="site-searchform" action="#">
                                         <div>
-                                            <input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
+                                            <input class="input-text form-control" name="search-k" id="search-k" placeholder="제목을 검색해주세요." type="text">
                                             <input id="searchsubmit" value="Search" type="submit">
                                         </div>
                                     </form>
@@ -56,24 +57,29 @@
                             <thead>
                                 <colgroup>
                                     <col width="100">
+                                    <col width="100">
                                     <col>
                                     <col width="200">
-                                    <col width="200">
+                                    <col width="150">
                                 </colgroup>
                                 <tr style="background-color: #eea412;;">
                                     <th>글번호</th>
+                                    <th>말머리</th>
                                     <th>제목</th>
                                     <th>작성자</th>
                                     <th>작성일</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            	<c:forEach items="${qnalist }" var="qna" varStatus="status">
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="/univ/qna/haksaQnaRead.do">제목</a></td>
-                                        <td>staff</td>
-                                        <td>2022.01.11</td>
+                                        <td><c:out value="${qna.qNo }" /></td>
+                                        <td><c:out value="${qna.qCategory }" /></td>
+                                        <td><a href="/univ/qna/haksaQnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
+                                        <td><c:out value="${qna.stuId }" /></td>
+                                        <td><c:out value="${qna.qDate }" /></td>
                                     </tr>
+                            	</c:forEach>
                             </tbody>
                         </table>
                     </div>
