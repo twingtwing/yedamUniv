@@ -1,16 +1,43 @@
 package co.yedam.univ.sub.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import co.yedam.univ.sub.service.SubService;
+import co.yedam.univ.sub.service.SubVO;
 
 @Controller
 public class SubController {
+	@Autowired 
+	SubService subDao;
 	
+	//임의 교수 로그인 session
 	//강의목록
 	@GetMapping("pro/mySub.do")
-	public String mySub() {
+	public String mySub(HttpSession session,SubVO vo, Model model) {
+		session.setAttribute("proId", "pro1");
+		session.setAttribute("proName", "강동원");
+		vo.setProId((String)session.getAttribute("proId"));
+		model.addAttribute("subList", subDao.subjectList(vo.getProId()));
 		return "pro/sub/mySub";
+	}
+	//강의목록
+	@ResponseBody
+	@GetMapping("pro/mySubListAjax.do")
+	public Model mySubList(HttpSession session, @Param("semester") String subjectSemester,SubVO vo,Model model) {
+		
+		
+		vo.setProId((String)session.getAttribute("proId"));
+		vo.setSubjectSemester(subjectSemester);
+		
+		
+		return model.addAttribute("subjectList", subDao.subjectSelectList(vo));
 	}
 	
 	//강의목록 상세
