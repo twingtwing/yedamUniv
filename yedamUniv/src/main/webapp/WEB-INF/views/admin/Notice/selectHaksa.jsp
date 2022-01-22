@@ -45,24 +45,23 @@
                                     <form action="#">
                                         <div class="table-responsive">
                                             <br>
-                                            <h2>제목입니다</h2>
-                                            <span id="writer">관리자 YYYY-MM-DD HH:MM 조회 ??</span>
+                                            <h2>${selectBoard.boardTitle}</h2>
+                                            <span id="writer">관리자&nbsp;&nbsp;${selectBoard.boardDate}&nbsp;&nbsp;조회수 ${selectBoard.boardHits}</span>
                                             <hr class="one">
-                                            내용입니다~~~~<br/>
-                                            가나다라마바사아자차카타파하<br/>
-                                            동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세<br/>
-                                            남산위에 저 소나무 철갑을 두른듯 바람서리 불변함은 우리 기상일세<br/>
-                                            가을하늘 공활한데 높고 구름 없이 밝을 달은 우리 가슴 일편단심일세<br/>
-                                            이 기상과 이 마음으로 충성을 다하여 괴로우나 즐거우나 나라 사랑하세
+                                            ${selectBoard.boardContents}
                                             <br><br><br>
-                                            <span id="delebtn" class="ti-trash">삭제</span><span id="modibtn" class="ti-eraser">수정&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
+                                            <span id="delebtn" class="ti-trash"
+                                            onclick="deleteFnc(${selectBoard.boardNo})">삭제</span>
+                                            <span id="modibtn" class="ti-eraser"
+                                            onclick="modiFnc(${selectBoard.boardNo})">수정&nbsp;&nbsp;&nbsp;&nbsp;</span><br>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <button type="button" id="listback" 
                             class="btn btn-warning btn-md m-b-10 m-l-5 ti-list"
-                            style="position:absolute; right:0; margin-right: 15px;"> 목록</button>
+                            style="position:absolute; right:0; margin-right: 15px;"
+                            onclick="location.href='/univ/admin/admin.do'"> 목록</button>
                             <!-- /# card -->
                         </div>
                         <!-- /# column -->
@@ -72,6 +71,20 @@
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+    	function deleteFnc(boardNo){
+    		let answer = confirm("게시글을 삭제하시겠습니까?\n※삭제시 복구가 불가능합니다.※");
+    		if(answer){
+	    		location.href="/univ/admin/deleteBoard.do?boardNo="+boardNo+"&boardKind=Haksa";
+    		}else{
+    			alert("게시글 삭제가 취소되었습니다.");
+    		}
+    	}
+    	function modiFnc(boardNo){
+    		location.href="/univ/admin/selectBoard.do?boardno="+boardNo+"&boardKind=Haksa&doing=update";
+    	}
+    </script>
     
        <!-- jquery vendor -->
     <script src="assets/js/lib/jquery.min.js"></script>
