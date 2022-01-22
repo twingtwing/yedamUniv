@@ -35,15 +35,20 @@
                 <section id="main-content">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="#" enctype="multipart/form-data">
+                            <form action="/univ/admin/updateBoard.do" enctype="multipart/form-data">
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                         <div class="table-responsive">
+                                        	<input name="no" id="no" value="${selectBoard.boardNo}"
+                                        	style="display:none;">
+                                        	<input name="kind" id="kind" value="${selectBoard.boardKind}"
+                                        	style="display:none;">
                                             <input name="title" id="title" type="text" 
-                                            placeholder="원래제목" style="width:100%; font-size: large;">
+                                            style="width:100%; font-size: large;"
+                                            value="${selectBoard.boardTitle}">
                                             <br><br>
                                             <textarea name="contents" id="contents" style="width: 100%; font-size: large;" 
-                                            rows="20" placeholder="원래내용"></textarea>
+                                            rows="20">${selectBoard.boardContents}</textarea>
                                             <br>
                                             <input type="file">
                                         </div>
