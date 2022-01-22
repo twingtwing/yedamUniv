@@ -8,7 +8,7 @@
             </div>
             <div class="admin-info">
               <div class="font-strong">스펀지밥</div>
-              <div>데이터학과 3학년</div>
+              <div>디지털컨버전스과 3학년</div>
             </div>
           </div>
           <div
