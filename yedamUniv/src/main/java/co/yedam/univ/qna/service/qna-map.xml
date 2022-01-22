@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.qna.service.qnaMapper">
+
+	<!-- <resultMap type="co.yedam.univ.qna.service.qnaVO" id="qnaRM">
+		<result property="qNo" column="q_no"/>
+		<result property="qKind" column="q_kind"/>
+		<result property="stuId" column="stu_id"/>
+		<result property="qCategory" column="q_category"/>
+		<result property="qTitle" column="q_title"/>
+		<result property="qContents" column="q_contents"/>
+		<result property="qDate" column="q_date"/>
+		<result property="qState" column="q_state"/>
+		<result property="empId" column="emp_id"/>
+		<result property="aContents" column="a_contents"/>
+		<result property="aDate" column="a_date"/>
+	</resultMap> -->
+
+	<!-- 학사 -->
+	<select id="qnaSelectList" resultType="co.yedam.univ.qna.service.qnaVO">
+		SELECT * FROM qna WHERE q_kind = '학사' ORDER BY q_date DESC
+	</select>
+	
+	<select id="qnaSelect" resultType="co.yedam.univ.qna.service.qnaVO">
+		SELECT * FROM QNA WHERE q_no = #{qNo}
+	</select>
+	
+	<insert id="qnaInsert" parameterType="co.yedam.univ.qna.service.qnaVO">
+		<selectKey keyProperty="qNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(q_no), 0)+1 AS q_no FROM qna
+		</selectKey>
+		insert into 
+		values(#{q_no}, '학사', #{stu_id}, #{q_category}, #{q_title}, #{q_contents}, sysdate, 'N', '', '', '')
+	</insert>
+	
+	<update id="qnaUpdate" parameterType="co.yedam.univ.qna.service.qnaVO" >
+		UPDATE qna SET q_title = #{q_title}, q_contents = #{q_contents}
+		WHERE q_no = #{q_no})
+	</update>
+	
+	<delete id="qnaDelete" parameterType="co.yedam.univ.qna.service.qnaVO">
+		DELETE FROM qna WHERE q_no = #{q_no}
+	</delete>
+	
+	<!-- 장학 -->
+
+</mapper>
