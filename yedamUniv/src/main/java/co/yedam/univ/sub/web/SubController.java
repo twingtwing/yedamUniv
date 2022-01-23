@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.univ.sub.service.SubService;
@@ -74,6 +75,12 @@ public class SubController {
 	@GetMapping("pro/subInsert.do")
 	public String subInsert() {
 		return "pro/sub/subInsert";
+	}
+	
+	@PostMapping("pro/subInsertForm.do")
+	public String subInsertForm() {
+		
+		return "";
 	}
 	
 	//강의수정

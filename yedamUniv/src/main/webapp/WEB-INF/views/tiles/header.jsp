@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,18 +71,46 @@
 								<a class="dropdown-item" href="/univ/tuition/tuitionGuide.do">등록금 수납안내</a>
 								<a class="dropdown-item" href="/univ/tuition/tuitionPlan.do">등록금 수납일정</a>
 							</div>
-						</li>													
-						<li class="nav-item"><a class="nav-link" href="/univ/admin/admin.do">관리자</a></li>
-						<li class="nav-item"><a class="nav-link" href="/univ/stu/stu.do">학생페이지</a></li>
-						<li class="nav-item"><a class="nav-link" href="/univ/pro/pro.do">교수페이지</a></li>
+						</li>
+						<c:if test="${author eq 'ADMIN'}">
+						</c:if>		
+							<li class="nav-item"><a class="nav-link" href="/univ/admin/admin.do">관리자</a></li>
+						<c:if test="${author eq 'STU'}">
+						</c:if>
+							<li class="nav-item"><a class="nav-link" href="/univ/stu/stu.do">학생페이지</a></li>
+						<c:if test="${author eq 'PRO'}">
+						</c:if>										
+							<li class="nav-item"><a class="nav-link" href="/univ/pro/pro.do">교수페이지</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-                        <li><a class="hover-btn-new log orange" href="/univ/all/login.do"><span>LOGIN</span></a></li>
+						<c:if test="${empty id}">
+                        	<li><a class="hover-btn-new log orange" href="/univ/all/login.do"><span>LOGIN</span></a></li>
+						</c:if>
+						<c:if test="${not empty id}">
+	                       	<li>]<a class="hover-btn-new log orange" id="logoutBtn"><span>LOGOUT</span></a></li>
+						</c:if>
                     </ul>
 				</div>
 			</div>
 		</nav>
 	</header>
 	<!-- End header -->
+	<script type="text/javascript">
+		$('#logoutBtn').click(function(){
+			let name = '${name}';
+			$.ajax({
+				url : '/univ/all/logout.do',
+				type: 'post',
+				data : {name:name}
+			})
+			.done(data=>{
+				console.log(data);
+				if(data !=''){
+					alert(data+'님 안녕히가세요.')
+					location.href='/univ/all/home.do';
+				}
+			});	
+		});
+	</script>
 </body>
 </html>
