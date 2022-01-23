@@ -8,14 +8,25 @@
 <body>
 	<nav class="page-sidebar" id="sidebar">
             <div id="sidebar-collapse">
-                <div class="admin-block d-flex">
-                    <div>
-                        <img src="/univ/resources/mypage/img/admin-avatar.png" width="45px" />
-                    </div>
-                    <div class="admin-info">
-                        <div class="font-strong">James Brown</div><small>Administrator</small>
-                    </div>
-                </div>
+            	<div class="admin-block d-flex mx-1 mt-2">
+		            <div>
+		            	<img src="/univ/resources/mypage/myPageImages/스펀지밥.png" width="45px" />
+		            </div>
+		            <div class="admin-info">
+		            	<div class="font-strong">${name }</div>
+		            	<div>${major}학과</div>
+		            </div>
+		        </div>
+		        <div class="row d-flex justify-content-center align-items-center">
+		            <div class="col-lg-12 d-flex justify-content-center" style="color: white">
+		            	<a href="#">
+		              		<div class="row">
+			              		<div class="d-flex align-items-center"><i class="ti-email mr-2"></i></div>
+			              		<p class="mb-0">쪽지함</p>
+		              		</div>
+		              </a>
+		            </div>
+		        </div>
                 <ul class="side-menu metismenu">
                 	<li class="heading">MY ROOM</li>
                     <li>

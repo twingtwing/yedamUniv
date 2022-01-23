@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.user.service.UserMapper">
+	<select id="loginStu" resultType="co.yedam.univ.user.service.UserVO">
+		SELECT STU_ID AS ID, STU_PW AS PW, STU_NAME AS NAME, MAJOR, GRADE ,AUTHOR
+		FROM USER_STU
+		WHERE STU_ID = #{id}
+		AND STU_PW = #{pw}
+	</select>
+	
+	<select id="loginPro" resultType="co.yedam.univ.user.service.UserVO">
+		SELECT PRO_ID AS ID, PRO_PW AS PW, PRO_NAME AS NAME, MAJOR ,AUTHOR
+		FROM USER_PRO
+		WHERE PRO_ID = #{id}
+		AND PRO_PW = #{pw}
+	</select>
+	
+	<select id="loginEmp" resultType="co.yedam.univ.user.service.UserVO">
+		SELECT EMP_ID AS ID, EMP_PW AS PW, EMP_NAME AS NAME,AUTHOR
+		FROM USER_EMP
+		WHERE EMP_ID = #{id}
+		AND EMP_PW = #{pw}
+	</select>
+</mapper>

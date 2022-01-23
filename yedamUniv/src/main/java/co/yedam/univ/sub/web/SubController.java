@@ -3,6 +3,7 @@ package co.yedam.univ.sub.web;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class SubController {
@@ -47,6 +48,12 @@ public class SubController {
 	@GetMapping("pro/subInsert.do")
 	public String subInsert() {
 		return "pro/sub/subInsert";
+	}
+	
+	@PostMapping("pro/subInsertForm.do")
+	public String subInsertForm() {
+		
+		return "";
 	}
 	
 	//강의수정

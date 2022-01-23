@@ -54,7 +54,7 @@
                         <div class="ibox">
                             <div class="ibox-body">
                                 <div class="plan-box m-4 p-5">
-                                    <form id="subFrm" method="post">
+                                    <form id="subFrm">
                                         <div class="row d-flex justify-content-center mt-4">
                                             <div class="col-lg-2 pr-0 d-flex justify-content-end align-items-center">
                                                 <h3 class="font-weight-bold mb-0">강의 제목 :&nbsp;&nbsp;</h3>
@@ -209,8 +209,8 @@
                                         </div> 
                                         <div class="row mx-5 mt-5 pr-5">
                                             <div class="col-lg-12 d-flex justify-content-between ml-4">
-                                                <button onclick="history.back()" class="btn btn-default" style="width:100px; height: 40px;">뒤로 가기</button>
-                                                <button id="subBtn" class="btn btn-default" style="width:75px; height: 40px;">등록</button>
+                                                <button type="button" onclick="history.back()" class="btn btn-default" style="width:100px; height: 40px;">뒤로 가기</button>
+                                                <button type="button" id="subBtn" class="btn btn-default" style="width:75px; height: 40px;">등록</button>
                                             </div>
                                         </div>
                                     </form>
@@ -274,8 +274,8 @@
                 alert('수업내용을 입력해주세요.');
                 subjectContents.focus();
             }else{
-                // subFrm.action = '';
-                // subFrm.submit();
+                subFrm.action = '/univ/pro/subInsertForm.do';
+                subFrm.submit();
                 console.log($('#subjectContents').val());
             }
         }); 
