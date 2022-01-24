@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.univ.sub.service.SubMapper">
 	<select id="subjectList" parameterType="String" resultType="co.yedam.univ.sub.service.SubVO">
-		SELECT * FROM SUBJECT 
+		SELECT DISTINCT subject_semester FROM SUBJECT 
 		WHERE pro_id=#{proId} 
 	</select>
 	
@@ -12,5 +12,7 @@
 		AND subject_semester=#{subjectSemester}
 		
 	</select>
+	
+	
 
 </mapper>
