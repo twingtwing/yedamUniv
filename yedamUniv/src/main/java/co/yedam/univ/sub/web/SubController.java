@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yedam.univ.comm.PageVO;
@@ -26,14 +28,24 @@ public class SubController {
 	//강의목록
 	@GetMapping("pro/mySub.do")
 	public String mySub(HttpSession session,SubVO vo, Model model) {
-		session.setAttribute("proId", "pro1");
-		session.setAttribute("proName", "강동원");
+		
 		vo.setProId((String)session.getAttribute("proId"));
 		model.addAttribute("subList", subDao.subjectList(vo.getProId()));
 		return "pro/sub/mySub";
 	}
 	//강의목록
+	
 	@ResponseBody
+	@RequestMapping("/pro/mySubListAjax.do")
+	public List<SubVO> mySubList(HttpSession session, @RequestParam("semester") String subjectSemester,SubVO vo,Model model) {
+		System.out.println(subjectSemester);
+		vo.setProId((String)session.getAttribute("proId"));
+		vo.setSubjectSemester(subjectSemester);
+		System.out.println(vo.getProId());
+		System.out.println(vo.getSubjectSemester());
+		System.out.println(subDao.subjectSelectList(vo));		
+		return subDao.subjectSelectList(vo);
+
 	@GetMapping("pro/mySubListAjax.do")
 	public Model mySubList(HttpSession session, @Param("semester") String subjectSemester,SubVO vo,Model model) {
 		vo.setProId((String)session.getAttribute("proId"));
@@ -42,8 +54,10 @@ public class SubController {
 	}
 	
 	//강의목록 상세
-	@GetMapping("pro/mySubDetail.do")
-	public String mySubDetail(@Param("subNo") String id) {
+	@RequestMapping("pro/mySubDetail.do")
+	public String mySubDetail(@Param("subNo") int subNo, SubVO vo, Model model) {
+		vo.setSubjectNo(subNo);
+		
 		return "pro/sub/mySubDetail";
 	}
 	
