@@ -45,12 +45,6 @@ public class SubController {
 		System.out.println(vo.getSubjectSemester());
 		System.out.println(subDao.subjectSelectList(vo));		
 		return subDao.subjectSelectList(vo);
-
-	@GetMapping("pro/mySubListAjax.do")
-	public Model mySubList(HttpSession session, @Param("semester") String subjectSemester,SubVO vo,Model model) {
-		vo.setProId((String)session.getAttribute("proId"));
-		vo.setSubjectSemester(subjectSemester);
-		return model.addAttribute("subjectList", subDao.subjectSelectList(vo));
 	}
 	
 	//강의목록 상세
