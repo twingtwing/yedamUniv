@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import co.yedam.univ.board.service.BoardService;
 import co.yedam.univ.board.service.BoardVO;
+import co.yedam.univ.qna.service.qnaVO;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	public BoardService boardDao;
+	
 	
 	//공지사항메뉴-학사 등록
 	@RequestMapping("/admin/addHaksa.do")
@@ -121,10 +123,11 @@ public class AdminController {
 	}
 	
 	//공지사항메뉴-QnA 목록
-	@RequestMapping("/admin/listQnA.do")
-	public String listQnA() {
-		return "admin/Notice/listQnA";
-	}
+//	@RequestMapping("/admin/listQnA.do")
+//	public String listQnA() {
+//		
+//		return "admin/Notice/listQnA";
+//	}
 	
 	//공지사항메뉴-FAQ 목록
 	@RequestMapping("/admin/listFAQ.do")

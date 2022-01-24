@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>학사 QnA</title>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- font awesome-->
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 </head>
@@ -67,11 +69,20 @@
                         <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/haksaQnaUpdate.do'">
                         	<i class="fas fa-pen"></i>&nbsp; &nbsp;수정하기
                         </button>
+                        <button type="button" id="hdelete" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/hQnaDelete.do?qNo=${qna.qNo}'">
+                        	<i class="fas fa-trash-alt"></i>&nbsp; &nbsp;삭제하기
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+    
+    	
+    	
+    </script>
 
 </body>
 </html>
