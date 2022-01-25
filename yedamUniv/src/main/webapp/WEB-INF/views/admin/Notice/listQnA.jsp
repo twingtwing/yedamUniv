@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,76 +88,22 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>학사/수강신청</td>
-                                                                <td>수강신청 일정</td>
-                                                                <td>김은지</td>
-                                                                <td>2008/12/13</td>
-                                                                <td style="color:red">답변대기</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/수강정정</td>
-                                                                <td>수강정정 하는법</td>
-                                                                <td>김은혜</td>
-                                                                <td>2010/06/09</td>
-                                                                <td style="color:red">답변대기</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/성적조회</td>
-                                                                <td>성적조회기간</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/성적정정</td>
-                                                                <td>교수님 메일주소</td>
-                                                                <td>김은지</td>
-                                                                <td>2012/10/13</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/성적조회</td>
-                                                                <td>성적조회기간</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/성적정정</td>
-                                                                <td>교수님 메일주소</td>
-                                                                <td>김은지</td>
-                                                                <td>2012/10/13</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/성적조회</td>
-                                                                <td>성적조회기간</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/성적정정</td>
-                                                                <td>교수님 메일주소</td>
-                                                                <td>김은지</td>
-                                                                <td>2012/10/13</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/성적조회</td>
-                                                                <td>성적조회기간</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>학사/성적정정</td>
-                                                                <td>교수님 메일주소</td>
-                                                                <td>김은지</td>
-                                                                <td>2012/10/13</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
+                                                        	<c:forEach items="${qnalist }" var="qna" varStatus="status">
+	                                                            <tr>
+	                                                                <td><c:out value="${qna.qKind }" />/<c:out value="${qna.qCategory }" /></td>
+	                                                                <td><c:out value="${qna.qTitle }" /></td>
+	                                                                <td><c:out value="${qna.stuId }" /></td>
+	                                                                <td><c:out value="${qna.qDate }" /></td>          
+	                                                                <c:choose>
+	                                                                	<c:when test="${qna.qState eq 'N' }">
+	                                                                		<td style="color:red"><c:out value="답변대기" /></td>
+	                                                                	</c:when>
+	                                                                	<c:when test="${qna.qState eq 'Y' }">
+	                                                                		<td><c:out value="답변완료" /></td>
+	                                                                	</c:when>
+	                                                                </c:choose>
+	                                                            </tr>
+                                                            </c:forEach>
                                                         </tbody>
                                                     </table><br>
                                                     <ul class="pagination">

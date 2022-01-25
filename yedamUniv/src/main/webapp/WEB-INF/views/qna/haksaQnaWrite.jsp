@@ -31,10 +31,10 @@
                 </div>
             </div>
             <div class="comment-form-main">
-                <form action="#">
+                <form id="frm" action="hQnaInsert.do" method="post" enctype="multipart/form-data">
                     <div class="row">
                     	<div class="col-md-12 my-3">
-                            <select class="form-select" aria-label="Default select example">
+                            <select name="qCategory" id="qCategory" class="form-select" aria-label="Default select example">
                                 <option selected>말머리 선택</option>
                                 <option value="졸업">졸업</option>
                                 <option value="휴학">휴학</option>
@@ -45,23 +45,25 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input class="form-control" name="commenter-name" placeholder="제목을 입력해주세요" id="commenter-name" type="text">
+                                <input class="form-control" name="qTitle" id="qTitle" placeholder="제목을 입력해주세요"  type="text">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea class="form-control" style="height: 50vh;" name="commenter-message" placeholder="내용을 입력해주세요" id="commenter-message" cols="30" rows="2"></textarea>
+                                <textarea class="form-control" style="height: 50vh;" name="qContents" id="qContents" placeholder="내용을 입력해주세요"  cols="30" rows="2"></textarea>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="file" multiple>
+                        <!-- 파일추가 -->
+                        <!-- <div class="col-md-12">
+                            <div class="form-group" id="qfileList">
+                                <input type="file" name="qfiles" id="qfiles" multiple="multiple" >
                             </div>
-                        </div>
-                        <input type="hidden" id="stu_id">
+                        </div> -->
+                        <input type="hidden" id="stuId" name="stuId">
+                        <input type="hidden" id="qKind" name="qKind">
                         <div class="col-md-12 post-btn">
                             <div class="row d-flex justify-content-center">
-                                <button class="hover-btn-new orange" id="qnaupload"><span>등록하기</span></button>
+                                <button type="submit" class="hover-btn-new orange" id="qnasubmit"><span>등록하기</span></button>
                             </div>
                         </div>
                     </div>
@@ -72,30 +74,26 @@
     <!-- 끝 -->
     
     <script type="text/javascript">
-    	$(document).ready(function() {
-    		
-    		$("#qnaupload").on("click", function(e) {
-    			var formData = new FormData();
-    			var inputFile = $("input[name='uploadFile']");
-    			var files = inputFile(0).files;
-    			console.log(files);
-    			
-    			for(var i=0; i<files.length; i++){
-    				formData.append("uploadFile", files[i]);
-    			}
-    			
-    			$.ajax({
-    				url: '/hQnaInsert',
-    				processData: false,
-    				contentType: false,
-    				data: formData,
-    				type: 'POST',
-    				success: function(result){
-    					alert("업로드 성공했습니다.")
-    				}
-    			}) // ajax
-    		})
-    	})
+    $('#qnasubmit').on('click',function(){
+		event.stopPropagation();
+        event.preventDefault();
+        if($('#qCategory').val()=="말머리 선택"){alert("말머리를 선택하세요."); $('#qCategory').focus(); return false; }
+		if($('#qTitle').val().length==0){alert("제목을 입력하세요"); $('#qTitle').focus(); return false; }
+        if($('#qContents').val().length==0){alert("내용을 입력하세요"); $('#qContents').focus(); return false; }
+        $('#qContents').val($('#qContents').val().replace(/(?:\r\n|\r|\n)/g, '<br>'));
+		$.ajax({
+			url:'hQnaInsert.do',
+			data: $('#frm').serialize(),
+			type : 'post',
+			success : function(data){
+				alert("글 등록이 완료되었습니다.");
+				location.href = 'haksaQna.do';
+			},
+			error : function(data){
+				console.log(data);
+			}
+		})
+	});
     </script>
 
 </body>
