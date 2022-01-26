@@ -16,4 +16,6 @@ public class BoardVO {
 	private String boardContents;
 	private String boardKind;
 	private int boardHits;
+	
+	private int rownum;
 }
