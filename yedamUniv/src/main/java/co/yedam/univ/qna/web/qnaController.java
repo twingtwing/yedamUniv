@@ -44,7 +44,7 @@ public class qnaController {
 	public String haksaQna(Model model) {
 		
 		List<qnaVO> qnalist;
-		qnalist = qnaDao.qnaSelectList();
+		qnalist = qnaDao.hSelectList();
 		
 //		for(qnaVO vo : qnalist) {
 //			System.out.println(vo);
@@ -68,8 +68,19 @@ public class qnaController {
 	 
 	// 학사 qna 수정폼
 	@RequestMapping("/qna/haksaQnaUpdate.do")
-	public String haksaQnaUpdate() {
+	public String haksaQnaUpdate(Model model, @Param("qNo") qnaVO vo, int qNo) {
+		model.addAttribute("qna", qnaDao.qnaUpdate(vo));
 		return "qna/haksaQnaUpdate";
+	}
+	
+	// 학사 qna 수정하기
+	@RequestMapping("/qna/hQnaUpdate.do")
+	@ResponseBody
+	public String hQnaUpdate(qnaVO vo) throws Exception {
+		String result = "F";
+		int res = qnaDao.qnaUpdate(vo);
+		if(res>0) {result = "Y";}
+		return result;
 	}
 	
 	// 학사 qna 글쓰기폼
@@ -103,13 +114,6 @@ public class qnaController {
 			//qvo.setqNo(Integer.parseInt(request.getParameter("qNo")));
 			
 			qvo.setQfile("/upload/" + saveFile.substring(saveDir.length()));
-			try {
-				qfileList.get(i).transferTo(new File(saveFile));
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			qnaFilesDao.insertqFile(qvo);
 		}
 		
@@ -145,13 +149,28 @@ public class qnaController {
 	
 	// 장학 qna 리스트
 	@RequestMapping("/qna/scholarshipQna.do") 
-	public String scholarshipQna() {
+	public String scholarshipQna(Model model) {
+		List<qnaVO> qnalist;
+		qnalist = qnaDao.jSelectList();
+		
+		for(qnaVO vo : qnalist) {
+			System.out.println(vo);
+		}
+		
+		model.addAttribute("qnalist", qnalist);
+		
 		return "qna/scholarshipQna";
 	}
 	
 	// 장학 qna 상세보기
 	@RequestMapping("/qna/scholarshipRead.do")
-	public String scholarshipRead() {
+	public String scholarshipRead(Model model, @Param("qNo") int qNo) {
+		
+		qnaVO vo = new qnaVO();
+		vo.setqNo(qNo);
+		vo = qnaDao.qnaSelect(vo);
+		model.addAttribute("qna", vo);
+		
 		return "qna/scholarshipRead";
 	}
 	

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,11 @@
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 </head>
 <body>
-
+<div class="all-title-box">
+		<div class="container text-center">
+			<h1>학사</h1>
+		</div>
+</div>
 <!-- 시작 -->
     <div id="overviews" class="section wb" style="background-color: #F2F2F2;">
         <div class="container">
@@ -50,23 +56,33 @@
                             </div>
                         </div>
                     </div>
-                    <h3 class="mt-5 ml-4 font-weight-bold"><i class="fas fa-comment-alt"></i>&nbsp; &nbsp;Comment</h3>
-                    <div class="blog-item">
-                        <div class="post-content">
-                            <div class="inner-hmv" style="background-color: white;">
-                                <div class="row d-flex justify-content-start m-2">
-                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : ${empId }&nbsp; &nbsp; &nbsp; 
-                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : ${qna.aDate }</h5>
-                                    </div>
-                                <p class="m-2">${qna.aContents }</p>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    <!-- 답변-->
+                    <c:choose>
+                    	<c:when test="${qna.qState eq 'Y'}">
+		                    <h3 class="mt-5 ml-4 font-weight-bold"><i class="fas fa-comment-alt"></i>&nbsp; &nbsp;Comment</h3>
+		                    <div class="blog-item">
+		                        <div class="post-content">
+		                            <div class="inner-hmv" style="background-color: white;">
+		                                <div class="row d-flex justify-content-start m-2">
+		                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : ${qna.empId }&nbsp; &nbsp; &nbsp; 
+		                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : ${qna.aDate }</h5>
+		                                    </div>
+		                                <p class="m-2">${qna.aContents }</p>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </c:when>
+		                <c:when test="${qna.qState eq 'N'}">
+		                	<h3 class="mt-5 ml-4 font-weight-bold"><i class="fas fa-comment-alt"></i>&nbsp; &nbsp;답변 대기 중</h3>
+		                </c:when>
+                    </c:choose>
+                    
                     <div class="row d-flex justify-content-center">
                         <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/haksaQna.do'">
                         	<i class="fas fa-list"></i>&nbsp; &nbsp;목록가기
                         </button>
-                        <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/haksaQnaUpdate.do'">
+                        <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/haksaQnaUpdate.do?qNo=${qna.qNo}'">
                         	<i class="fas fa-pen"></i>&nbsp; &nbsp;수정하기
                         </button>
                         <button type="button" id="hdelete" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/hQnaDelete.do?qNo=${qna.qNo}'">
