@@ -2,9 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.univ.qna.service.qnaMapper">
 
-	<!-- 학사 -->
 	<select id="qnaSelectList" resultType="co.yedam.univ.qna.service.qnaVO">
-		SELECT * FROM qna WHERE q_kind = '학사' ORDER BY q_date DESC
+		SELECT * FROM qna ORDER BY q_date DESC
 	</select>
 	
 	<select id="qnaSelect" resultType="co.yedam.univ.qna.service.qnaVO">
@@ -16,18 +15,33 @@
 			SELECT NVL(MAX(q_no), 0)+1 AS q_no FROM qna
 		</selectKey>
 		insert into qna
-		values(#{qNo}, '학사', #{stuId}, #{qCategory}, #{qTitle}, #{qContents}, sysdate, 'N', '', '', '')
+		values(#{qNo}, #{qKind}, #{stuId}, #{qCategory}, #{qTitle}, #{qContents}, sysdate, 'N', '', '', '')
 	</insert>
 	
 	<update id="qnaUpdate" parameterType="co.yedam.univ.qna.service.qnaVO" >
 		UPDATE qna SET q_title = #{qTitle}, q_contents = #{qContents}
-		WHERE q_no = #{qNo})
+		WHERE q_no = #{qNo}
 	</update>
 	
 	<delete id="qnaDelete" parameterType="co.yedam.univ.qna.service.qnaVO">
 		DELETE FROM qna WHERE q_no = #{qNo}
 	</delete>
 	
-	<!-- 장학 -->
+	<!-- 학사리스트 -->
+	<select id="hSelectList" resultType="co.yedam.univ.qna.service.qnaVO">
+		SELECT * FROM qna WHERE q_kind = '학사' ORDER BY q_date DESC
+	</select>
+	
+	<!-- 장학리스트 -->
+	<select id="jSelectList" resultType="co.yedam.univ.qna.service.qnaVO">
+		SELECT * FROM qna WHERE q_kind = '장학' ORDER BY q_date DESC
+	</select>
+	
+	<!-- 답변달기 -->
+	<update id="qnaAnswer">
+		UPDATE qna
+		SET emp_id = #{empId}, a_contents = #{aContents}, a_date = sysdate, q_state = 'Y'
+		WHERE q_no = #{qNo}
+	</update>
 
 </mapper>

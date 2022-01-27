@@ -90,18 +90,22 @@
                                                         <tbody>
                                                         	<c:forEach items="${qnalist }" var="qna" varStatus="status">
 	                                                            <tr>
-	                                                                <td><c:out value="${qna.qKind }" />/<c:out value="${qna.qCategory }" /></td>
-	                                                                <td><c:out value="${qna.qTitle }" /></td>
-	                                                                <td><c:out value="${qna.stuId }" /></td>
-	                                                                <td><c:out value="${qna.qDate }" /></td>          
-	                                                                <c:choose>
-	                                                                	<c:when test="${qna.qState eq 'N' }">
-	                                                                		<td style="color:red"><c:out value="답변대기" /></td>
-	                                                                	</c:when>
-	                                                                	<c:when test="${qna.qState eq 'Y' }">
-	                                                                		<td><c:out value="답변완료" /></td>
-	                                                                	</c:when>
-	                                                                </c:choose>
+	                                                            	<c:choose>
+	                                                            		<c:when test="${qna.qKind eq '학사' }">
+			                                                                <td><c:out value="${qna.qKind }" />/<c:out value="${qna.qCategory }" /></td>
+			                                                                <td><a href="/univ/admin/qna/qnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
+			                                                                <td><c:out value="${qna.stuId }" /></td>
+			                                                                <td><c:out value="${qna.qDate }" /></td>          
+			                                                                <c:choose>
+			                                                                	<c:when test="${qna.qState eq 'N' }">
+			                                                                		<td style="color:red"><c:out value="답변대기" /></td>
+			                                                                	</c:when>
+			                                                                	<c:when test="${qna.qState eq 'Y' }">
+			                                                                		<td><c:out value="답변완료" /></td>
+			                                                                	</c:when>
+			                                                                </c:choose>
+			                                                            </c:when>
+		                                                            </c:choose>
 	                                                            </tr>
                                                             </c:forEach>
                                                         </tbody>
@@ -145,76 +149,26 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>장학사/학자금대출</td>
-                                                                <td>학자금대출기간</td>
-                                                                <td>김은지</td>
-                                                                <td>2008/12/13</td>
-                                                                <td style="color:red">답변대기</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/장학금</td>
-                                                                <td>중앙도서관 독후감대회 수상</td>
-                                                                <td>김은혜</td>
-                                                                <td>2010/06/09</td>
-                                                                <td style="color:red">답변대기</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/장학금</td>
-                                                                <td>성적우수장학금</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/국가장학금</td>
-                                                                <td>1차 국가장학금 기간</td>
-                                                                <td>김은지</td>
-                                                                <td>2012/10/13</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/국가장학금</td>
-                                                                <td>신입생 1차 국장 놓치면</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/장학금</td>
-                                                                <td>성적우수장학금</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/국가장학금</td>
-                                                                <td>1차 국가장학금 기간</td>
-                                                                <td>김은지</td>
-                                                                <td>2012/10/13</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/국가장학금</td>
-                                                                <td>신입생 1차 국장 놓치면</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/국가장학금</td>
-                                                                <td>1차 국가장학금 기간</td>
-                                                                <td>김은지</td>
-                                                                <td>2012/10/13</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>장학사/국가장학금</td>
-                                                                <td>신입생 1차 국장 놓치면</td>
-                                                                <td>김가루</td>
-                                                                <td>2009/04/10</td>
-                                                                <td>답변완료</td>
-                                                            </tr>
+                                                            <c:forEach items="${qnalist }" var="qna" varStatus="status">
+	                                                            <tr>
+	                                                            	<c:choose>
+	                                                            		<c:when test="${qna.qKind eq '장학' }">
+			                                                                <td><c:out value="${qna.qKind }" />/<c:out value="${qna.qCategory }" /></td>
+			                                                                <td><a href="/univ/admin/qna/qnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
+			                                                                <td><c:out value="${qna.stuId }" /></td>
+			                                                                <td><c:out value="${qna.qDate }" /></td>          
+			                                                                <c:choose>
+			                                                                	<c:when test="${qna.qState eq 'N' }">
+			                                                                		<td style="color:red"><c:out value="답변대기" /></td>
+			                                                                	</c:when>
+			                                                                	<c:when test="${qna.qState eq 'Y' }">
+			                                                                		<td><c:out value="답변완료" /></td>
+			                                                                	</c:when>
+			                                                                </c:choose>
+			                                                            </c:when>
+		                                                            </c:choose>
+	                                                            </tr>
+                                                            </c:forEach>
                                                         </tbody>
                                                     </table><br>
                                                     <ul class="pagination">

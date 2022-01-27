@@ -9,7 +9,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-
+<div class="all-title-box">
+		<div class="container text-center">
+			<h1>학사</h1>
+		</div>
+</div>
 <!-- 시작 -->
     <div id="overviews" class="section wb" style="background-color: #F2F2F2;">
         <div class="container">
@@ -31,7 +35,8 @@
                 </div>
             </div>
             <div class="comment-form-main">
-                <form id="frm" action="hQnaInsert.do" method="post" enctype="multipart/form-data">
+                <!-- <form id="frm" action="hQnaInsert.do" method="post" enctype="multipart/form-data"> -->
+                <form id="frm">
                     <div class="row">
                     	<div class="col-md-12 my-3">
                             <select name="qCategory" id="qCategory" class="form-select" aria-label="Default select example">
@@ -60,7 +65,7 @@
                             </div>
                         </div> -->
                         <input type="hidden" id="stuId" name="stuId">
-                        <input type="hidden" id="qKind" name="qKind">
+                        <input type="hidden" id="qKind" name="qKind" value="학사">
                         <div class="col-md-12 post-btn">
                             <div class="row d-flex justify-content-center">
                                 <button type="submit" class="hover-btn-new orange" id="qnasubmit"><span>등록하기</span></button>
