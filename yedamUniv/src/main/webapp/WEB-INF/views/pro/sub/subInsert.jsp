@@ -114,6 +114,7 @@
                                                                 대신 백단에서 요일별로 시간대를 배열화해서 손쉽게 보내야함 -->
                                                                 <div class="d-flex justify-content-center">
                                                                     <select id="subjectRoom" name="subjectRoom" class="form-control input-lg w-25 mr-4">
+                                                                        <option class="text-center" value="">선택</option>
                                                                         <option class="text-center" value="1">1 강의실</option>
                                                                         <option class="text-center" value="2">2 강의실</option>
                                                                         <option class="text-center" value="3">3 강의실</option>
@@ -127,12 +128,10 @@
                                                                         <option class="text-center" value="3">수</option>
                                                                         <option class="text-center" value="4">목</option>
                                                                         <option class="text-center" value="5">금</option>
+                                                                        <option class="text-center" value="6">토</option>
                                                                     </select>
                                                                     <select id="subjectTime" name="subjectTime" class="form-control input-lg w-50">
                                                                         <option class="text-center" value="">선택</option>
-                                                                        <!--  시간대에 따른 db값이 어떤지 확인해야함 -->
-                                                                        <option class="text-center" value="1">9:00 ~ 9:50</option>
-                                                                        <option class="text-center" value="2">10:00 ~ 10:50</option>
                                                                     </select>
                                                                 </div>
                                                             </td>
@@ -146,7 +145,7 @@
                                                         <div>
                                                             <i class="fa fa-question-circle text-primary"></i>
                                                         </div>
-                                                        <p class="text-primary mx-2 mb-0">강의실을 먼저 선택하시면, 선택가능한 요일을 보여드립니다. 또한, 요일을 먼저 선택하시면, 선택가능한 시간대를 보여드립니다.</p>
+                                                        <p class="text-primary mx-2 mb-0">강의실과 요일을 선택하시면, 선택가능한 시간대를 보여드립니다.</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -207,6 +206,7 @@
                                                 <textarea id="subjectContents" name="subjectContents" class="form-control" rows="7" placeholder="수업 내용..."></textarea>
                                             </div>
                                         </div> 
+                                        <div><input type="hidden" id="subjectSemester" name="subjectSemester" value="2022-2"></div>
                                         <div class="row mx-5 mt-5 pr-5">
                                             <div class="col-lg-12 d-flex justify-content-between ml-4">
                                                 <button type="button" onclick="history.back()" class="btn btn-default" style="width:100px; height: 40px;">뒤로 가기</button>
@@ -222,23 +222,49 @@
             </div>
     <script>
         //시간대
+        let semester = '2022-2'; //나중에 수정하기
+        const times = {1: '9:00 - 9:50',2: '10:00 - 10:50',3: '11:00 - 11:50',4: '12:00 - 12:50'
+        		,5: '1:00 - 1:50',6: '2:00 - 2:50',7: '3:00 - 3:50',8: '4:00 - 4:50',9: '5:00 - 5:50'};
+
+        function selectTime(){
+            let room =  $('#subjectRoom').val();
+            let day = $('#subjectDay').val();
+            console.log('hi');
+	        $('#subjectTime').children('option:not(:first)').remove();
+			if(room !='' && day != ''){
+				$.ajax({
+                    url: '/univ/pro/ajaxSubTime.do',
+                    data: {
+                    	subjectSemester : semester,
+                    	subjectRoom :room,
+                    	subjectDay :day
+                    },
+                    type:'get',
+                    datatype:'json'
+                }).done(data =>{
+                	console.log(data);
+                	
+	                //시간 초기화
+	                $('#subjectTime').children('option:not(:first)').remove();
+                	for(time in times){
+	                	$('#subjectTime').append($('<option>').val(time).text(times[time]));         
+                	}
+                	if(data != ''){
+                		for(time of data){
+	                		$('#subjectTime > option[value="'+time+'"]').remove();
+                		}
+                	}
+                		
+                })
+			}
+        }
+        
         $('#subjectRoom').change(function(){
-            //아작스 갔다 와야함
-
-            //날짜 option 재설정
-            $('#subjectDay').children('option:not(:first)').remove();
-            $('#subjectDay').append($('<option>').val('1').text('1'));
-
-            //시간 초기화
-            $('#subjectTime').val('');
+        	selectTime();
         });
-
+        
         $('#subjectDay').change(function(){
-            //아작스 갔다 와야함
-
-            //시간 option 재설정
-            $('#subjectTime').children('option:not(:first)').remove();
-            $('#subjectTime').append($('<option>').val('1').text('1'));
+        	selectTime();
         });
 
         //form 
@@ -274,9 +300,20 @@
                 alert('수업내용을 입력해주세요.');
                 subjectContents.focus();
             }else{
-                subFrm.action = '/univ/pro/subInsertForm.do';
-                subFrm.submit();
-                console.log($('#subjectContents').val());
+                $.ajax({
+                	url : '/univ/pro/subInsertForm.do',
+                	type : 'post',
+                	data: $('#subFrm').serialize()
+                })
+                .done(data=>{
+                	console.log(data);
+                	if(data !='N'){
+                		location.href='/univ/pro/subApplySelect.do?subjectNo='+data;
+                		alert('강의 신청이 성공적으로 처리되었습니다.');
+                	}else if(data==='N'){
+                		alert('강의 신청 중 오류가 발생하였습니다.');
+                	}
+                })
             }
         }); 
     </script>

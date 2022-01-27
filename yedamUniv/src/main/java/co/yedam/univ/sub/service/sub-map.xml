@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.univ.sub.service.SubMapper">
 	<select id="subjectList" parameterType="String" resultType="co.yedam.univ.sub.service.SubVO">
-		SELECT * FROM SUBJECT 
+		SELECT DISTINCT subject_semester FROM SUBJECT 
 		WHERE pro_id=#{proId} 
 	</select>
 	
@@ -10,7 +10,70 @@
 		SELECT * FROM SUBJECT 
 		WHERE pro_id=#{proId} 
 		AND subject_semester=#{subjectSemester}
-		
 	</select>
+	
+	<select id="subjectSelect" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT * FROM SUBJECT 
+		WHERE SUBJECT_NO = #{subjectNo}
+	</select>
+	
+	<select id="subjectPagenation" parameterType="co.yedam.univ.sub.service.CriteriaSub" resultType="co.yedam.univ.sub.service.CriteriaSub">
+		SELECT * FROM(
+			SELECT ROWNUM AS RN, SUBJECT_NO,SUBJECT_NAME,SUBJECT_DATE,SUBJECT_PERMIT,SUBJECT_STATUS
+			FROM SUBJECT 
+			WHERE PRO_ID = #{proId}
+			<if test="subjectName != ''">AND SUBJECT_NAME like '%' ||  #{subjectName} || '%'</if>
+			AND ROWNUM &lt;= #{pageNum} * #{amount} 
+			)
+		WHERE rn &gt; (#{pageNum}-1)*#{amount}
+	</select>
+	
+	<select id="subjectNum" resultType="int" parameterType="co.yedam.univ.sub.service.SubVO">
+		SELECT AVG(R.REGISTER_NUM) AS REGISTER_NUM
+		FROM REGISTER R JOIN SUBJECT S
+		ON R.SUBJECT_NO = S.SUBJECT_NO
+		WHERE S.PRO_ID = #{proId}
+		AND S.SUBJECT_SEMESTER = #{subjectSemester}
+		AND R.REGISTER_SEMESTER = #{subjectSemester}
+		GROUP BY S.SUBJECT_NO
+	</select>
+	
+	<select id="subjectCount" resultType="int" parameterType="co.yedam.univ.sub.service.SubVO">
+		SELECT COUNT(*) AS SUBJECT_COUNT
+		FROM SUBJECT
+		WHERE PRO_ID = #{proId}
+		AND SUBJECT_SEMESTER = #{subjectSemester}
+	</select>
+	
+	<select id="subjectDay" parameterType="co.yedam.univ.sub.service.SubVO" resultType="int">
+		SELECT SUBJECT_TIME FROM SUBJECT
+		WHERE SUBJECT_SEMESTER=#{subjectSemester}
+		AND SUBJECT_ROOM = #{subjectRoom}
+		AND SUBJECT_DAY = #{subjectDay}
+		AND SUBJECT_STATUS != 'X'
+	</select>
+	
+	<insert id="subjectInsert" parameterType="co.yedam.univ.sub.service.SubVO">
+		<selectKey keyProperty="subjectNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(subject_no),0)+1 FROM SUBJECT
+		</selectKey>
+		INSERT INTO SUBJECT(SUBJECT_NO,SUBJECT_NUM,PRO_ID,SUBJECT_NAME,SUBJECT_DETAIL,SUBJECT_MAJOR,SUBJECT_SCORE,SUBJECT_ROOM,SUBJECT_DATE
+		SUBJECT_DAY,SUBJECT_TIME,SUBJECT_SEMESTER,SUBJECT_TOTAL,SUBJECT_CNT,SUBJECT_SUM,SUBJECT_GOAL,SUBJECT_DATA,SUBJECT_CONTENTS,SUBJECT_STATUS,SUBJECT_PERMIT)
+		VALUES(#{subjectNo},(SELECT NVL(MAX(subject_num),0)+1 FROM SUBJECT WHERE subject_semester=#{subjectSemester}),
+		#{proId},#{subjectName},#{subjectDetail},#{subjectMajor},#{subjectScore},#{subjectRoom},SYSDATE,#{subjectDay},
+		#{subjectTime},#{subjectSemester},#{subjectTotal},0,#{subjectSum},#{subjectGoal},#{subjectData},#{subjectContents},'N',NULL)
+	</insert>
+	
+	<update id="subjectUpdate" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE SUBJECT
+		SET SUBJECT_SCORE=#{subjectScore}, SUBJECT_DETAIL=#{subjectDetail},SUBJECT_MAJOR=#{subjectMajor},SUBJECT_TOTAL=#{subjectTotal},
+		 SUBJECT_SUM=#{subjectSum},SUBJECT_GOAL=#{subjectGoal},SUBJECT_DATA=#{subjectData},SUBJECT_CONTENTS=#{subjectContents}
+		WHERE SUBJECT_NO = #{subjectNo}
+	</update>
+	
+	<delete id="subjectDelete" parameterType="co.yedam.univ.sub.service.SubVO">
+		DELETE FROM SUBJECT 
+		WHERE SUBJECT_NO = #{subjectNo}
+	</delete>
 
 </mapper>

@@ -1,5 +1,7 @@
 package co.yedam.univ.sub.web;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -8,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.yedam.univ.comm.PageVO;
+import co.yedam.univ.sub.service.CriteriaSub;
 import co.yedam.univ.sub.service.SubService;
 import co.yedam.univ.sub.service.SubVO;
 
@@ -22,28 +28,31 @@ public class SubController {
 	//강의목록
 	@GetMapping("pro/mySub.do")
 	public String mySub(HttpSession session,SubVO vo, Model model) {
-		session.setAttribute("proId", "pro1");
-		session.setAttribute("proName", "강동원");
+		
 		vo.setProId((String)session.getAttribute("proId"));
 		model.addAttribute("subList", subDao.subjectList(vo.getProId()));
 		return "pro/sub/mySub";
 	}
 	//강의목록
+	
 	@ResponseBody
-	@GetMapping("pro/mySubListAjax.do")
-	public Model mySubList(HttpSession session, @Param("semester") String subjectSemester,SubVO vo,Model model) {
-		
-		
+	@RequestMapping("/pro/mySubListAjax.do")
+	public List<SubVO> mySubList(HttpSession session, @RequestParam("semester") String subjectSemester,SubVO vo,Model model) {
+		System.out.println(subjectSemester);
 		vo.setProId((String)session.getAttribute("proId"));
 		vo.setSubjectSemester(subjectSemester);
-		
-		
-		return model.addAttribute("subjectList", subDao.subjectSelectList(vo));
+		System.out.println(vo.getProId());
+		System.out.println(vo.getSubjectSemester());
+		System.out.println(subDao.subjectSelectList(vo));		
+		return subDao.subjectSelectList(vo);
+
 	}
 	
 	//강의목록 상세
-	@GetMapping("pro/mySubDetail.do")
-	public String mySubDetail(@Param("subNo") String id) {
+	@RequestMapping("pro/mySubDetail.do")
+	public String mySubDetail(@Param("subNo") int subNo, SubVO vo, Model model) {
+		vo.setSubjectNo(subNo);
+		
 		return "pro/sub/mySubDetail";
 	}
 	
@@ -61,13 +70,25 @@ public class SubController {
 	
 	//강의 입력 리스트
 	@GetMapping("pro/subApplyList.do")
-	public String subApplyList() {
+	public String subApplyList(Model model,CriteriaSub cri,SubVO vo,HttpSession session) {
+		cri.setProId((String)session.getAttribute("id"));
+		vo.setProId((String)session.getAttribute("id"));
+		vo.setSubjectSemester("2022-01");
+		List<CriteriaSub> list = subDao.subjectPagenation(cri);
+		model.addAttribute("subList",list);
+		model.addAttribute("pageMaker", new PageVO(cri, list.size()));
+		
+		int num = subDao.subjectNum(vo);
+		int count = subDao.subjectCount(vo);
+		model.addAttribute("registerNum", num);
+		model.addAttribute("subjectCount",num-count);
 		return "pro/sub/subApplyList";
 	}
 	
 	//강의 입력 상세
 	@GetMapping("pro/subApplySelect.do")
-	public String subApplySelect(@Param("subNo") String id) {
+	public String subApplySelect(Model model,SubVO vo) {
+		model.addAttribute("sub", subDao.subjectSelect(vo));
 		return "pro/sub/subApplySelect";
 	}
 	
@@ -77,16 +98,68 @@ public class SubController {
 		return "pro/sub/subInsert";
 	}
 	
+	//강의시간대 아잡스
+	@ResponseBody
+	@GetMapping("pro/ajaxSubTime.do")
+	public List<Integer> ajaxSubTime(SubVO vo) {
+		List<Integer> list = subDao.subjectDay(vo);
+		return list;
+	}
+	
+	//강의등록 폼
+	@ResponseBody
 	@PostMapping("pro/subInsertForm.do")
-	public String subInsertForm() {
-		
-		return "";
+	public String subInsertForm(SubVO vo,HttpSession session) {
+		String result = "N";
+		vo.setProId((String)session.getAttribute("id"));
+		if(vo.getSubjectDetail().equals("전공")) {
+			//전공일 경우
+			vo.setSubjectMajor((String)session.getAttribute("major"));
+		}
+		int r = subDao.subjectInsert(vo);
+		if(r!=0) {
+			vo = subDao.subjectSelect(vo);
+			result = Integer.toString(vo.getSubjectNo());
+		}
+		return result;
 	}
 	
 	//강의수정
 	@GetMapping("pro/subUpdate.do")
-	public String subUpdate(@Param("subNo") String id) {
+	public String subUpdate(Model model,SubVO vo) {
+		model.addAttribute("sub", subDao.subjectSelect(vo));
 		return "pro/sub/subUpdate";
+	}
+	
+	//강의수정폼
+	@ResponseBody
+	@PostMapping("pro/subUpdateForm.do")
+	public String subUpdateForm(SubVO vo,HttpSession session) {
+		String result = "N";
+		
+		//전공일 경우
+		if(vo.getSubjectDetail().equals("전공")) {
+			vo.setSubjectMajor((String)session.getAttribute("major"));
+		}
+		
+		int r = subDao.subjectUpdate(vo);
+		
+		if(r!=0) {
+			result = "Y";
+		}
+		return result;
+	}
+	
+	//강의삭제
+	@ResponseBody
+	@PostMapping("pro/subjectDel.do")
+	public String subjectDel(SubVO vo) {
+		String result = "N";
+		int r = subDao.subjectDelete(vo);
+		if(r!=0) {
+			result = "Y";
+		}
+		return result;
 	}
 
 }

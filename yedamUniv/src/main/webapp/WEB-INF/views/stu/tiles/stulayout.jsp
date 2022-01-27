@@ -39,6 +39,11 @@
 	border-color: #4c5a7d;
 	color: white;
 }
+.list-thead th {
+	background-color: #4c5a7d;
+	border-color: #4c5a7d;
+	color: white;
+}
 
 .main_bar>span, .fa-home {
 	color: #7f8c8d;
