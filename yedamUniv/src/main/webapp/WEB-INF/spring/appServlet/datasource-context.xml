@@ -26,6 +26,6 @@
 		<constructor-arg ref="sqlSessionFactory"/>
 	</bean>
 	
-	 <mybatis-spring:scan base-package="co.yedam.univ"/>
+	<mybatis-spring:scan base-package="co.yedam.univ"/>
 
 </beans>

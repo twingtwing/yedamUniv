@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.board.service.BoardFilesMapper">
+	<select id="boardFileSelect"
+	resultType="co.yedam.univ.board.service.BoardFilesVO"
+	parameterType="co.yedam.univ.board.service.BoardFilesVO">
+		SELECT * FROM BOARD_FILES 
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	<select id="boardFileExist"
+	resultType="int"
+	parameterType="co.yedam.univ.board.service.BoardFilesVO">
+		SELECT COUNT(*) FROM BOARD_FILES
+		WHERE BOARD_NO = #{boardNo}
+	</select>
+	<insert id="boardFileInsert"
+	parameterType="co.yedam.univ.board.service.BoardFilesVO">
+		<selectKey resultType="integer" keyProperty="bfileNo" order="BEFORE">
+			SELECT MAX(BFILE_NO)+1
+			FROM BOARD_FILES
+		</selectKey>
+		INSERT INTO BOARD_FILES(BFILE_NO,
+								BOARD_NO,
+								BFILE,
+								P_BFILE)
+		VALUES (#{bfileNo},#{boardNo},#{bFile},#{pbFile})
+	</insert>
+	<delete id="boardFileDelete"
+	parameterType="co.yedam.univ.board.service.BoardFilesVO">
+		DELETE BOARD_FILES
+		WHERE BOARD_NO = #{boardNo}
+	</delete>
+</mapper>

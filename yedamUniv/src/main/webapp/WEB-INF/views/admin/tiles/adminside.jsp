@@ -9,7 +9,7 @@
 	<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
             <div class="nano-content">
-                <div class="logo"><a href="/univ/admin/admin.do"><!-- <img src="assets/images/logo.png" alt="" /> --><span>YDU</span></a></div>
+                <div class="logo"><a href="/univ/all/home.do"><!-- <img src="assets/images/logo.png" alt="" /> --><span>YDU</span></a></div>
                 <ul>
                     <li><a class="sidebar-sub-toggle"><i class="ti-announcement"></i>공지사항<span class="badge badge-primary">2</span> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
