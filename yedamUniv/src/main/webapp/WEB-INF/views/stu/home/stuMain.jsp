@@ -203,7 +203,7 @@
                   <div id="world-map" style="height: 100px">
                     <div class="row">
                       <div class="col-lg-3" style="text-align: center">
-                        <a href="#">
+                        <a href="/univ/stu/enrolment.do">
                           <img src="/univ/resources/mypage/myPageImages/수강신청.png" class="m-t-10" />
                           <h4 class="m-t-10 font-strong">수강신청</h4>
                         </a>

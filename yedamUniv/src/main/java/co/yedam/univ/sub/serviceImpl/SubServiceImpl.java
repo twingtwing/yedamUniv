@@ -16,14 +16,22 @@ public class SubServiceImpl implements SubService {
 
 	@Override
 	public List<SubVO> subjectList(String id) {
-		// TODO Auto-generated method stub
 		return map.subjectList(id);
 	}
 
 	@Override
 	public List<SubVO> subjectSelectList(SubVO vo) {
-		// TODO Auto-generated method stub
 		return map.subjectSelectList(vo);
+	}
+
+	@Override
+	public List<SubVO> enrolmentMajorList(SubVO vo) {
+		return map.enrolmentMajorList(vo);
+	}
+
+	@Override
+	public List<SubVO> enrolmentSubNameList(SubVO vo) {
+		return map.enrolmentSubNameList(vo);
 	}
 
 }

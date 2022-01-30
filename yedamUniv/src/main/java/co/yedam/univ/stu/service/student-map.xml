@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.stu.service.StudentMapper">
+	<select id="selectStudent"
+	resultType="co.yedam.univ.stu.service.StudentVO"
+	parameterType="co.yedam.univ.stu.service.StudentVO">
+		SELECT * FROM USER_STU
+		WHERE STU_ID = #{stuId}
+	</select>
+	<select id="selectStudentJoinDate"
+	resultType="String"
+	parameterType="co.yedam.univ.stu.service.StudentVO">
+		SELECT STU_JOIN 
+		FROM USER_STU
+		WHERE STU_ID = #{stuId}
+	</select>
+</mapper>

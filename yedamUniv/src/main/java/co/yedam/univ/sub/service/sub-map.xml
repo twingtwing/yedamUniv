@@ -10,7 +10,23 @@
 		SELECT * FROM SUBJECT 
 		WHERE pro_id=#{proId} 
 		AND subject_semester=#{subjectSemester}
-		
 	</select>
 
+	<select id="enrolmentMajorList"
+	parameterType="co.yedam.univ.sub.service.SubVO"
+	resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT  P.PRO_NAME, S.*
+		FROM SUBJECT S, USER_PRO P
+		WHERE S.PRO_ID = P.PRO_ID
+		AND SUBJECT_MAJOR LIKE '%'||#{subjectMajor}||'%'
+	</select>
+	
+	<select id="enrolmentSubNameList"
+	parameterType="co.yedam.univ.sub.service.SubVO"
+	resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT  P.PRO_NAME, S.*
+		FROM SUBJECT S, USER_PRO P
+		WHERE S.PRO_ID = P.PRO_ID
+		AND SUBJECT_NAME LIKE '%'||#{subjectName}||'%'
+	</select>
 </mapper>
