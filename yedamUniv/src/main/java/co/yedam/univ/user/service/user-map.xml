@@ -6,6 +6,7 @@
 		FROM USER_STU
 		WHERE STU_ID = #{id}
 		AND STU_PW = #{pw}
+		AND STU_STATE != 'D'
 	</select>
 	
 	<select id="loginPro" resultType="co.yedam.univ.user.service.UserVO">
@@ -13,12 +14,14 @@
 		FROM USER_PRO
 		WHERE PRO_ID = #{id}
 		AND PRO_PW = #{pw}
+		AND PRO_STATE != 'D'
 	</select>
 	
 	<select id="loginEmp" resultType="co.yedam.univ.user.service.UserVO">
-		SELECT EMP_ID AS ID, EMP_PW AS PW, EMP_NAME AS NAME,AUTHOR
+		SELECT EMP_ID AS ID, EMP_PW AS PW, EMP_NAME AS NAME , AUTHOR
 		FROM USER_EMP
 		WHERE EMP_ID = #{id}
 		AND EMP_PW = #{pw}
+		AND EMP_STATE != 'D'
 	</select>
 </mapper>

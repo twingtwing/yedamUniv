@@ -29,8 +29,9 @@ public class UserController {
 			vo = userDAO.loginStu(vo);
 		}else if(user.equals("pro")) {
 			vo = userDAO.loginPro(vo);
-		}else if(user.equals("emp")) {
+		}else if(user.equals("admin")) {
 			vo = userDAO.loginEmp(vo);
+			System.out.println(vo.getName());
 		}
 		if(vo!= null) {
 			result = vo.getName();
@@ -51,7 +52,6 @@ public class UserController {
 	@PostMapping(value = "/all/logout.do", produces = "application/text; charset=utf8")
 	public String logout(HttpSession session,@Param("name") String name) {
 		session.invalidate();
-		System.out.println(name);
 		return name;
 	}
 	

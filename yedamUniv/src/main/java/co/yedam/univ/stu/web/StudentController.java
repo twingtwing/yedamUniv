@@ -1,13 +1,24 @@
 package co.yedam.univ.stu.web;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import co.yedam.univ.stu.service.StuService;
+import co.yedam.univ.stu.service.StuVO;
 
 @Controller
 public class StudentController {
+	@Autowired StuService stuDAO;
+	
   //학적정보 조회
   @RequestMapping("stu/studentHome.do")
-    public String studentHome() {
+    public String studentHome(StuVO vo, Model model, HttpSession session) {
+	  vo.setStuId((String)session.getAttribute("id"));
+	  model.addAttribute("stu",stuDAO.stuSelect(vo));
 	  return "stu/myInfo/studentHome";
   }
   
@@ -17,21 +28,12 @@ public class StudentController {
 	  return "stu/myInfo/modifyStudent";
   }
   
-  //휴학자퇴 신청
-  @RequestMapping("stu/breakSchoolApp.do")
-  public String breakSchoolApp() {
-	  return "stu/myInfo/breakSchoolApp";
-  }
-  
-  //복학 신청
-  @RequestMapping("stu/returnSchoolApp.do")
-  public String returnSchoolApp() {
-	  return "stu/myInfo/returnSchoolApp";
-  }
-  
   //졸업 시물레이션
   @RequestMapping("stu/canIgraduate.do")
-  public String canIgraduate() {
+  public String canIgraduate(StuVO vo, Model model,HttpSession session) {
+	  vo.setStuId((String)session.getAttribute("id"));
+	  model.addAttribute("stu",stuDAO.stuMajor(vo));
+	  model.addAttribute("reg",stuDAO.stuReg(vo));
 	  return "stu/myInfo/canIgraduate";
   }
   
@@ -44,6 +46,12 @@ public class StudentController {
   //수강목록
   @RequestMapping("stu/classList.do")
   public String classList() {
+	  return "stu/class/classList";
+  }
+  
+  //수강목록 - 2개(오류땜에 안되겠음)
+  @RequestMapping("stu/stu.do")
+  public String stu() {
 	  return "stu/class/classList";
   }
   

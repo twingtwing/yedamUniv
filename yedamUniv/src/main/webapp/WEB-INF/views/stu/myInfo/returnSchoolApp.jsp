@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
   <style>
             .main_bar>span,.fa-home{
                 color:#7f8c8d;
@@ -11,7 +11,19 @@
                 color:#34495F;
                 font-weight: 600;
             }
-        
+            .visitors-table tbody tr td:last-child {
+              display: flex;
+              align-items: center;
+            }
+
+            .visitors-table .progress {
+              flex: 1;
+            }
+
+            .visitors-table .progress-parcent {
+              text-align: right;
+              margin-left: 10px;
+            }        
         </style>
         <div class="page-content fade-in-up main_bar">
             <div class="row">
@@ -51,31 +63,32 @@
                     <div class="ibox-body">
                         <table class="table table-bordered mt-3 text-center">
                             <thead class="thead-default">
-                                <th class="text-center"></th>
-                                
-                                <th  class="text-center">학적변동구분</th>
-                                <th  class="text-center">휴학일자</th>
-                                <th  class="text-center">복학예정일자</th>
-                                <th  class="text-center">복학예정학기</th>
-                                <th  class="text-center">학과</th>
-                                <th  class="text-center">학번</th>
-                                <th  class="text-center">처리현황</th>
-                                
+                            	<tr>
+	                                <th class="text-center"></th>
+	                                <th  class="text-center">학적변동구분</th>
+	                                <th  class="text-center">휴학신청일자</th>
+	                                <th  class="text-center">복학예정일자</th>
+	                                <th  class="text-center">학과</th>
+	                                <th  class="text-center">학번</th>
+	                                <th  class="text-center">처리현황</th>
+                            	</tr>
                             </thead>
-                            <tbdoy>
+                            <tbody>
                                <tr>
                                    <td>
                                        <label class="ui-checkbox ui-checkbox-primary">
-                                       <input type="checkbox"><span class="input-span"></span></label></td>
+                                       <input type="checkbox" id="leaveNo"><span class="input-span"></span></label></td>
                                    <td>휴학</td>
-                                   <td>2022-01-01</td>
-                                   <td>2023-01-01</td>
-                                   <td>1학기</td>
-                                   <td>데이터학과</td>
-                                   <td>202222222</td>
-                                   <td>신청전</td>
+                                   <td class="subDate1">${leave.leaveDate }</td>
+                                   <td class="subDate2">${leave.backSchedule }</td>
+                                   <td>${major }학과</td>
+                                   <td>${id }</td>
+                                   <td>
+                                      <c:if test="${empty leave.backDate}">신청 전</c:if>
+                                      <c:if test="${not empty leave.backDate}">신청 완료</c:if>
+                                   </td>
                                </tr>
-                             </tbdoy>
+                             </tbody>
                          </table>
                     </div>
                 </div>
@@ -85,23 +98,32 @@
         <div class="d-flex justify-content-center mt-2">
             <button type="button" id="modifyBtn" class="btn btn-outline-primary btn-lg" style="cursor:pointer">복학신청</button>
         </div>
-           
-     
-      
-          
-          <style>
-            .visitors-table tbody tr td:last-child {
-              display: flex;
-              align-items: center;
-            }
-
-            .visitors-table .progress {
-              flex: 1;
-            }
-
-            .visitors-table .progress-parcent {
-              text-align: right;
-              margin-left: 10px;
-            }
-          </style>
         </div>
+        <script type="text/javascript">
+			$('.subDate1').text($('.subDate1').text().substr(0,10));
+			$('.subDate2').text($('.subDate2').text().substr(0,7));
+        
+			$('#modifyBtn').click(function(){
+				if(!$('#leaveNo').is(':checked')){
+					alert('복학 신청할 항목을 선택해주세요.');
+				}else if($('#leaveNo').closest('tr')[0].children[3].innerHTML != '2023-01'){
+					alert('현재 복학 가능한 기간이 아닙니다.');
+				}else if($('#leaveNo').closest('tr')[0].children[6].innerHTML.replace(/\s*/g, "") === '신청완료'){
+					alert('이미 신청 완료하였습니다.');
+				}else{
+					$.ajax({
+						url :'/univ/stu/returnUpBack.do',
+						type:'post',
+						data : {leaveNo : '${leave.leaveNo}'}
+					})
+					.done(data=>{
+						if(data ==='Y'){
+							alert('신청이 완료하였습니다.');
+							location.href="/univ/stu/returnSchoolApp.do?stuId="+'${leave.stuId}';
+						}else if(data ==='N'){
+							alert('신청 중에 오류가 발생하여 중단합니다.');
+						}
+					});
+				}
+			})
+		</script>

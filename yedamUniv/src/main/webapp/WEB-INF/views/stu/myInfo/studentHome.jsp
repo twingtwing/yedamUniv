@@ -51,21 +51,21 @@
                      <tbdoy>
                     <tr>
                         <th class="text-center bg-silver-100">학과</th>
-                        <td>데이터베이스학과</td>
+                        <td>${stu.major }학과</td>
                         <th class="text-center bg-silver-100">학년</th>
-                        <td>3학년</td>
+                        <td>${stu.grade }학년</td>
                     </tr>
                     <tr>
                         <th class="text-center bg-silver-100">이름</th>
-                        <td>스펀지밥</td>
+                        <td>${stu.stuName }</td>
                         <th class="text-center bg-silver-100">학적상태</th>
-                        <td>재학</td>
+                        <td>${stu.stuRec }</td>
                     </tr>
                     <tr>
                         <th class="text-center bg-silver-100">입학일자</th>
-                        <td>2022-01-14</td>
+                        <td>${stu.stuJoin }</td>
                         <th class="text-center bg-silver-100">최종학적변동</th>
-                        <td>입학</td>
+                        <td>${stu.stuChg }</td>
                     </tr>
                 </tbdoy>
                 </table>
@@ -84,15 +84,15 @@
                                 <tbdoy>
                                     <tr>
                                         <th class="text-center bg-silver-100">핸드폰</th>
-                                        <td>010-8888-8888</td>
+                                        <td>${stu.stuTel }</td>
                                         <th class="text-center bg-silver-100">이메일</th>
-                                        <td>sponjebob@yedam.com</td>
+                                        <td>${stu.stuEmail }</td>
                                     </tr>
                                     <tr>
                                         <th class="text-center bg-silver-100" >우편번호</th>
-                                        <td width="32%">1111</td>
+                                        <td width="32%">${stu.stuZipcode }</td>
                                         <th class="text-center bg-silver-100">주소</th>
-                                        <td>비키니시티 파인애플</td>
+                                        <td>${stu.stuAddr } ${stu.stuAddr2 }</td>
                                      </tr>
                        
                                  </tbdoy>
@@ -136,7 +136,8 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-5">
+            <!-- 수정 삭제 -->
+<!--             <div class="d-flex justify-content-center mt-5">
                 <button type="button" id="modifyBtn" class="btn btn-outline-primary btn-lg" style="cursor:pointer">수정</button>
             </div>
             
@@ -166,7 +167,7 @@
               text-align: right;
               margin-left: 10px;
             }
-          </style>
+          </style> -->
         </div>
         <!-- END PAGE CONTENT-->
         

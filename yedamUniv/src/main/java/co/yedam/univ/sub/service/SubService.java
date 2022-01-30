@@ -6,7 +6,6 @@ public interface SubService {
 	List<SubVO> subjectList(String id);
 	List<SubVO> subjectSelectList(SubVO vo);
 	
-	int subjectNum(SubVO vo);//강의평가 점수(이번학기)
 	int subjectCount(SubVO vo);//총 강의신청 갯수(이번학기)
 	List<CriteriaSub> subjectPagenation(CriteriaSub cri);//강의수강list
 	SubVO subjectSelect(SubVO vo);
@@ -14,4 +13,8 @@ public interface SubService {
 	int subjectInsert(SubVO vo);//강의등록
 	int subjectUpdate(SubVO vo);//강의수정
 	int subjectDelete(SubVO vo);//강의삭제
+
+	List<CriteriaSub> subAdminPage(CriteriaSub cri);
+	int subjectStatus(SubVO vo);//승인수정
+
 }

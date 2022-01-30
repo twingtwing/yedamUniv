@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,22 +88,28 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="list-tbody">
-                                                <!-- 10줄 -->
-                                                <tr id="leaveNo">
-                                                    <td>1</td>
-                                                    <td>휴학</td>
-                                                    <td>sdsd</td>
-                                                    <td>sdsd</td>
-                                                    <td>sdsd</td>
-                                                    <td>sdsd</td>
-                                                    <td>sdsd</td>
-                                                </tr>
-                                                <!-- 
-                                            <tr>
-                                                글이 없을 경우
-                                                <td colspan="7" class="text-center font-weight-bold">현재 휴학 및 자퇴 신청자가 없습니다.</td>
-                                            </tr>
-                                        -->
+                                            	<c:if test="${not empty list }">
+                                                	<c:forEach items="${list }" var="ld" varStatus="var">
+		                                                <tr id="${ld.num }">
+		                                                    <td>${var.count }</td>
+		                                                    <td>${ld.category }</td>
+		                                                    <td>${ld.major }</td>
+		                                                    <td>${ld.stuId }</td>
+		                                                    <td>${ld.stuName }</td>
+		                                                    <td class="subDate">${ld.date }</td>
+		                                                    <td>
+			                                                    <c:if test="${ld.process eq 'N'}">승인대기</c:if>
+					                            				<c:if test="${ld.process eq 'P'}">교수승인</c:if>
+					                            				<c:if test="${ld.process eq 'C'}">최종승인</c:if>
+		                                                    </td>
+		                                                </tr>
+                                                	</c:forEach>
+                                            	</c:if>
+                                            	<c:if test="${empty list }">
+		                                            <tr>
+		                                                <td colspan="7" class="text-center font-weight-bold">현재 휴학 및 자퇴 신청자가 없습니다.</td>
+		                                            </tr>
+                                            	</c:if>
                                             </tbody>
                                         </table>
                                     </div>
@@ -112,27 +118,14 @@
                                     <div class="col-lg-12">
                                         <nav class="justify-content-center d-flex">
                                             <ul class="pagination">
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link" aria-label="Previous">
-                                                        <span aria-hidden="true">
-                                                            <span class="ti-angle-double-left"></span>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="page-item"><a href="#" class="page-link">01</a></li>
-                                                <li class="page-item active"><a href="#" class="page-link">02</a>
-                                                </li>
-                                                <li class="page-item"><a href="#" class="page-link">03</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">04</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">09</a></li>
-                                                <li class="page-item">
-                                                    <a href="#" class="page-link" aria-label="Next">
-                                                        <span aria-hidden="true">
-                                                            <span class="ti-angle-double-right"></span>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            </ul>
+												<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+													<li class="page-item ${pageMaker.ld.pageNum == num ? 'active' : '' }"><a data-page="${num }" class="page-link subPage">${num }</a></li>
+												</c:forEach>
+											</ul>
+											<form id="pageFrm" action="/univ/pro/leaveDrop.do" method="get">
+												<input type="hidden" name="pageNum" value="${pageMaker.ld.pageNum }">
+												<input type="hidden" name="amount" value="${pageMaker.ld.amount }">
+											</form>
                                         </nav>
                                     </div>
                                 </div>
@@ -151,6 +144,19 @@
 			}
 			
 		});
+		
+		(function(){
+			const dateList =  $('.subDate');
+			for(date of dateList){
+				date.innerHTML = (date.innerHTML).slice(0,10);
+			}
+		})();
+		
+		$('.subPage').on('click',function(){
+			event.preventDefault();
+			$('#pageFrm').find("input[name='pageNum']").val($(this).attr("data-page"));
+			pageFrm.submit();
+		})
 	</script>
 </body>
 </html>
