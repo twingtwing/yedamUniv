@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +39,7 @@
                         <i class="fa fa-angle-right mx-1"></i>
                         <a href="/univ/pro/mySub.do" alt="my room" class="back_link"><small class="font-weight-bold">나의 강의실</small></a>
                         <i class="fa fa-angle-right mx-1"></i>
-                        <a href="/univ/pro/mySubDetail.do?subNo=" alt="my subject" class="back_link"><small class="font-weight-bold">강의이름넣어야함</small></a>
+                        <a href="/univ/pro/mySubDetail.do?subNo=${subNo }&&subName=${subName}" alt="my subject" class="back_link"><small class="font-weight-bold">${subName }</small></a>
                         <i class="fa fa-angle-right mx-1"></i>
                         <small class="font-weight-bold">묻고 답하기</small>
                     </div>
@@ -46,8 +49,8 @@
                     <div class="row mt-4 ml-1">
                         <i class="ti-book text-warning" style="font-size: 30px;"></i>
                         <div class="ml-2 d-flex align-items-center">
-                            <a href="/univ/pro/mySubDetail.do?subNo=" alt="my subject" class="back_link">
-                                <h4 class="mb-0 font-weight-bold">강의이름 | 강의번호</h4>
+                            <a href="/univ/pro/mySubDetail.do?subNo=${subNo }&&subName=${subName}" alt="my subject" class="back_link">
+                                <h4 class="mb-0 font-weight-bold">${subName } | ${subNo }</h4>
                             </a>
                         </div>
                     </div>
@@ -88,30 +91,47 @@
                                             <th class="text-center" width='100'>번호</th>
                                             <th class="text-center">제목</th>
                                             <th class="text-center">작성자</th>
-                                            <th class="text-center">답변상태</th>
+                                            <th class="text-center">학과</th>
                                             <th class="text-center">등록일</th>
-                                            <th class="text-center" width='100'>조회</th>
+                                            <th class="text-center">답변상태</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody class="list-tbody">
                                         <!-- 10줄 -->
-                                        <tr id="sqNo">
-                                            <td>1</td>
-                                            <td>
-                                                첨부파일이 있을경우
-                                                <i class="fa ti-file ml-1 text-warning"></i>
-                                            </td>
-                                            <td>sdsd</td>
-                                            <td>sdsd</td>
-                                            <td>sdsd</td>
-                                            <td>sdsd</td>
-                                        </tr>
-                                        <!-- 
-                                    <tr>
-                                        글이 없을 경우
-                                        <td colspan="7" class="text-center font-weight-bold">현재 작성된 글이 없습니다.</td>
-                                    </tr>
-                                -->
+                                        <c:if test="${not empty qnaLists }">
+	                                        <c:forEach var="qnaList" items="${qnaLists }">
+	                                        
+		                                        <tr id="${qnaList.sqNo }">
+		                                            <td>${qnaList.sqNo }</td>
+		                                            <!-- <td>
+		                                                첨부파일이 있을경우
+		                                                <i class="fa ti-file ml-1 text-warning"></i>
+		                                            </td> -->
+		                                            <td width="60%">${qnaList.sqTitle }</td>
+		                                            <td>${qnaList.stuName }</td>
+		                                            <td>${qnaList.major }</td>
+		                                            <td><c:out
+								                            value="${fn:substring(qnaList.sqDate,0,10) }"
+								                          ></c:out></td>
+		                                            <c:if test="${qnaList.sqState eq 'Y' }">
+		                                            	<td class="text-primary">답변완료</td>
+		                                            </c:if>
+		                                            <c:if test="${qnaList.sqState ne 'Y' }">
+		                                            	<td class="text-warning">답변대기</td>
+		                                            </c:if>
+		                                         
+		                                        </tr>
+	                                        </c:forEach>
+                                        </c:if>
+                                        
+                                     <c:if test="${empty qnaLists }">
+	                                    <tr>
+	                                        글이 없을 경우
+	                                        <td colspan="7" class="text-center font-weight-bold">현재 작성된 글이 없습니다.</td>
+	                                    </tr>
+                                    </c:if>
+                                
                                     </tbody>
                                 </table>
                                 <nav class="justify-content-center d-flex">
@@ -145,7 +165,7 @@
             </div>
 	<script type="text/javascript">
 		$('.list-tbody > tr').click(function(){
-			location.href="/univ/pro/subQnaSelect.do?sqNo="+$(this).attr('id');
+			location.href="/univ/pro/subQnaSelect.do?sqNo="+$(this).attr('id')+"&&subNo="+"${subNo }"+"&&subName="+"${subName}";
 		});
 	</script>
 </body>

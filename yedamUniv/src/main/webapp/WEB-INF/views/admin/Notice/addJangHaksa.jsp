@@ -35,7 +35,8 @@
                 <section id="main-content">
                     <div class="row">
                         <div class="col-lg-12">
-                            <form action="#" enctype="multipart/form-data">
+                            <form id="addJangHaksa" action="/univ/admin/addJangHaksa.do" 
+                            enctype="multipart/form-data" method="POST">
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                         <div class="table-responsive">
@@ -45,11 +46,11 @@
                                             <textarea name="contents" id="contents" style="width: 100%; font-size: large;" 
                                             rows="20" placeholder="내용을 입력하세요."></textarea>
                                             <br>
-                                            <input type="file">
+                                            <input type="file" name="files" id="files" multiple />
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" id="upload" 
+                                <button id="upload" 
                                 class="btn btn-warning btn-md m-b-10 m-l-5 ti-check"
                                 style="position:absolute; right:0; margin-right: 15px;"> 등록</button>
                             </form>
@@ -62,6 +63,18 @@
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript">
+	    document.querySelector("#upload").onclick=function(){
+			var form = new FormData();
+			var title = document.querySelector("#title").value;
+			var contents = document.querySelector("#contents").value;
+	    	form.append("file",$("#files")[0].files[0]);
+			form.append("title",title);
+			form.append("contents",contents);
+			addHaksa.submit();
+		}
+    </script>
 
 	<!-- jquery vendor -->
     <script src="assets/js/lib/jquery.min.js"></script>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,14 +43,12 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="input-group" style="width: 40%; position: absolute; right: 0; margin-right: 10px;">
-                                    <select class="btn btn-default dropdown-toggle" style="width: 100px;">
+                                    <select id="selector" class="btn btn-default dropdown-toggle" style="width: 100px;">
                                         <option>글번호</option>
                                         <option>제목</option>
-                                        <option>작성자</option>
-                                        <option>작성일</option>
                                     </select>
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <button class="ti-search btn btn-default btn-flat" id=""></button>
+                                    <input id="searchVal" type="text" class="form-control" placeholder="Search">
+                                    <button class="ti-search btn btn-default btn-flat" id="searchBtn"></button>
                                 </div><br><br><br>
                                 <table id="noticeListT" class="display table table-borderd table-hover">
                                     <thead>
@@ -60,115 +59,16 @@
                                             <th>작성일자</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Sonya Frost</td>
-                                            <td>Software Engineer</td>
-                                            <td>Edinburgh</td>
-                                            <td>2008/12/13</td>
+                                    <tbody id="listbody">
+                                    <c:forEach items="${JangHaksa}" var="JangHaksa">
+                                    <c:set var="i" value="${i+1}"/>
+                                        <tr id="${JangHaksa.boardNo}" class="origin" onclick="selectJangHaksa(${JangHaksa.boardNo})">
+                                            <td>${i}</td>
+                                            <td>${JangHaksa.boardTitle}</td>
+                                            <td>관리자</td>
+                                            <td>${JangHaksa.boardDate}</td>
                                         </tr>
-                                        <tr>
-                                            <td>Paul Byrd</td>
-                                            <td>Chief Financial Officer (CFO)</td>
-                                            <td>New York</td>
-                                            <td>2010/06/09</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gloria Little</td>
-                                            <td>Systems Administrator</td>
-                                            <td>New York</td>
-                                            <td>2009/04/10</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>2012/10/13</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dai Rios</td>
-                                            <td>Personnel Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>2012/09/26</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jenette Caldwell</td>
-                                            <td>Development Lead</td>
-                                            <td>New York</td>
-                                            <td>2011/09/03</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Yuri Berry</td>
-                                            <td>Chief Marketing Officer (CMO)</td>
-                                            <td>New York</td>
-                                            <td>2009/06/25</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>2011/12/12</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Doris Wilder</td>
-                                            <td>Sales Assistant</td>
-                                            <td>Sidney</td>
-                                            <td>2010/09/20</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Angelica Ramos</td>
-                                            <td>Chief Executive Officer (CEO)</td>
-                                            <td>London</td>
-                                            <td>2009/10/09</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gavin Joyce</td>
-                                            <td>Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>2010/12/22</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jennifer Chang</td>
-                                            <td>Regional Director</td>
-                                            <td>Singapore</td>
-                                            <td>2010/11/14</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brenden Wagner</td>
-                                            <td>Software Engineer</td>
-                                            <td>San Francisco</td>
-                                            <td>2011/06/07</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fiona Green</td>
-                                            <td>Chief Operating Officer (COO)</td>
-                                            <td>San Francisco</td>
-                                            <td>2010/03/11</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Shou Itou</td>
-                                            <td>Regional Marketing</td>
-                                            <td>Tokyo</td>
-                                            <td>2011/08/14</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michelle House</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Sidney</td>
-                                            <td>2011/06/02</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Suki Burks</td>
-                                            <td>Developer</td>
-                                            <td>London</td>
-                                            <td>2009/10/22</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prescott Bartlett</td>
-                                            <td>Technical Author</td>
-                                            <td>London</td>
-                                            <td>2011/05/07</td>
-                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -194,9 +94,74 @@
     </div>
     
     <script type="text/javascript">
-    	function writeFnc(){
-    		location.href="/univ/admin/addJangHaksa.do";
-    	}
+       function writeFnc(){
+          location.href="/univ/admin/writeBoard.do?boardKind=JangHaksa";
+       }
+       function selectJangHaksa(boardno){
+          location.href="/univ/admin/selectBoard.do?boardno="+boardno+"&boardKind=JangHaksa&doing=select";
+       }
+       document.querySelector("#searchBtn").onclick=function(){
+           let selector = document.querySelector("#selector").value;
+           let searchVal = document.querySelector("#searchVal").value;
+           document.querySelector("#searchVal").value="";
+           if(searchVal == ""){
+         	  alert("검색조건을 입력해주세요.");
+         	  $("#searchVal").focus();
+           }else{
+             	$.ajax({
+                     url : "/univ/admin/AjaxSelectList.do",
+                     data : {
+                        selector : selector,
+                        searchVal : searchVal,
+                        boardKind : "JangHaksa"
+                     },
+                     type : "POST",
+                     dataType : "json",
+                     success : function(datas){
+                  		$('.origin').remove();
+                      	
+          	            let listbody = document.querySelector("#listbody");
+                      	for(let data of datas){
+          	            	var contents = document.createElement("tr");
+          	            	contents.setAttribute("id",data.boardNo);
+          	           		contents.setAttribute("class","origin");
+            	          	var no = document.createElement("td");
+            	          	if(selector == "글번호"){
+      		          		  no.innerHTML = searchVal;
+      		          	  	}else if(selector == "제목"){
+      		          		  no.innerHTML = data.boardNo;
+      		          	  	}
+          	             	var title = document.createElement("td");
+           	            	title.innerHTML = data.boardTitle;
+            	          	var writer = document.createElement("td");
+            	          	writer.innerHTML = "관리자";
+            	          	var wdate = document.createElement("td");
+            	          	var timestamp = data.boardDate;
+                      		var date = new Date(timestamp);
+            	          	wdate.innerHTML = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+            	            	
+                       		contents.appendChild(no);
+          	            	contents.appendChild(title);
+            	          	contents.appendChild(writer);
+            	          	contents.appendChild(wdate);
+            	           	
+            	          	listbody.appendChild(contents);
+                       	}
+                        	document.querySelector(".origin").onclick=function(){
+                        		let boardno = $(this).closest('tr').attr("id");
+                        		selectJangHaksa(boardno);
+                        	}
+                        	function selectJangHaksa(boardno){
+                               location.href="/univ/admin/selectBoard.do?boardno="+boardno+"&boardKind=JangHaksa&doing=select";
+                           }
+                       },
+                       error : function(){
+                          alert("검색결과를 불러오는데 실패했습니다.\n관리자에게 문의하세요.[010-1234-1234]");
+                       }
+                    })
+              
+           }
+        }
     </script>
     
     <!-- jquery vendor -->

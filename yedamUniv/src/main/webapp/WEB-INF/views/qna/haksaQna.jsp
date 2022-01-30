@@ -19,6 +19,11 @@
 <body>
 
 <!-- 시작 -->
+<div class="all-title-box">
+		<div class="container text-center">
+			<h1>학사</h1>
+		</div>
+</div>
     <div id="overviews" class="section wb">
         <div class="container">
             <div class="container-fluid">
@@ -73,11 +78,11 @@
                             <tbody>
                             	<c:forEach items="${qnalist }" var="qna" varStatus="status">
                                     <tr>
-                                        <td><c:out value="${qna.qNo }" /></td>
-                                        <td><c:out value="${qna.qCategory }" /></td>
-                                        <td><a href="/univ/qna/haksaQnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
-                                        <td><c:out value="${qna.stuId }" /></td>
-                                        <td><c:out value="${qna.qDate }" /></td>
+		                                <td><c:out value="${qna.qNo }" /></td>
+		                                <td><c:out value="${qna.qCategory }" /></td>
+		                                <td><a href="/univ/qna/haksaQnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
+		                                <td><c:out value="${qna.stuId }" /></td>
+		                                <td><c:out value="${qna.qDate }" /></td>
                                     </tr>
                             	</c:forEach>
                             </tbody>

@@ -29,7 +29,7 @@ public class SubController {
 	@GetMapping("pro/mySub.do")
 	public String mySub(HttpSession session,SubVO vo, Model model) {
 		
-		vo.setProId((String)session.getAttribute("proId"));
+		vo.setProId((String)session.getAttribute("id"));
 		model.addAttribute("subList", subDao.subjectList(vo.getProId()));
 		return "pro/sub/mySub";
 	}
@@ -47,18 +47,33 @@ public class SubController {
 	@RequestMapping("/pro/mySubListAjax.do")
 	public List<SubVO> mySubList(HttpSession session, @RequestParam("semester") String subjectSemester,SubVO vo,Model model) {
 		System.out.println(subjectSemester);
-		vo.setProId((String)session.getAttribute("proId"));
+		vo.setProId((String)session.getAttribute("id"));
 		vo.setSubjectSemester(subjectSemester);
-		System.out.println(vo.getProId());
-		System.out.println(vo.getSubjectSemester());
-		System.out.println(subDao.subjectSelectList(vo));		
+		
 		return subDao.subjectSelectList(vo);
+
 	}
 	
 	//강의목록 상세
 	@RequestMapping("pro/mySubDetail.do")
-	public String mySubDetail(@Param("subNo") int subNo, SubVO vo, Model model) {
+	public String mySubDetail(HttpSession session,@Param("subNo") int subNo,@Param("subName") String subName, SubVO vo, Model model) {
+		//공지사항
+		vo.setProId((String)session.getAttribute("id"));
 		vo.setSubjectNo(subNo);
+		vo.setSubjectName(subName);
+		model.addAttribute("subNo", vo.getSubjectNo());
+		model.addAttribute("subName", vo.getSubjectName());
+		model.addAttribute("postLists", subDao.subjectPostList(vo)); 
+	
+		
+		//묻고답하기
+		SubVO vo2 = new SubVO();
+		vo2.setProId((String)session.getAttribute("id"));
+		vo2.setSubjectNo(subNo);
+		model.addAttribute("qnaLists", subDao.subjectQnAList(vo2));
+		
+		
+		//묻고답하기
 		
 		return "pro/sub/mySubDetail";
 	}

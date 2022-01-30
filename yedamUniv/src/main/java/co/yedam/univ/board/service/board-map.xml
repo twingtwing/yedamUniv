@@ -1,42 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yedam.univ.board.service.BoardMapper">
-	<select id="boardList"
-	parameterType="co.yedam.univ.board.service.BoardVO"
-	resultType="co.yedam.univ.board.service.BoardVO">
-		SELECT *
-		FROM BOARD
-		WHERE BOARD_KIND = #{boardKind}
-		ORDER BY BOARD_NO
-	</select>
-	<select id="boardSelect"
-	parameterType="co.yedam.univ.board.service.BoardVO"
-	resultType="co.yedam.univ.board.service.BoardVO">
-		SELECT *
-		FROM BOARD
-		WHERE BOARD_NO = #{boardNo}
-		AND BOARD_KIND = #{boardKind}
-	</select>
-	<insert id="boardInsert"
-	parameterType="co.yedam.univ.board.service.BoardVO">
-		INSERT INTO BOARD(BOARD_NO,
-						  EMP_ID,
-						  BOARD_TITLE,
-						  BOARD_CONTENTS,
-						  BOARD_KIND)
-		VALUES (#{boardNo},#{empId},#{boardTitle},
-				#{boardContents},#{boardKind})
-	</insert>
-	<update id="boardUpdate"
-	parameterType="co.yedam.univ.board.service.BoardVO">
-		UPDATE BOARD
-		SET BOARD_TITLE = #{boardTitle},
-			BOARD_CONTENTS = #{boardContents}
-		WHERE BOARD_NO = #{boardNo}
-	</update>
-	<delete id="boardDelete"
-	parameterType="co.yedam.univ.board.service.BoardVO">
-		DELETE BOARD
-		WHERE BOARD_NO = #{boardNo}
-	</delete>
+   <select id="boardList"
+   parameterType="co.yedam.univ.board.service.BoardVO"
+   resultType="co.yedam.univ.board.service.BoardVO">
+      SELECT *
+      FROM BOARD
+      WHERE BOARD_KIND = #{boardKind}
+      ORDER BY BOARD_NO
+   </select>
+   <select id="boardLastNum"
+   resultType="int">
+      SELECT MAX(BOARD_NO) FROM BOARD
+   </select>
+   <select id="boardSelect"
+   parameterType="co.yedam.univ.board.service.BoardVO"
+   resultType="co.yedam.univ.board.service.BoardVO">
+      SELECT *
+      FROM BOARD
+      WHERE BOARD_NO = #{boardNo}
+      AND BOARD_KIND = #{boardKind}
+   </select>
+   <insert id="boardInsert"
+   parameterType="co.yedam.univ.board.service.BoardVO">
+      <selectKey resultType="integer" keyProperty="boardNo" order="BEFORE">
+         SELECT MAX(BOARD_NO)+1 FROM BOARD
+      </selectKey>
+      INSERT INTO BOARD(BOARD_NO,
+                    EMP_ID,
+                    BOARD_TITLE,
+                    BOARD_CONTENTS,
+                    BOARD_KIND)
+      VALUES (#{boardNo},#{empId},#{boardTitle},
+            #{boardContents},#{boardKind})
+   </insert>
+   <update id="boardUpdate"
+   parameterType="co.yedam.univ.board.service.BoardVO">
+      UPDATE BOARD
+      SET BOARD_TITLE = #{boardTitle},
+         BOARD_CONTENTS = #{boardContents}
+      WHERE BOARD_NO = #{boardNo}
+   </update>
+   <update id="boardHitsUP"
+   parameterType="co.yedam.univ.board.service.BoardVO">
+      UPDATE BOARD
+      SET BOARD_HITS = BOARD_HITS+1
+      WHERE BOARD_NO = #{boardNo}
+   </update>
+   <delete id="boardDelete"
+   parameterType="co.yedam.univ.board.service.BoardVO">
+      DELETE BOARD
+      WHERE BOARD_NO = #{boardNo}
+   </delete>
+   
+   
+   <select id="searchBoardNo"
+   parameterType="co.yedam.univ.board.service.BoardVO"
+   resultType="co.yedam.univ.board.service.BoardVO">
+      SELECT * FROM (SELECT ROW_NUMBER() 
+      				 OVER(PARTITION BY A.BOARD_KIND ORDER BY A.BOARD_KIND, A.BOARD_NO) ROWNUMBER, A.*
+					 FROM BOARD A
+					 WHERE BOARD_KIND = #{boardKind})
+	  WHERE ROWNUMBER = #{rownum}
+   </select>
+   <select id="searchBoardTitle"
+   parameterType="co.yedam.univ.board.service.BoardVO"
+   resultType="co.yedam.univ.board.service.BoardVO">
+ 	  SELECT * FROM BOARD
+	  WHERE BOARD_KIND = #{boardKind}
+	  AND BOARD_TITLE LIKE '%'||#{boardTitle}||'%'
+	  ORDER BY BOARD_NO
+   </select>
 </mapper>

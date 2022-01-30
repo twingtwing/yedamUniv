@@ -36,14 +36,14 @@
                         <div class="post-content">
                             <div class="inner-hmv" style="height: 80vh; background-color: white;">
                                 <div class="row d-flex justify-content-center">
-                                    <h1 class="my-2">제목</h1>
+                                    <h1 class="my-2">${JangHaksa.boardTitle}</h1>
                                 </div>
                                 <div class="row d-flex justify-content-end m-3">
-                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : &nbsp; &nbsp; &nbsp; 
-                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : </h5>
+                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : 관리자&nbsp; &nbsp; &nbsp; 
+                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : ${JangHaksa.boardDate}</h5>
                                 </div>
                                 <hr style="color: #F2F2F2;">
-                                <p class="m-2">공지내용</p>
+                                <p class="m-2">${JangHaksa.boardContents}</p>
                             </div>
                         </div>
                     </div>

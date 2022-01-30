@@ -11,5 +11,5 @@ public class RegController {
 	public String RegGradeInsert(@Param("subNo") String id) {
 		return "pro/grade/RegGradeInsert";
 	}
-
+	
 }

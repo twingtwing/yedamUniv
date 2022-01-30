@@ -13,6 +13,7 @@
     <link href="/univ/resources/mypage/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="/univ/resources/mypage/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
     <link href="/univ/resources/mypage/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+    <link href="/univ/resources/mypage/vendors/summernote/dist/summernote.css" rel="stylesheet" />
     <link href="/univ/resources/mypage/css/main.min.css" rel="stylesheet" />
 	
 	<script src="/univ/resources/mypage/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>

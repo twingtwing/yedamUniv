@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +49,10 @@
                                             <h2>${selectBoard.boardTitle}</h2>
                                             <span id="writer">관리자&nbsp;&nbsp;${selectBoard.boardDate}&nbsp;&nbsp;조회수 ${selectBoard.boardHits}</span>
                                             <hr class="one">
-                                            ${selectBoard.boardContents}
+                                            ${selectBoard.boardContents}<br>
+                                            <c:if test="${selectBoardFile.pbFile eq !null}">
+                                               <img src="C:/upload/${selectBoardFile.pbFile}">
+                                            </c:if>
                                             <br><br><br>
                                             <span id="delebtn" class="ti-trash"
                                             onclick="deleteFnc(${selectBoard.boardNo})">삭제</span>
@@ -73,17 +77,17 @@
     </div>
     
     <script type="text/javascript">
-    	function deleteFnc(boardNo){
-    		let answer = confirm("게시글을 삭제하시겠습니까?\n※삭제시 복구가 불가능합니다.※");
-    		if(answer){
-	    		location.href="/univ/admin/deleteBoard.do?boardNo="+boardNo+"&boardKind=Haksa";
-    		}else{
-    			alert("게시글 삭제가 취소되었습니다.");
-    		}
-    	}
-    	function modiFnc(boardNo){
-    		location.href="/univ/admin/selectBoard.do?boardno="+boardNo+"&boardKind=Haksa&doing=update";
-    	}
+       function deleteFnc(boardNo){
+          let answer = confirm("게시글을 삭제하시겠습니까?\n※삭제시 복구가 불가능합니다.※");
+          if(answer){
+             location.href="/univ/admin/deleteBoard.do?boardNo="+boardNo+"&boardKind=Haksa";
+          }else{
+             alert("게시글 삭제가 취소되었습니다.");
+          }
+       }
+       function modiFnc(boardNo){
+          location.href="/univ/admin/selectBoard.do?boardno="+boardNo+"&boardKind=Haksa&doing=update";
+       }
     </script>
     
        <!-- jquery vendor -->

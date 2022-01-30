@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,17 +40,20 @@
                             <div class="card">
                                 <div class="bootstrap-data-table-panel">
                                         <div class="table-responsive">
-                                        	<input name="no" id="no" value="${selectBoard.boardNo}"
-                                        	style="display:none;">
-                                        	<input name="kind" id="kind" value="${selectBoard.boardKind}"
-                                        	style="display:none;">
+                                           <input name="no" id="no" value="${selectBoard.boardNo}"
+                                           style="display:none;">
+                                           <input name="kind" id="kind" value="${selectBoard.boardKind}"
+                                           style="display:none;">
                                             <input name="title" id="title" type="text" 
                                             style="width:100%; font-size: large;"
                                             value="${selectBoard.boardTitle}">
                                             <br><br>
                                             <textarea name="contents" id="contents" style="width: 100%; font-size: large;" 
                                             rows="20">${selectBoard.boardContents}</textarea>
-                                            <br>
+                                            <c:if test="${selectBoardFile.pbFile eq !null}">
+                                               <img src="C:/upload/${selectBoardFile.pbFile}">
+                                            </c:if>
+                                            <br><br>
                                             <input type="file">
                                         </div>
                                     </div>

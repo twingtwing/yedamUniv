@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.qna.service.qnaFilesMapper">
+
+	<select id="selectListFile" parameterType="co.yedam.univ.qna.service.qnaFilesVO">
+		select * from qna_files
+	</select>
+	
+	<select id="selectFile" parameterType="co.yedam.univ.qna.service.qnaFilesVO">
+		select * from qna_files where q_no = #{qNo}
+	</select>
+
+	<insert id="insertqFile" parameterType="co.yedam.univ.qna.service.qnaFilesVO">
+		INSERT INTO qna_files(ffile_no, q_no, qfile, a_qfile)
+		VALUES((SELECT NVL(MAX(ffile_no), 0)+1 AS ffile_no FROM qna_files), #{qNo}, #{qfile}, #{aQfile})
+	</insert>
+	
+	<update id="updateqFile"></update>
+	
+	<delete id="deleteqFile"></delete>
+</mapper>
