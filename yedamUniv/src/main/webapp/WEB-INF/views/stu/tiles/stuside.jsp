@@ -8,7 +8,7 @@
             </div>
             <div class="admin-info">
               <div class="font-strong">${name }</div>
-              <div>${major}학과 ${grade}학년</div>
+              <div>${major} ${grade}학년</div>
             </div>
           </div>
           <ul class="side-menu metismenu">

@@ -33,8 +33,12 @@
 	<select id="classHistoryList"
 	parameterType="co.yedam.univ.reg.service.RegisterVO"
 	resultType="co.yedam.univ.reg.service.RegisterVO">
-		SELECT S.SUBJECT_DETAIL, S.SUBJECT_NAME, S.SUBJECT_NUM, S.SUBJECT_SCORE, 
-			   P.PRO_NAME, S.SUBJECT_DAY, S.SUBJECT_TIME, S.SUBJECT_ROOM, S.SUBJECT_NO
+		SELECT  S.SUBJECT_DETAIL, S.SUBJECT_NAME, 
+          		S.SUBJECT_NUM, S.SUBJECT_SCORE, 
+          		P.PRO_NAME, S.SUBJECT_DAY, S.SUBJECT_SEMESTER,
+          		S.SUBJECT_TIME, S.SUBJECT_ROOM, 
+          		S.SUBJECT_NO, S.SUBJECT_TOTAL,S.SUBJECT_SUM,
+          		S.SUBJECT_GOAL, S.SUBJECT_DATA, S.SUBJECT_CONTENTS
 		FROM REGISTER R JOIN SUBJECT S
 		ON ( R.SUBJECT_NO = S.SUBJECT_NO)
 		JOIN USER_PRO P
@@ -44,17 +48,60 @@
 		AND R.REGISTER_TERM = #{registerTerm}
 	</select>
 	
-	<resultMap type="hashmap" id="pro_result" />
-	<select id="procedureSpareSeat" parameterType="hashmap" statementType="CALLABLE">
-			{CALL spareSeat(
-				#{subjectNo, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
-				#{year, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
-				#{term, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
-				#{stuId, mode=IN, jdbcType=VARCHAR, javaType=STRING},
-				#{day, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
-				#{time, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
-				#{result, mode=OUT, jdbcType=INTEGER, javaType=INTEGER, resultMap=pro_result}
-				)
-			}
+	<select id="alreadyRegister"
+	parameterType="co.yedam.univ.reg.service.RegisterVO"
+	resultType="integer">
+		SELECT COUNT(*) 
+	    FROM
+	    (SELECT * FROM REGISTER
+	    WHERE STU_ID = #{stuId}
+	    AND SUBJECT_NO = #{subjectNo})
 	</select>
+	<select id="exceedRegister"
+	parameterType="co.yedam.univ.reg.service.RegisterVO"
+	resultType="integer">
+		SELECT SUM(S.SUBJECT_SCORE)
+	    FROM SUBJECT S JOIN REGISTER R
+	    ON (S.SUBJECT_NO = R.SUBJECT_NO)
+	    WHERE STU_ID = #{stuId}
+	</select>
+	<select id="sameRegister"
+	parameterType="co.yedam.univ.reg.service.RegisterVO"
+	resultType="integer">
+		SELECT COUNT(*)
+	    FROM (
+               SELECT S.SUBJECT_DAY, S.SUBJECT_TIME
+               FROM SUBJECT S JOIN REGISTER R
+               ON (S.SUBJECT_NO = R.SUBJECT_NO)
+               WHERE STU_ID =  #{stuId}) A
+	    WHERE A.SUBJECT_DAY = #{subjectDay}
+	    AND A.SUBJECT_TIME = #{subjectTime}
+	</select>
+	<select id="subjectTotal"
+	parameterType="co.yedam.univ.reg.service.RegisterVO"
+	resultType="integer">
+		select subject_total
+	    from subject
+	    where subject_no = #{subjectNo}
+	</select>
+	<select id="listenStudentSum"
+	parameterType="co.yedam.univ.reg.service.RegisterVO"
+	resultType="integer">
+		SELECT COUNT(*)
+	    FROM REGISTER
+	    WHERE SUBJECT_NO =  #{subjectNo}
+	    AND REGISTER_YEAR = #{registerYear} 
+	    AND REGISTER_TERM = #{registerTerm}
+	</select>
+	<insert id="insertRegister"
+	parameterType="co.yedam.univ.reg.service.RegisterVO">
+		<selectKey keyProperty="registerNo" order="BEFORE" resultType="integer">
+			SELECT MAX(REGISTER_NO)+1 FROM REGISTER
+		</selectKey>
+		INSERT INTO REGISTER(REGISTER_NO, SUBJECT_NO, STU_ID, 
+							 REGISTER_SEMESTER, REGISTER_YEAR, 
+							 REGISTER_TERM)
+		VALUES(#{registerNo},#{subjectNo},#{stuId},
+			   #{registerSemester},#{registerYear},#{registerTerm})
+	</insert>
 </mapper>

@@ -1,8 +1,6 @@
 package co.yedam.univ.reg.serviceImpl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,28 +24,40 @@ public class RegisterServiceImpl implements RegisterService {
 	public int countRegister(RegisterVO vo) {
 		return map.countRegister(vo);
 	}
-	
-	@Override
-	public void procedureSpareSeat(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-	}
-	
-	public Map<String, Object> procedureInputData(int subjectNo, int year, int term, String stuId, int day, int time){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("subjectNo", subjectNo);
-		map.put("year", year);
-		map.put("term", term);
-		map.put("stuId", stuId);
-		map.put("day", day);
-		map.put("time", time);
-		registerDao.procedureSpareSeat(map);
-		
-		return map;
-	}
 
 	@Override
 	public List<RegisterVO> classHistoryList(RegisterVO vo) {
 		return map.classHistoryList(vo);
+	}
+
+	@Override
+	public int alreadyRegister(RegisterVO vo) {
+		return map.alreadyRegister(vo);
+	}
+
+	@Override
+	public int exceedRegister(RegisterVO vo) {
+		return map.exceedRegister(vo);
+	}
+
+	@Override
+	public int sameRegister(RegisterVO vo) {
+		return map.sameRegister(vo);
+	}
+
+	@Override
+	public int subjectTotal(RegisterVO vo) {
+		return map.subjectTotal(vo);
+	}
+
+	@Override
+	public int listenStudentSum(RegisterVO vo) {
+		return map.listenStudentSum(vo);
+	}
+
+	@Override
+	public int insertRegister(RegisterVO vo) {
+		return map.insertRegister(vo);
 	}
 
 }
