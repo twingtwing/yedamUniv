@@ -11,6 +11,7 @@ public class RegisterVO {
 	private String stuId;
 	private int registerYear;
 	private int registerTerm;
+	private String registerSemester;
 	private int midExam;
 	private int FinalExam;
 	private int grade;
@@ -28,6 +29,9 @@ public class RegisterVO {
 	
 	private int year;
 	private int term;
+	
+	private int avg;
+	private String proId;
 	
 	private int result;
 }
