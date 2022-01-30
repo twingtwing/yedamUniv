@@ -12,6 +12,75 @@
 		AND subject_semester=#{subjectSemester}
 	</select>
 	
+	<select id="subjectPostList" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT s.subject_name,b.bs_no,b.pro_id,b.bs_date,b.bs_title,b.bs_contents,b.board_hits
+		FROM subject s JOIN subject_board b
+		ON(s.subject_no = b.subject_no)
+		WHERE s.pro_id=#{proId} AND s.subject_no=#{subjectNo}
+		ORDER BY bs_no DESC
+	</select>
+	
+	<select id="subjectQnAList" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT s.subject_no,s.subject_name,q.sq_no,q.stu_id,q.stu_name,q.major,q.sq_date,q.sq_title,q.sq_contents,q.sq_state
+		FROM subject s RIGHT OUTER JOIN  subject_QnA q
+		ON(s.subject_no = q.subject_no)
+		WHERE s.pro_id=#{proId} AND s.subject_no=#{subjectNo}
+		ORDER BY q.sq_no DESC
+	</select>
+	
+	<select id="subjectQnaSelect" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT * FROM subject_qna WHERE sq_no=#{sqNo}
+	</select>
+	
+	<select id="subjectBoardSelect" resultType="co.yedam.univ.sub.service.SubVO">
+	 	SELECT * FROM subject_board
+		
+		WHERE bs_no=${bsNo}
+	</select>
+	
+	<update id="updateBoardHit" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_board
+		SET board_hits= board_hits+1
+		WHERE bs_no=${bsNo}
+	</update>
+	
+	<insert id="insertBoard" parameterType="co.yedam.univ.sub.service.SubVO">
+		<selectKey keyProperty="bsNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(bs_no),0)+1 FROM SUBJECT_BOARD
+		</selectKey>
+		INSERT INTO subject_board(bs_no,subject_no,pro_id,bs_title,bs_contents)
+		values(#{bsNo},#{subjectNo},#{proId},#{bsTitle},#{bsContents})
+	</insert>
+	
+	<update id="updateBoard" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_board
+		SET bs_title=#{bsTitle}, bs_contents=#{bsContents}
+		WHERE bs_no=#{bsNo}
+	
+	</update>
+	
+	<delete id="deleteBoard" parameterType="co.yedam.univ.sub.service.SubVO">
+		DELETE FROM subject_board WHERE bs_no=#{bsNo}
+	</delete>
+	
+	<update id="qnaAnswerUpdate" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_qna
+		SET sa_contents=#{saContents},sa_date=sysdate
+		WHERE sq_no=#{sqNo} AND pro_id=#{proId}
+	</update>
+	
+	<update id="qnaAnswerInsert" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_qna
+		SET sa_contents=#{saContents},sa_date=sysdate,sq_state='Y'
+		WHERE sq_no=#{sqNo} AND pro_id=#{proId} and subject_no=#{subjectNo}
+	</update>
+	
+	<update id="qnaAnswerDelete" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_qna
+		SET sa_contents='',sa_date='',sq_state='N'
+		WHERE sq_no=#{sqNo} AND pro_id=#{proId} AND subject_no=#{subjectNo}
+	</update>
+	
 	<select id="subjectSelect" resultType="co.yedam.univ.sub.service.SubVO">
 		SELECT * FROM SUBJECT 
 		WHERE SUBJECT_NO = #{subjectNo}

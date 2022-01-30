@@ -65,5 +65,71 @@ public class SubServiceImpl implements SubService {
 		return map.subjectCount(vo);
 	}
 
+	@Override
+	public List<SubVO> subjectPostList(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.subjectPostList(vo);
+	}
+
+	@Override
+	public List<SubVO> subjectQnAList(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.subjectQnAList(vo);
+	}
+
+	@Override
+	public SubVO subjectBoardSelect(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.subjectBoardSelect(vo);
+	}
+
+	@Override
+	public int updateBoardHit(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.updateBoardHit(vo);
+	}
+
+	@Override
+	public int insertBoard(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.insertBoard(vo);
+	}
+
+	@Override
+	public int updateBoard(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.updateBoard(vo);
+	}
+
+	@Override
+	public int deleteBoard(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.deleteBoard(vo);
+	}
+
+	@Override
+	public SubVO subjectQnaSelect(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.subjectQnaSelect(vo);
+	}
+
+	@Override
+	public int qnaAnswerUpdate(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.qnaAnswerUpdate(vo);
+	}
+
+	@Override
+	public int qnaAnswerInsert(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.qnaAnswerInsert(vo);
+	}
+
+	@Override
+	public int qnaAnswerDelete(SubVO vo) {
+		// TODO Auto-generated method stub
+		return map.qnaAnswerDelete(vo);
+	}
+
 
 }

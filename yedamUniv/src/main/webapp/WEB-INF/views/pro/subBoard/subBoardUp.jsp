@@ -39,7 +39,7 @@
                         <i class="ti-book text-warning" style="font-size: 30px;"></i>
                         <div class="ml-2 d-flex align-items-center">
                             <a href="/univ/pro/mySubDetail.do?subNo=" alt="my subject" class="back_link">
-                                <h4 class="mb-0 font-weight-bold">강의이름 | 강의번호</h4>
+                                <h4 class="mb-0 font-weight-bold">${subName } | ${subNo }</h4>
                             </a>
                         </div>
                     </div>
@@ -63,12 +63,12 @@
                                                     <div class="row col-lg-12">
                                                         <h6 class="mb-0 d-flex align-items-center">제목 : </h6>
                                                         <div class="col-lg-11">
-                                                            <input id="bsTitle" name="bsTitle" class="form-control pl-0 ml-0" style="height: 30px;" type="text" placeholder="제목 입력...">
+                                                            <input id="bsTitle" name="bsTitle" class="form-control pl-0 ml-0" style="height: 30px;" type="text" value="${board.bsTitle }">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row px-2 py-4">
-                                                    <textarea id="bsContents" name="bsContents" class="form-control" rows="15">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima sint et officiis asperiores, error magni magnam repudiandae, vero sequi tenetur rerum a alias omnis corruptidoloribus eius? Ea, tempore debitis.</textarea>
+                                                    <textarea id="bsContents" name="bsContents" class="form-control" rows="15">${board.bsContents }</textarea>
                                                 </div>
                                                 <!-- 다중 파일이 되도록 수정해야함 -->
                                                 <div class="row bg-silver-100 pt-2 pb-2">
@@ -83,6 +83,10 @@
                                             <button id="bsBack" type="button" class="btn btn-default" style="width: 80px;">취소</button>
                                         </div>
                                     </div>
+                                       <input type="hidden" name="subNo" value="${subNo }">
+                      				  <input type="hidden" name="subName" value="${subName }">
+                      				  <input type="hidden" name="bsNo" value="${bsNo }">
+                      				  
                                 </form>
                                 
                             </div>
@@ -102,6 +106,10 @@
                 bsContents.focus();
             }else{
                 //전송
+                if(confirm('수정하시겠습니까?')){
+                	bsFrm.action="/univ/pro/boardUpdate.do";
+                	bsFrm.submit();
+                }
             }
 
         });

@@ -1,14 +1,15 @@
 package co.yedam.univ.sub.service;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+
+@Data
 public class SubVO {
+	//subject
 	private int subjectNo; //과목순번
 	private int subjectNum; //과목코드
 	private String proId;
+	private String proName;
 	private String subjectName;
 	private String subjectDetail; //이수구분(교양,전공)
 	private String subjectMajor; //전공
@@ -29,4 +30,36 @@ public class SubVO {
 	
 	private int registerNum; //강의평가 총점
 	private int subjectCount; //수강 총 갯수
+	
+	
+	//과목 공지사항
+	private int bsNo;
+	private String bsDate;
+	private String bsTitle;
+	private String bsContents;
+	private int boardHits;
+	
+	
+	//과목 공지사항 첨부파일
+	private int bsfileNo;
+	private String bsfile;
+	private String pBsfile;
+	
+	public String getpBsfile() {
+		return pBsfile;
+	}
+	public void setpBsfile(String pBsfile) {
+		this.pBsfile = pBsfile;
+	}
+	//과목 QnA
+	private int sqNo;
+	private String stuId;
+	private String sqTitle;
+	private String sqContents;
+	private String sqDate;
+	private String sqState;
+	private String saContents;
+	private String saDate;
+	private String stuName;
+	private String major;
 }

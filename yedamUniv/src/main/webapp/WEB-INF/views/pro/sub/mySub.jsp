@@ -122,7 +122,6 @@ prefix="fn"%>
                     <th class="text-center">정원</th>
                     <th class="text-center">시간표</th>
                     <th class="text-center" width="140">강의실</th>
-                    <th class="text-center">강의평가</th>
                     <th class="text-center">홈</th>
                   </tr>
                 </thead>
@@ -160,7 +159,7 @@ prefix="fn"%>
       const select = document.querySelector("select[name=subjectSemester]");
       const selectSubjectSemester = () => {
         const option = select.options[select.selectedIndex].value;
-        console.log(option);
+       
 
         $.ajax({
           type: "post",
@@ -199,10 +198,7 @@ prefix="fn"%>
                 }
               }
               row += "<td>" + data[subject].subjectRoom + "</td>";
-              row += "<td>" + "</td>";
 
-              const subjectNo = data[subject].subjectNo;
-              console.log(subjectNo);
               row += `<td><button class='btn btn-primary btn' >바로가기</button></td>`;
               row += "<tr>";
             } //End of If
@@ -220,7 +216,10 @@ prefix="fn"%>
             function goToTheClassHome() {
               console.log(event.target);
               location.href =
-                "/univ/pro/mySubDetail.do?subNo=" + data[subject].subjectNo;
+                "/univ/pro/mySubDetail.do?subNo=" +
+                data[subject].subjectNo +
+                "&&subName=" +
+                data[subject].subjectName;
             }
             for (var i = 0; i < btn.length; i++) {
               btn[i].addEventListener("click", goToTheClassHome);
