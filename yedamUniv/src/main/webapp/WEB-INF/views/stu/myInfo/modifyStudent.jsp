@@ -98,7 +98,7 @@
                                         <th>이메일</th>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <input type="email" class="form-control" placeholder="" aria-label="Phone Number" style="width: 60%;">
+                                                <input type="email" class="form-control" placeholder="" aria-label="email" style="width: 90%;">
                                                     
                                             </div>
                                         </td>
@@ -107,12 +107,16 @@
                                         <th>우편번호</th>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <input type="text" class="form-control" placeholder="" aria-label="Phone Number" style="width: 60%;">
+                                                <input type="text" class="form-control" id="stuZipcode" placeholder="" aria-label="Phone Number" style="width: 60%;">
                                                     <button class="ml-3 btn btn-outline-secondary" id="address_kakao" type="button">검색</button>
                                             </div>
                                         </td>
                                         <th>주소</th>
-                                        <td colspan="3"><input type="text" class="form-control" id="sample6_postcode" aria-label="Phone Number"></td>
+                                        <td colspan="3"><input type="text" class="form-control" id="stuAddr" ></td>
+                                     </tr>
+                                     <tr>
+                                     	<th>상세주소</th>
+                                     	<td><input type="text" class="form-control" name="stuAddr2"></td>
                                      </tr>
                        
                                  </tbdoy>
@@ -168,6 +172,7 @@
                         <div class="ibox-body">
                             <table class="table table-bordered text-center">
                                 <thead class="list-thead">
+                                <tr>
                                     <th class="text-center">년도</th>
                                     <th class="text-center">학기</th>
                                     <th class="text-center">변동유형</th>
@@ -176,6 +181,7 @@
                                     <th class="text-center">학년</th>
                                     <th class="text-center">복학예정년도</th>
                                     <th class="text-center">복학예정학기</th>
+                                    </tr>
                                 </thead>
                                 <tbdoy>
                                    <tr>
@@ -200,7 +206,7 @@
             </div>
             
         
-          <script>
+          
           <script
       	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
       <script>
@@ -213,9 +219,9 @@
               new daum.Postcode({
                 oncomplete: function (data) {
                   //선택시 입력값 세팅
-                  document.getElementById("sample6_postcode").value = data.zonecode;
-                  document.getElementById("sample6_address").value = data.roadAddress; // 주소 넣기
-                  document.querySelector("input[name=addressdetail]").focus(); //상세입력 포커싱
+                  document.getElementById("stuZipcode").value = data.zonecode;
+                  document.getElementById("stuAddr").value = data.roadAddress; // 주소 넣기
+                  document.querySelector("input[name=stuAddr2]").focus(); //상세입력 포커싱
                 },
               }).open();
             });

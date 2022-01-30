@@ -9,7 +9,11 @@
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 </head>
 <body>
-
+<div class="all-title-box">
+		<div class="container text-center">
+			<h1>장학</h1>
+		</div>
+</div>
 <!-- 시작 -->
     <div id="overviews" class="section wb" style="background-color: #F2F2F2;">
         <div class="container">

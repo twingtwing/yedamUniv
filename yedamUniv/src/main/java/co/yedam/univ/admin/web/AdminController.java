@@ -21,6 +21,7 @@ import co.yedam.univ.board.service.BoardFilesService;
 import co.yedam.univ.board.service.BoardFilesVO;
 import co.yedam.univ.board.service.BoardService;
 import co.yedam.univ.board.service.BoardVO;
+import co.yedam.univ.qna.service.qnaVO;
 
 @Controller
 public class AdminController {

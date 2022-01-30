@@ -78,6 +78,7 @@ prefix="fn"%>
                         name="subjectSemester"
                         class="form-control text-center"
                       >
+                        <option>선택</option>
                         <c:if test="${!empty subList  }">
                           <c:forEach var="subject" items="${subList }">
                             <option value="${subject.subjectSemester }">
@@ -102,10 +103,10 @@ prefix="fn"%>
               class="fa fa-chevron-circle-right fa-lg mt-5 mb-3 m-r-10 m-b-10"
               style="color: var(--blue)"
             ></i>
-            수강목록 (<span
-              class="text-danger ml-1 mr-1"
+            강의목록 (<span
+              class="text-danger ml-1 mr-1 class_cnt"
               style="font-weight: 600"
-              >${fn:length(subList) }</span
+              >0</span
             >) 건
           </h4>
           <div class="ibox">
@@ -119,34 +120,17 @@ prefix="fn"%>
                     <th class="text-center">이수구분</th>
                     <th class="text-center">현원</th>
                     <th class="text-center">정원</th>
-                    <th class="text-center">시간표 : 강의실</th>
-                    <th class="text-center" width="140">강의평가</th>
+                    <th class="text-center">시간표</th>
+                    <th class="text-center" width="140">강의실</th>
+                    <th class="text-center">홈</th>
                   </tr>
                 </thead>
-                <tbody class="list-tbody">
-                  <c:if test="${!empty subList  }">
-                    <c:forEach var="subject" items="${subList }">
-                      <tr
-                        id="subNo"
-                        onclick="location.href='/univ/pro/mySubDetail.do?subNo=${subject.subjectNo}'"
-                      >
-                        <td>${subject.subjectNo }</td>
-                        <td>${subject.subjectName }</td>
-                        <td>${subject.subjectNum }</td>
-                        <td>${subject.subjectDetail }</td>
-                        <td>${subject.subjectCnt }</td>
-                        <td>${subject.subjectTotal }</td>
-                        <td>${subject.subjectRoom }</td>
-                        <td></td>
-                      </tr>
-                    </c:forEach>
-                  </c:if>
-                  <!-- 
-                                            <tr>
-                                                강의가 없을 경우
-                                                <td colspan="7" class="text-center font-weight-bold">강의가 없습니다.</td>
-                                            </tr>
-                                        -->
+                <tbody class="list-tbody" id="viewTbody">
+                  <tr>
+                    <td colspan="9" class="text-center font-weight-bold">
+                      조회된 강의가 없습니다.
+                    </td>
+                  </tr>
                 </tbody>
               </table>
               <!-- 공간이 남아서 여기에 도움말 같은 거 추가 필요 -->
@@ -157,23 +141,92 @@ prefix="fn"%>
     </div>
 
     <script type="text/javascript">
+      //시간표
+      const days = { 1: "월", 2: "화", 3: "수", 4: "목", 5: "금", 6: "토" };
+      const times = {
+        1: "9:00 - 9:50",
+        2: "10:00 - 10:50",
+        3: "11:00 - 11:50",
+        4: "12:00 - 12:50",
+        5: "1:00 - 1:50",
+        6: "2:00 - 2:50",
+        7: "3:00 - 3:50",
+        8: "4:00 - 4:50",
+        9: "5:00 - 5:50",
+      };
+
+      //학기별 강의 목록 불러오기
       const select = document.querySelector("select[name=subjectSemester]");
-      const selectSubjectSemester = ()=>{
-    	
-    	  /* const option = select.options[select.selectedIndex].value;
-         	$.ajax({
-              type:"get",
-              url:"/univ/pro/mySubListAjax.do",
-              data:{semester:option},
-              
-              dataType:'json',
-              async:true,
-              cache:false
-          }) 
-          .done(function(data){
-        	  console.log(data)
-          }) */
-      }
+      const selectSubjectSemester = () => {
+        const option = select.options[select.selectedIndex].value;
+       
+
+        $.ajax({
+          type: "post",
+          url: "/univ/pro/mySubListAjax.do",
+          data: { semester: option },
+        }).done((data) => {
+          console.log(data);
+          //기존 tbody 지우기
+          $("#viewTbody").empty();
+
+          //바닐라 js
+          //tbody 만들기
+          const tr = document.createElement("tr");
+          const tbody = document.querySelector("tbody");
+          const table = document.querySelector("table");
+          let row = "";
+          for (const subject in data) {
+            if (data[subject].subjectStatus == "Y") {
+              row += "<tr>";
+              row += "<td>" + data[subject].subjectNo + "</td>";
+              row += "<td>" + data[subject].subjectName + "</td>";
+              row += "<td>" + data[subject].subjectNum + "</td>";
+              row += "<td>" + data[subject].subjectDetail + "</td>";
+              row += "<td>" + data[subject].subjectCnt + "</td>";
+              row += "<td>" + data[subject].subjectTotal + "</td>";
+
+              for (const subDay in days) {
+                for (const subTimes in times) {
+                  if (
+                    subDay === data[subject].subjectDay &&
+                    subTimes == data[subject].subjectTime
+                  ) {
+                    row +=
+                      "<td>" + days[subDay] + " " + times[subTimes] + "</td>";
+                  }
+                }
+              }
+              row += "<td>" + data[subject].subjectRoom + "</td>";
+
+              row += `<td><button class='btn btn-primary btn' >바로가기</button></td>`;
+              row += "<tr>";
+            } //End of If
+
+            //강의 목록 수
+            const classCnt = document.querySelector(".class_cnt");
+            const result = data.filter(
+              (subject) => subject.subjectStatus == "Y"
+            );
+            classCnt.innerText = result.length;
+            tbody.innerHTML = row;
+
+            //버튼 누르면 해강강의 이동
+            const btn = document.getElementsByClassName("btn");
+            function goToTheClassHome() {
+              console.log(event.target);
+              location.href =
+                "/univ/pro/mySubDetail.do?subNo=" +
+                data[subject].subjectNo +
+                "&&subName=" +
+                data[subject].subjectName;
+            }
+            for (var i = 0; i < btn.length; i++) {
+              btn[i].addEventListener("click", goToTheClassHome);
+            }
+          } //End of for
+        });
+      };
       select.addEventListener("change", selectSubjectSemester);
     </script>
   </body>
