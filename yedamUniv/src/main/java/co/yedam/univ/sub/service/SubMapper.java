@@ -3,6 +3,10 @@ package co.yedam.univ.sub.service;
 import java.util.List;
 
 public interface SubMapper {
+	
+	List<SubVO> enrolmentMajorList(SubVO vo); //수강신청-학과조회
+	List<SubVO> enrolmentSubNameList(SubVO vo); //수강신청-과목명조회
+
 	List<SubVO> subjectList(String id);//강의목록 학기
 	List<SubVO> subjectSelectList(SubVO vo);//해당 학기 강의목록
 	List<SubVO> subjectPostList(SubVO vo); //공지사항목록
@@ -28,4 +32,5 @@ public interface SubMapper {
 	int subjectInsert(SubVO vo);//강의등록
 	int subjectUpdate(SubVO vo);//강의수정
 	int subjectDelete(SubVO vo);//강의삭제
+
 }

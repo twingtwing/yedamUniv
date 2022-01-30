@@ -11,4 +11,9 @@
 		<!-- CamelCase 형태로 자동변환 -->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
+	<!-- 프로시저 사용 -->
+	<typeAliases>
+		<typeAlias alias="registerVO" type="co.yedam.univ.reg.service.RegisterVO"/>
+		<typeAlias alias="transferVO" type="co.yedam.univ.reg.service.TransferVO"/>
+	</typeAliases>
 </configuration>

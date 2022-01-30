@@ -10,6 +10,9 @@ public interface SubService {
 	SubVO subjectBoardSelect(SubVO vo); //공지사항 게시글\
 	int updateBoardHit(SubVO vo); // 조회수
 	
+	List<SubVO> enrolmentMajorList(SubVO vo); //수강신청-학과조회
+	List<SubVO> enrolmentSubNameList(SubVO vo); //수강신청-과목명조회
+
 	int insertBoard(SubVO vo); //공지사항 등록
 	int updateBoard(SubVO vo); //공지사항 업데이트
 	int deleteBoard(SubVO vo); //공지사항 삭제
@@ -29,4 +32,5 @@ public interface SubService {
 	int subjectInsert(SubVO vo);//강의등록
 	int subjectUpdate(SubVO vo);//강의수정
 	int subjectDelete(SubVO vo);//강의삭제
+
 }

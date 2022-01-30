@@ -34,7 +34,6 @@
 	
 	<select id="subjectBoardSelect" resultType="co.yedam.univ.sub.service.SubVO">
 	 	SELECT * FROM subject_board
-		
 		WHERE bs_no=${bsNo}
 	</select>
 	
@@ -145,4 +144,21 @@
 		WHERE SUBJECT_NO = #{subjectNo}
 	</delete>
 
+	<select id="enrolmentMajorList"
+	parameterType="co.yedam.univ.sub.service.SubVO"
+	resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT  P.PRO_NAME, S.*
+		FROM SUBJECT S, USER_PRO P
+		WHERE S.PRO_ID = P.PRO_ID
+		AND SUBJECT_MAJOR LIKE '%'||#{subjectMajor}||'%'
+	</select>
+	
+	<select id="enrolmentSubNameList"
+	parameterType="co.yedam.univ.sub.service.SubVO"
+	resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT  P.PRO_NAME, S.*
+		FROM SUBJECT S, USER_PRO P
+		WHERE S.PRO_ID = P.PRO_ID
+		AND SUBJECT_NAME LIKE '%'||#{subjectName}||'%'
+	</select>
 </mapper>

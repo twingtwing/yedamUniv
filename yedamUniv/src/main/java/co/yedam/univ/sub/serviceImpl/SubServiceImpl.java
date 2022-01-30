@@ -26,6 +26,15 @@ public class SubServiceImpl implements SubService {
 	}
 
 	@Override
+	public List<SubVO> enrolmentMajorList(SubVO vo) {
+		return map.enrolmentMajorList(vo);
+	}
+
+	@Override
+	public List<SubVO> enrolmentSubNameList(SubVO vo) {
+		return map.enrolmentSubNameList(vo);
+	}
+
 	public List<Integer> subjectDay(SubVO vo) {
 		return map.subjectDay(vo);
 	}
@@ -130,6 +139,5 @@ public class SubServiceImpl implements SubService {
 		// TODO Auto-generated method stub
 		return map.qnaAnswerDelete(vo);
 	}
-
 
 }

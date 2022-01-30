@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.reg.service.RegisterMapper">
+	<select id="registerList"
+	resultType="co.yedam.univ.reg.service.RegisterVO"
+	parameterType="co.yedam.univ.reg.service.RegisterVO">
+		SELECT R.*, P.PRO_NAME, 
+			   S.SUBJECT_DETAIL, S.SUBJECT_NUM, S.SUBJECT_NAME, S.SUBJECT_SCORE,
+			   S.SUBJECT_MAJOR, S.SUBJECT_DAY, S.SUBJECT_TIME
+        FROM REGISTER R JOIN SUBJECT S
+        ON (R.SUBJECT_NO = S.SUBJECT_NO)
+        JOIN USER_PRO P
+        ON (P.PRO_ID = S.PRO_ID)
+        WHERE R.STU_ID = #{stuId}
+        AND R.REGISTER_YEAR = #{registerYear}
+        AND R.REGISTER_TERM = #{registerTerm}
+	</select>
+	<select id="countRegister"
+	resultType="integer"
+	parameterType="co.yedam.univ.reg.service.RegisterVO">
+		SELECT COUNT(*) FROM 
+			(SELECT R.*, P.PRO_NAME, 
+			S.SUBJECT_DETAIL, S.SUBJECT_NUM, S.SUBJECT_NAME, S.SUBJECT_SCORE,
+	 		S.SUBJECT_MAJOR, S.SUBJECT_DAY, S.SUBJECT_TIME
+	        FROM REGISTER R JOIN SUBJECT S
+	        ON (R.SUBJECT_NO = S.SUBJECT_NO)
+	        JOIN USER_PRO P
+	        ON (P.PRO_ID = S.PRO_ID)
+	        WHERE R.STU_ID = #{stuId}
+	        AND R.REGISTER_YEAR = #{registerYear}
+	        AND R.REGISTER_TERM = #{registerTerm})
+	</select>
+	<select id="classHistoryList"
+	parameterType="co.yedam.univ.reg.service.RegisterVO"
+	resultType="co.yedam.univ.reg.service.RegisterVO">
+		SELECT S.SUBJECT_DETAIL, S.SUBJECT_NAME, S.SUBJECT_NUM, S.SUBJECT_SCORE, 
+			   P.PRO_NAME, S.SUBJECT_DAY, S.SUBJECT_TIME, S.SUBJECT_ROOM, S.SUBJECT_NO
+		FROM REGISTER R JOIN SUBJECT S
+		ON ( R.SUBJECT_NO = S.SUBJECT_NO)
+		JOIN USER_PRO P
+		ON ( S.PRO_ID = P.PRO_ID)
+		WHERE R.STU_ID = #{stuId}
+		AND R.REGISTER_YEAR = #{registerYear}
+		AND R.REGISTER_TERM = #{registerTerm}
+	</select>
+	
+	<resultMap type="hashmap" id="pro_result" />
+	<select id="procedureSpareSeat" parameterType="hashmap" statementType="CALLABLE">
+			{CALL spareSeat(
+				#{subjectNo, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
+				#{year, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
+				#{term, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
+				#{stuId, mode=IN, jdbcType=VARCHAR, javaType=STRING},
+				#{day, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
+				#{time, mode=IN, jdbcType=INTEGER, javaType=INTEGER},
+				#{result, mode=OUT, jdbcType=INTEGER, javaType=INTEGER, resultMap=pro_result}
+				)
+			}
+	</select>
+</mapper>
