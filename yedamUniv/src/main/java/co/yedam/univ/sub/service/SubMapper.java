@@ -24,7 +24,6 @@ public interface SubMapper {
     int qnaAnswerInsert(SubVO vo); //답변 등록
     int qnaAnswerDelete(SubVO vo); //답변 삭제
 
-	int subjectNum(SubVO vo);//강의평가 점수(이번학기)
 	int subjectCount(SubVO vo);//총 강의신청 갯수(이번학기)
 	List<CriteriaSub> subjectPagenation(CriteriaSub cri);
 	SubVO subjectSelect(SubVO vo);
@@ -32,5 +31,8 @@ public interface SubMapper {
 	int subjectInsert(SubVO vo);//강의등록
 	int subjectUpdate(SubVO vo);//강의수정
 	int subjectDelete(SubVO vo);//강의삭제
+	
+	List<CriteriaSub> subAdminPage(CriteriaSub cri);
+	int subjectStatus(SubVO vo);//승인수정
 
 }

@@ -33,6 +33,14 @@ public class SubController {
 		model.addAttribute("subList", subDao.subjectList(vo.getProId()));
 		return "pro/sub/mySub";
 	}
+	
+	@GetMapping("pro/pro.do")
+	public String pro(HttpSession session,SubVO vo, Model model) {
+		
+		vo.setProId((String)session.getAttribute("proId"));
+		model.addAttribute("subList", subDao.subjectList(vo.getProId()));
+		return "pro/sub/mySub";
+	}
 	//강의목록
 	
 	@ResponseBody
@@ -86,16 +94,16 @@ public class SubController {
 	@GetMapping("pro/subApplyList.do")
 	public String subApplyList(Model model,CriteriaSub cri,SubVO vo,HttpSession session) {
 		cri.setProId((String)session.getAttribute("id"));
+		
 		vo.setProId((String)session.getAttribute("id"));
 		vo.setSubjectSemester("2022-01");
+		
 		List<CriteriaSub> list = subDao.subjectPagenation(cri);
 		model.addAttribute("subList",list);
 		model.addAttribute("pageMaker", new PageVO(cri, list.size()));
-		
-		int num = subDao.subjectNum(vo);
+		;
 		int count = subDao.subjectCount(vo);
-		model.addAttribute("registerNum", num);
-		model.addAttribute("subjectCount",num-count);
+		model.addAttribute("subjectCount",5-count);
 		return "pro/sub/subApplyList";
 	}
 	
@@ -175,5 +183,38 @@ public class SubController {
 		}
 		return result;
 	}
-
+	
+	//ADMIN
+		
+	//강의등록메뉴-강의등록처리
+	@GetMapping("/admin/listAddClass.do")
+	public String listAddClass(CriteriaSub cri,Model model) {
+		if(cri.getSubjectStatus() == null) {
+			cri.setSubjectStatus("");
+		}
+		List<CriteriaSub> list = subDao.subAdminPage(cri);
+		model.addAttribute("subList",list);
+		model.addAttribute("pageMaker", new PageVO(cri, list.size()));
+		return "admin/AddClass/listAddClass";
+	}
+	
+	//강의등록 상세화면
+	@GetMapping("/admin/selectAddClass.do")
+	public String selectAddClass(SubVO vo, Model model) {
+		model.addAttribute("sub",subDao.subjectSelect(vo));
+		return "admin/AddClass/selectAddClass";
+	}
+	
+	//승인처리
+	@ResponseBody
+	@PostMapping("/admin/subjectStatus.do")
+	public String subjectStatus(SubVO vo) {
+		String result = "N";
+		int r = subDao.subjectStatus(vo);
+		if(r!=0) {
+			result = "Y";
+		}
+		return result;
+	}
+	
 }

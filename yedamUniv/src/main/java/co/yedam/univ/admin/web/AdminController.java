@@ -325,12 +325,6 @@ public class AdminController {
       return "admin/Users/listStu";
    }
    
-   //멤버관리메뉴-휴·복학/자퇴 신청 관리
-   @RequestMapping("/admin/listPapers.do")
-   public String listPapers() {
-      return "admin/Users/listPapers";
-   }
-   
    //자유게시판메뉴-자유게시판 관리
    @RequestMapping("/admin/listBoard.do")
    public String listBoard() {
@@ -354,4 +348,5 @@ public class AdminController {
    public String listAddClass() {
       return "admin/AddClass/listAddClass";
    }
+
 }

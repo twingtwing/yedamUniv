@@ -96,14 +96,16 @@
 		WHERE rn &gt; (#{pageNum}-1)*#{amount}
 	</select>
 	
-	<select id="subjectNum" resultType="int" parameterType="co.yedam.univ.sub.service.SubVO">
-		SELECT AVG(R.REGISTER_NUM) AS REGISTER_NUM
-		FROM REGISTER R JOIN SUBJECT S
-		ON R.SUBJECT_NO = S.SUBJECT_NO
-		WHERE S.PRO_ID = #{proId}
-		AND S.SUBJECT_SEMESTER = #{subjectSemester}
-		AND R.REGISTER_SEMESTER = #{subjectSemester}
-		GROUP BY S.SUBJECT_NO
+	<select id="subAdminPage" parameterType="co.yedam.univ.sub.service.CriteriaSub" resultType="co.yedam.univ.sub.service.CriteriaSub">
+		SELECT * FROM(
+			SELECT ROWNUM AS RN, S.SUBJECT_NO, S.SUBJECT_NAME, S.SUBJECT_SCORE,P.PRO_NAME,S.SUBJECT_DATE,S.SUBJECT_PERMIT,S.SUBJECT_STATUS,S.SUBJECT_DETAIL
+			FROM SUBJECT S JOIN USER_PRO P
+			ON S.PRO_ID =  P.PRO_ID
+			WHERE ROWNUM &lt;= #{pageNum} * #{amount}
+			<if test="subjectName != ''">AND S.SUBJECT_NAME like '%' ||  #{subjectName} || '%'</if>
+			<if test="subjectStatus != ''">AND S.SUBJECT_STATUS = #{subjectStatus}</if> 
+			)
+		WHERE rn &gt; (#{pageNum}-1)*#{amount}
 	</select>
 	
 	<select id="subjectCount" resultType="int" parameterType="co.yedam.univ.sub.service.SubVO">
@@ -125,7 +127,7 @@
 		<selectKey keyProperty="subjectNo" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(subject_no),0)+1 FROM SUBJECT
 		</selectKey>
-		INSERT INTO SUBJECT(SUBJECT_NO,SUBJECT_NUM,PRO_ID,SUBJECT_NAME,SUBJECT_DETAIL,SUBJECT_MAJOR,SUBJECT_SCORE,SUBJECT_ROOM,SUBJECT_DATE
+		INSERT INTO SUBJECT(SUBJECT_NO,SUBJECT_NUM,PRO_ID,SUBJECT_NAME,SUBJECT_DETAIL,SUBJECT_MAJOR,SUBJECT_SCORE,SUBJECT_ROOM,SUBJECT_DATE,
 		SUBJECT_DAY,SUBJECT_TIME,SUBJECT_SEMESTER,SUBJECT_TOTAL,SUBJECT_CNT,SUBJECT_SUM,SUBJECT_GOAL,SUBJECT_DATA,SUBJECT_CONTENTS,SUBJECT_STATUS,SUBJECT_PERMIT)
 		VALUES(#{subjectNo},(SELECT NVL(MAX(subject_num),0)+1 FROM SUBJECT WHERE subject_semester=#{subjectSemester}),
 		#{proId},#{subjectName},#{subjectDetail},#{subjectMajor},#{subjectScore},#{subjectRoom},SYSDATE,#{subjectDay},
@@ -143,6 +145,12 @@
 		DELETE FROM SUBJECT 
 		WHERE SUBJECT_NO = #{subjectNo}
 	</delete>
+	
+	<update id="subjectStatus" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE SUBJECT
+		SET SUBJECT_PERMIT = SYSDATE, SUBJECT_STATUS = #{subjectStatus}
+		WHERE SUBJECT_NO = #{subjectNo}
+	</update>
 
 	<select id="enrolmentMajorList"
 	parameterType="co.yedam.univ.sub.service.SubVO"

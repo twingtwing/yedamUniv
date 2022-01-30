@@ -30,63 +30,63 @@
                         </div>
                     </div><!-- end title -->
                 
-                    <div class="row align-items-center d-flex justify-content-center">
-                        <div class="col-lg-10 mt-3">
-                            <form id="loginFrm" role="form" class="form-horizontal">
-                                <div class="form-check form-check-inline mb-3 d-flex justify-content-between">
-									<div>
-										<input class="form-check-input ml-3" type="radio" name="user" id="stu" value="stu">
-										<label class="form-check-label" for="stu">학생</label>
-										<input class="form-check-input ml-4" type="radio" name="user" id="pro" value="pro">
-										<label class="form-check-label" for="pro">교수</label>
-										<input class="form-check-input ml-4" type="radio" name="user" id="admin" value="admin">
-										<label class="form-check-label" for="admin">교직원</label>
+                    <form id="loginFrm">
+	                    <div class="row align-items-center d-flex justify-content-center">
+	                        <div class="col-lg-8 mt-3">
+	                                <div class="form-check form-check-inline mb-3 d-flex justify-content-between">
+										<div>
+											<input class="form-check-input ml-3" type="radio" name="user" id="stu" value="stu">
+											<label class="form-check-label" for="stu">학생</label>
+											<input class="form-check-input ml-4" type="radio" name="user" id="pro" value="pro">
+											<label class="form-check-label" for="pro">교수</label>
+											<input class="form-check-input ml-4" type="radio" name="user" id="emp" value="admin">
+											<label class="form-check-label" for="admin">교직원</label>
+										</div>
+										<div class="mr-2">
+											<p class="radio-err d-none mb-0 text-danger">항목을 선택해주세요.</p>
+										</div>
 									</div>
-									<div class="mr-2">
-										<p class="radio-err d-none mb-0 text-danger">항목을 선택해주세요.</p>
-									</div>
-								</div>
-								<div class="form-group mb-1">
-                                    <div class="col-lg-12">
-                                        <input class="form-control" id="id" name="id" placeholder="아이디" type="text">
-                                    </div>
-                                </div>
-                                <div class="row mr-3 d-flex justify-content-end">
-                                    <p class="id-err d-none mb-0 text-danger">아이디를 입력해주세요.</p>
-                                </div>
-                                <div class="form-group mt-4 mb-1">
-                                    <div class="col-lg-12">
-                                        <input class="form-control" id="pw" name="pw" placeholder="비밀번호" type="password">
-                                    </div>
-                                </div>
-                                <div class="row mr-3 mb-2 d-flex justify-content-end">
-                                    <p class="pw-err d-none mb-0 text-danger">비밀번로를 입력해주세요.</p>
-                                </div>
-	                            <div class="login-err row d-none mr-3" style="height: 20px;">
-	                                <div class="col-lg-12 d-flex justify-content-end mr-5">
-	                                    <div class="row">
-	                                        <div class="mr-1">
-	                                            <i class="fa fa-exclamation-circle text-danger"></i>
-	                                        </div>
-	                                        <div class="d-flex align-items-center">
-	                                            <p class="text-danger mb-0">아이디/비밀번호를 한 번 더 확인해주세요.</p>
-	                                        </div>
+									<div class="form-group mb-1">
+	                                    <div class="col-lg-12">
+	                                        <input class="form-control" id="id" name="id" placeholder="아이디" type="text">
 	                                    </div>
 	                                </div>
-	                            </div>
-                                <div class="row pt-5">
-                                    <div class="col-lg-12 d-flex justify-content-center">
-                                        <button id="loginBtn" type="button" class="btn btn-light btn-radius btn-brd px-4 pb-1 pt-2" disabled="disabled">로그인</button>
-                                    </div>
-                                </div>
-                                <div class="row mt-1">
-                                    <div class="col-lg-12 d-flex justify-content-center">
-                                        <a class="text-center pw-find" href="/univ/intro/password.do">비밀번호 찾기</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div><!-- end col -->
-                    </div>
+	                                <div class="row mr-3 d-flex justify-content-end">
+	                                    <p class="id-err d-none mb-0 text-danger">아이디를 입력해주세요.</p>
+	                                </div>
+	                                <div class="form-group mt-4 mb-1">
+	                                    <div class="col-lg-12">
+	                                        <input class="form-control" id="pw" name="pw" placeholder="비밀번호" type="password">
+	                                    </div>
+	                                </div>
+	                                <div class="row mr-3 mb-2 d-flex justify-content-end">
+	                                    <p class="pw-err d-none mb-0 text-danger">비밀번로를 입력해주세요.</p>
+	                                </div>
+		                            <div class="login-err row d-none mr-3" style="height: 20px;">
+		                                <div class="col-lg-12 d-flex justify-content-end mr-5">
+		                                    <div class="row">
+		                                        <div class="mr-1">
+		                                            <i class="fa fa-exclamation-circle text-danger"></i>
+		                                        </div>
+		                                        <div class="d-flex align-items-center">
+		                                            <p class="text-danger mb-0">아이디/비밀번호를 한 번 더 확인해주세요.</p>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+	                                <div class="row pt-5">
+	                                    <div class="col-lg-12 d-flex justify-content-center">
+	                                        <button id="loginBtn" type="button" class="btn btn-light btn-radius btn-brd px-4 pb-1 pt-2" disabled="disabled">로그인</button>
+	                                    </div>
+	                                </div>
+	                                <div class="row mt-1">
+	                                    <div class="col-lg-12 d-flex justify-content-center">
+	                                        <a class="text-center pw-find" href="/univ/intro/password.do">비밀번호 찾기</a>
+	                                    </div>
+	                                </div>
+	                        </div><!-- end col -->
+                    	</div>
+                    </form>
                 </div>
             </div>
         </div><!-- end container -->

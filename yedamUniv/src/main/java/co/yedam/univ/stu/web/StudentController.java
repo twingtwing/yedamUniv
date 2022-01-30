@@ -1,5 +1,6 @@
 package co.yedam.univ.stu.web;
 
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,8 +21,13 @@ import co.yedam.univ.stu.service.StudentVO;
 import co.yedam.univ.sub.service.SubService;
 import co.yedam.univ.sub.service.SubVO;
 
+import co.yedam.univ.stu.service.StuService;
+import co.yedam.univ.stu.service.StuVO;
+
 @Controller
 public class StudentController {
+
+	@Autowired StuService stuDAO;
 	@Autowired SubService subDao;
 	@Autowired StudentService stuDao;
 	@Autowired RegisterService registerDao;
@@ -29,7 +35,9 @@ public class StudentController {
 	
   //학적정보 조회
   @RequestMapping("stu/studentHome.do")
-    public String studentHome() {
+    public String studentHome(StuVO vo, Model model, HttpSession session) {
+	  vo.setStuId((String)session.getAttribute("id"));
+	  model.addAttribute("stu",stuDAO.stuSelect(vo));
 	  return "stu/myInfo/studentHome";
   }
   
@@ -39,21 +47,12 @@ public class StudentController {
 	  return "stu/myInfo/modifyStudent";
   }
   
-  //휴학자퇴 신청
-  @RequestMapping("stu/breakSchoolApp.do")
-  public String breakSchoolApp() {
-	  return "stu/myInfo/breakSchoolApp";
-  }
-  
-  //복학 신청
-  @RequestMapping("stu/returnSchoolApp.do")
-  public String returnSchoolApp() {
-	  return "stu/myInfo/returnSchoolApp";
-  }
-  
   //졸업 시물레이션
   @RequestMapping("stu/canIgraduate.do")
-  public String canIgraduate() {
+  public String canIgraduate(StuVO vo, Model model,HttpSession session) {
+	  vo.setStuId((String)session.getAttribute("id"));
+	  model.addAttribute("stu",stuDAO.stuMajor(vo));
+	  model.addAttribute("reg",stuDAO.stuReg(vo));
 	  return "stu/myInfo/canIgraduate";
   }
   
@@ -136,6 +135,21 @@ public class StudentController {
 	  return "stu/class/classList";
   }
   
+  //수강목록 - 링크땜에 두개있어
+  @RequestMapping("stu/stu.do")
+  public String stu() {
+	  // 수강목록 조회 검색시, 학생이 학교다닌 년도부터 현재 년도까지 option태그로 만들어 주기
+	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+	  String timeStamp = sdf.format(new Date());
+	  int year = Integer.parseInt(timeStamp.substring(0,4));
+	  model.addAttribute("currentYear",year);
+	  StudentVO vo = new StudentVO();
+	  vo.setStuId("stu1"); //나중에 세션값담기
+	  model.addAttribute("stuJoinYear",stuDao.selectStudentJoinDate(vo));
+	  
+	  return "stu/class/classList";
+  }
+  
   @ResponseBody
   @RequestMapping("stu/AjaxClassListSearch.do")
   public List<RegisterVO> AjaxClassListSearch(@RequestParam("year") int year,
@@ -150,6 +164,7 @@ public class StudentController {
 	  System.out.println(year);
 	  System.out.println(semester);
 	  return list;
+
   }
   
   //강의실(공지사항, QnA)
@@ -190,19 +205,6 @@ public class StudentController {
   @RequestMapping("stu/lookAllGrades.do")
   public String lookAllGrades() {
 	  return "stu/grade/lookAllGrades";
-  }
-  
-  
-  //성적이의신청
-  @RequestMapping("stu/helpMyGrade.do")
-  public String helpMyGrade() {
-	  return "stu/grade/helpMyGrade";
-  }
-  
-  //성적이의답변
-  @RequestMapping("stu/canIhelpYourGrade.do")
-  public String canIhelpYourGrade() {
-	  return "stu/grade/canIhelpYourGrade";
   }
   
   //내가 쓴 글

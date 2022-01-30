@@ -65,13 +65,18 @@ public class SubServiceImpl implements SubService {
 	}
 
 	@Override
-	public int subjectNum(SubVO vo) {
-		return map.subjectNum(vo);
+	public int subjectCount(SubVO vo) {
+		return map.subjectCount(vo);
 	}
 
 	@Override
-	public int subjectCount(SubVO vo) {
-		return map.subjectCount(vo);
+	public List<CriteriaSub> subAdminPage(CriteriaSub cri) {
+		return map.subAdminPage(cri);
+	}
+
+	@Override
+	public int subjectStatus(SubVO vo) {
+		return map.subjectStatus(vo);
 	}
 
 	@Override

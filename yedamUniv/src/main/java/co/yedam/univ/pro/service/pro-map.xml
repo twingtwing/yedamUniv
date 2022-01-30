@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.pro.service.ProMapper">
+
+	<select id="proSelect" resultType="co.yedam.univ.pro.service.ProfessorVO">
+		SELECT * FROM USER_PRO
+		WHERE PRO_ID = #{proId}
+	</select>
+
+</mapper>

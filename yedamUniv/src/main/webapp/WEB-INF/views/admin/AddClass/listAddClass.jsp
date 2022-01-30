@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +18,13 @@
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <style>
         #noticeListT:hover{cursor: pointer;}
+        #noticeListT{
+        	text-align: center;
+        }
+        #noticeListT th, #noticeListT td{
+        	height : 60px;
+        	vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -40,83 +47,86 @@
                 <section id="main-content">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="card">
-                                <table id="noticeListT" class="display table table-borderd table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>분류</th>
-                                            <th>강의명</th>
-                                            <th>인정학점</th>
-                                            <th>담당교수</th>
-                                            <th>신청일자</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>PL/SQL</td>
-                                            <td>Sonya Frost</td>
-                                            <td>Software Engineer</td>
-                                            <td>Edinburgh</td>
-                                            <td>2008/12/13</td>
-                                        </tr>
-                                        <tr>
-                                            <td>JAVA</td>
-                                            <td>Paul Byrd</td>
-                                            <td>Chief Financial Officer (CFO)</td>
-                                            <td>New York</td>
-                                            <td>2010/06/09</td>
-                                        </tr>
-                                        <tr>
-                                            <td>LINUX</td>
-                                            <td>Gloria Little</td>
-                                            <td>Systems Administrator</td>
-                                            <td>New York</td>
-                                            <td>2009/04/10</td>
-                                        </tr>
-                                        <tr>
-                                            <td>SQL</td>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>2012/10/13</td>
-                                        </tr>
-                                        <tr>
-                                            <td>JAVASCRIPT</td>
-                                            <td>Dai Rios</td>
-                                            <td>Personnel Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>2012/09/26</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CSS</td>
-                                            <td>Jenette Caldwell</td>
-                                            <td>Development Lead</td>
-                                            <td>New York</td>
-                                            <td>2011/09/03</td>
-                                        </tr>
-                                        <tr>
-                                            <td>JQUERY</td>
-                                            <td>Yuri Berry</td>
-                                            <td>Chief Marketing Officer (CMO)</td>
-                                            <td>New York</td>
-                                            <td>2009/06/25</td>
-                                        </tr>
-                                        <tr>
-                                            <td>SPRING</td>
-                                            <td>Caesar Vance</td>
-                                            <td>Pre-Sales Support</td>
-                                            <td>New York</td>
-                                            <td>2011/12/12</td>
-                                        </tr>
-                                        <tr>
-                                            <td>HTML</td>
-                                            <td>Doris Wilder</td>
-                                            <td>Sales Assistant</td>
-                                            <td>Sidney</td>
-                                            <td>2010/09/20</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="card class-card">
+                            	<div class="row">
+                            		<div class="col-lg-12 d-flex justify-content-end">
+                            			<form action="/univ/admin/listAddClass.do">
+                            				<div class="row">
+			                            		<div>
+					                            	<select name="subjectStatus" class="btn btn-default dropdown-toggle" style="width: 100px; height: 37px">
+					                                   	<option value="">전체</option>
+					                                   	<option value="N">미처리</option>
+					                                  	<option value="Y">승인</option>
+					                                	<option value="X">반려</option>
+					                            	</select>
+			                            		</div>
+			                            		<div>
+					                            	<input name="subjectName" type="text" class="form-control" placeholder="교과목명.." style="width: 200px; height: 38px">
+			                            		</div>
+			                            		<div>
+					                            	<button type="submit" class="ti-search btn btn-default btn-flat" id=""></button>
+			                            		</div>
+                            				</div>
+                            			</form>
+                            		</div>
+                            	</div>
+                            	<div class="row">
+	                                <table id="noticeListT" class="display table table-borderd table-hover mt-2">
+	                                    <thead>
+	                                        <tr>
+	                                        	<th>순번</th>
+	                                            <th>강의명</th>
+	                                            <th>구분</th>
+	                                            <th>인정학점</th>
+	                                            <th>담당교수</th>
+	                                            <th>신청일자</th>
+	                                            <th>승인일자</th>
+	                                            <th class="text-center">상태</th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+	                                    	<c:if test="${not empty subList }">
+	                                    		<c:forEach items="${subList }" var="sub">
+			                                        <tr id="${sub.subjectNo }">
+			                                            <td>${sub.rn }</td>
+			                                            <td>${sub.subjectName }</td>
+			                                            <td>${sub.subjectDetail }</td>
+			                                            <td>${sub.subjectScore }</td>
+			                                            <td>${sub.proName }</td>
+			                                            <td class="subDate">${sub.subjectDate }</td>
+			                                            <c:if test="${empty sub.subjectPermit}"><td class="text-center">--</td></c:if>
+			                                            <c:if test="${not empty sub.subjectPermit}"><td class="subDate">${sub.subjectPermit }</td></c:if>
+			                                            <td class="text-center">
+			                                            	<c:if test="${sub.subjectStatus eq 'N' or  empty sub.subjectStatus}">미 처리</c:if>
+			                                            	<c:if test="${sub.subjectStatus eq 'X'}">반려</c:if>
+			                                            	<c:if test="${sub.subjectStatus eq 'Y'}">승인</c:if>
+			                                            </td>
+			                                        </tr>
+	                                    		</c:forEach>
+	                                    	</c:if>
+	                                    	<c:if test="${empty subList }">
+	                                            <tr>
+	                                                <td colspan="8" class="text-center font-weight-bold" style="height: 100px;">현재 신청하신 강의가 없습니다.</td>
+	                                            </tr>
+	                                    	</c:if>
+	                                    </tbody>
+	                                </table>
+                                </div>
+                                <div class="row">
+									<div class="board-nav col-lg-12">
+										<nav class="justify-content-center d-flex">
+											<ul class="pagination">
+												<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+													<li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : '' }"><a data-page="${num }" class="page-link subPage">${num }</a></li>
+												</c:forEach>
+											</ul>
+											<form id="pageFrm" action="/univ/admin/listAddClass.do" method="get">
+												<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+												<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+											</form>
+										</nav>
+									</div>
+								</div>
                             </div>
                             <!-- /# card -->
                         </div>
@@ -127,27 +137,23 @@
             </div>
         </div>
     </div>
-    
-    <!-- jquery vendor -->
-    <script src="assets/js/lib/jquery.min.js"></script>
-    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
-    <!-- nano scroller -->
-    <script src="assets/js/lib/menubar/sidebar.js"></script>
-    <script src="assets/js/lib/preloader/pace.min.js"></script>
-    <!-- sidebar -->
-    
-    <!-- bootstrap -->
-
-    <script src="assets/js/lib/bootstrap.min.js"></script><script src="assets/js/scripts.js"></script>
-    <!-- scripit init-->
-    <script src="assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="assets/js/lib/data-table/pdfmake.min.js"></script>
-    <script src="assets/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="assets/js/lib/data-table/datatables-init.js"></script>
+    <script type="text/javascript">
+	    (function(){
+			const dateList =  $('.subDate');
+			for(date of dateList){
+				date.innerHTML = (date.innerHTML).slice(0,10);
+			}
+		})();
+	    
+	    $('#noticeListT tr').click(function(){
+			location.href="/univ/admin/selectAddClass.do?subjectNo="+$(this).attr('id');
+		});
+	    
+	    $('.subPage').on('click',function(){
+			event.preventDefault();
+			$('#pageFrm').find("input[name='pageNum']").val($(this).attr("data-page"));
+			pageFrm.submit();
+		})
+    </script>
 </body>
 </html>

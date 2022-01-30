@@ -4,18 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
- <!-- ================= Favicon ================== -->
-    <!-- Standard -->
-    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
-    <!-- Retina iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
-    <!-- Retina iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
-    <!-- Standard iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
-    <!-- Standard iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
 </head>
 <body>
 <div class="content-wrap">
@@ -60,6 +48,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        	<!-- tr에 id에 pk값 넣고, click event만들어서 id값 가져와서 연결하도록 함 -->
                                             <tr>
                                                 <td>Sonya Frost</td>
                                                 <td>Software Engineer</td>
@@ -191,34 +180,5 @@
         </div>
     </div>
     
-    <!-- jquery vendor -->
-    <script src="assets/js/lib/jquery.min.js"></script>
-    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
-    <!-- nano scroller -->
-    <script src="assets/js/lib/menubar/sidebar.js"></script>
-    <script src="assets/js/lib/preloader/pace.min.js"></script>
-    <!-- sidebar -->
-    
-    <!-- bootstrap -->
-
-
-
-    <!-- JS Grid Scripts Start-->
-    <script src="assets/js/lib/jsgrid/db.js"></script>
-    <script src="assets/js/lib/jsgrid/jsgrid.core.js"></script>
-    <script src="assets/js/lib/jsgrid/jsgrid.load-indicator.js"></script>
-    <script src="assets/js/lib/jsgrid/jsgrid.load-strategies.js"></script>
-    <script src="assets/js/lib/jsgrid/jsgrid.sort-strategies.js"></script>
-    <script src="assets/js/lib/jsgrid/jsgrid.field.js"></script>
-    <script src="assets/js/lib/jsgrid/fields/jsgrid.field.text.js"></script>
-    <script src="assets/js/lib/jsgrid/fields/jsgrid.field.number.js"></script>
-    <script src="assets/js/lib/jsgrid/fields/jsgrid.field.select.js"></script>
-    <script src="assets/js/lib/jsgrid/fields/jsgrid.field.checkbox.js"></script>
-    <script src="assets/js/lib/jsgrid/fields/jsgrid.field.control.js"></script>
-    <script src="assets/js/lib/jsgrid/jsgrid-init.js"></script>
-    <!-- JS Grid Scripts End-->
-
-    <script src="assets/js/lib/bootstrap.min.js"></script><script src="assets/js/scripts.js"></script>
-    <!-- scripit init-->
 </body>
 </html>

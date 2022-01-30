@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,23 +62,33 @@
                                     <div class="row mt-3">
                                         <div class="col-lg-12 board-div">
                                             <div class="row d-flex justify-content-between bg-silver-100 pt-2 pb-1 pl-2 pr-2">
-                                                <h6>신청자 : 신청자</h6>
+                                                <h6>신청자 : ${drop.stuName }</h6>
                                                 <div class="row">
-                                                    <h6 class="mr-3">신청일자 : 신청일자</h6>
-                                                    <h6 class="mr-4">세부구분 : 가사</h6>
+                                                    <h6 class="mr-3 subDate">신청일자 : ${drop.dropDate }</h6>
+                                                    <h6 class="mr-4">세부구분 : ${drop.dropDetail }</h6>
                                                 </div>
                                             </div>
                                             <div class="row pt-3 pb-1 px-2">
                                                 <p>
-                                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur a minima cupiditate ullam veniam officiis doloribus possimus, nobis porro quam eligendi ipsam, vel nostrum corrupti adipisci amet ea maiores neque.
-                                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur a minima cupiditate ullam veniam officiis doloribus possimus, nobis porro quam eligendi ipsam, vel nostrum corrupti adipisci amet ea maiores neque.
-                                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur a minima cupiditate ullam veniam officiis doloribus possimus, nobis porro quam eligendi ipsam, vel nostrum corrupti adipisci amet ea maiores neque.
+                                                	${drop.dropReason }
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row d-flex justify-content-end mt-3">
-                                        <button class="btn btn-default mr-2" style="width: 70px;">승인</button>
+                                    	<c:if test="${drop.dropProcess  ne 'N'}">
+                                    		<div class="row">
+                                    			<div class="d-flex align-items-center mr-2">
+	                                    			<i class="fa fa-exclamation-circle"></i>
+	                                    		</div>
+	                                    		<div class="d-flex align-items-center mr-4">
+	                                    			<p class="mb-0 mr-3">이미 처리하셨습니다.</p>
+	                                    		</div>
+                                    		</div>
+                                    	</c:if>
+                                    	<c:if test="${drop.dropProcess  eq 'N'}">
+                                        	<button id="dropBtn" class="btn btn-default mr-2" style="width: 70px;">승인</button>
+                                    	</c:if>
                                         <button onclick="history.back()" class="btn btn-default" style="width: 70px;">목록</button>
                                     </div>
                                 </div>
@@ -87,5 +97,26 @@
                     </div>
                 </div>
             </div>
+            <script type="text/javascript">
+    			$('.subDate')[0].innerHTML = '신청일자 : '+'${drop.dropDate }'.slice(0,10);
+    			$('#dropBtn').click(function(){
+	    			let result = confirm('정말 승인하시겠습니까?');
+	    			if(result){
+	    				$.ajax({
+	    					url:'/univ/pro/dropDetailUp.do',
+	    					data :{stuId:'${drop.stuId }'},
+	    					type:'post'
+	    				})
+	    				.done(data=>{
+	    					if(data ==='Y'){
+	    						alert('해당 사항을 승인하셨습니다.');
+	    						location.href='/univ/pro/leaveDrop.do';
+	    					}else if(data ==='N'){
+	    						alert('승인 과정 중에 오류가 발생하였습니다.');
+	    					}
+	    				})
+	    			}
+	    		})
+            </script>
 </body>
 </html>

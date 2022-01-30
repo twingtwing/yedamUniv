@@ -57,7 +57,7 @@
                         <!-- 이번년도 이번학기 강의목록만 갖고와야함 -->
                         <div class="row">
                             <h6>최대 등록 갯수 : &nbsp;</h6>
-                            <h6>${registerNum } 개</h6>
+                            <h6>5 개</h6>
                             <h6>&nbsp;|&nbsp;남은 갯수: &nbsp;</h6>
                             <h6>${subjectCount} 개</h6>
                         </div>
@@ -97,14 +97,12 @@
 		                                            <td>${sub.subjectName }</td>
 		                                            <td class="subDate">${sub.subjectDate }</td>
 		                                            <c:if test="${not empty sub.subjectPermit }">
-			                                            <td class="subDate">
-			                                            	${sub.subjectPermit }
-			                                            </td>
+			                                            <td class="subDate">${sub.subjectPermit }</td>
 		                                            </c:if>
 		                                            <c:if test="${empty sub.subjectPermit }"><td>--</td></c:if>
 		                                            <td>
 		                                            	<c:if test="${sub.subjectStatus eq 'N' or  empty sub.subjectStatus}">미 처리</c:if>
-		                                            	<c:if test="${sub.subjectStatus eq 'X'}">불가</c:if>
+		                                            	<c:if test="${sub.subjectStatus eq 'X'}">반려</c:if>
 		                                            	<c:if test="${sub.subjectStatus eq 'Y'}">승인</c:if>
 		                                            </td>
 		                                        </tr>

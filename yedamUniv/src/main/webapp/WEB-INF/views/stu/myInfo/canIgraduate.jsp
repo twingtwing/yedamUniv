@@ -12,8 +12,6 @@
                  <h4 style="font-weight: 600;"><i class="fa fa-chevron-circle-right m-r-10 m-b-10" style="color:#3498db" ></i>기본학적정보</h4>
                 <div class="ibox">
                     <div class="ibox-body">
-
-                   
                         <style>
                             table{
                                 table-layout:fixed;
@@ -25,23 +23,24 @@
                
                       <table class="table table-bordered mt-3" style="text-align: center;">
                         <thead class="thead-default" >
-                            <th class="text-center">학번</th>
-                            <th class="text-center">학과</th>
-                            <th class="text-center">학년</th>
-                            <th class="text-center">이름</th>
-                            <th class="text-center">학적상태</th>
-                            
+                        	<tr>
+                            	<th class="text-center">학번</th>
+	                            <th class="text-center">학과</th>
+	                            <th class="text-center">학년</th>
+	                            <th class="text-center">이름</th>
+	                            <th class="text-center">학적상태</th>
+                        	</tr>
                         </thead>
-                        <tbdoy>
+                        <tbody>
                            <tr>
-                               <td>202200000</td>
-                               <td>데이터베이스학과</td>
-                               <td>3</td>
-                               <td>스펀지밥</td>
-                               <td>재학</td>
+                               <td>${stu.stuId }</td>
+                               <td>${stu.major }</td>
+                               <td>${stu.grade }</td>
+                               <td>${stu.stuName }</td>
+                               <td>${stu.stuRec }</td>
                            </tr>
                
-                         </tbdoy>
+                         </tbody>
                 </table>
             </div>
         </div>
@@ -57,13 +56,15 @@
                     <div class="ibox-body">
                         <table class="table table-bordered mt-3 text-center">
                             <thead class="thead-default">
-                                <th class="text-center">순번</th>
-                                <th class="text-center">요건</th>
-                                <th class="text-center">기준</th>
-                                <th class="text-center">취득</th>
-                                <th class="text-center">결과</th>
+                            	<tr>
+	                                <th class="text-center">순번</th>
+	                                <th class="text-center">요건</th>
+	                                <th class="text-center">기준</th>
+	                                <th class="text-center">취득</th>
+	                                <th class="text-center">결과</th>
+                            	</tr>
                             </thead>
-                            <tbdoy>
+                            <tbody>
                                <tr>
                                    <td>1</td>
                                    <td>졸업학점</td>
@@ -89,11 +90,13 @@
                                    <td colspan="5" style="height: 120px;"></td>
                                </tr>
                    
-                             </tbdoy>
+                             </tbody>
                              <thead class="thead-default">
-                                <th colspan="4">총 건수 : [3] 건</th>
-                                <th>결과 : <span class="text-danger">불합격</span></th>
-                                </thead>
+                             	<tr>
+	                                <th colspan="4">총 건수 : [3] 건</th>
+	                                <th>결과 : <span class="text-danger">불합격</span></th>
+                             	</tr>
+                             </thead>
                          </table>
                     </div>
                 </div>
