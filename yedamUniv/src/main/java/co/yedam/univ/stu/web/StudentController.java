@@ -137,7 +137,7 @@ public class StudentController {
   
   //수강목록 - 링크땜에 두개있어
   @RequestMapping("stu/stu.do")
-  public String stu() {
+  public String stu(Model model) {
 	  // 수강목록 조회 검색시, 학생이 학교다닌 년도부터 현재 년도까지 option태그로 만들어 주기
 	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 	  String timeStamp = sdf.format(new Date());

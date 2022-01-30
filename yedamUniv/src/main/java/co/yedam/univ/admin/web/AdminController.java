@@ -289,12 +289,6 @@ public class AdminController {
       return returnPage; 
    }
    
-   //공지사항메뉴-QnA 목록
-   @RequestMapping("/admin/listQnA.do")
-   public String listQnA() {
-      return "admin/Notice/listQnA";
-   }
-   
    //공지사항메뉴-FAQ 목록
    @RequestMapping("/admin/listFAQ.do")
    public String listFAQ() {
