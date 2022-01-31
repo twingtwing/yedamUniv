@@ -41,12 +41,6 @@ public class StudentController {
 	  return "stu/myInfo/studentHome";
   }
   
-  //학적정보수정
-  @RequestMapping("stu/modifyStudent.do")
-  public String modifyStudent() {
-	  return "stu/myInfo/modifyStudent";
-  }
-  
   //졸업 시물레이션
   @RequestMapping("stu/canIgraduate.do")
   public String canIgraduate(StuVO vo, Model model,HttpSession session) {
