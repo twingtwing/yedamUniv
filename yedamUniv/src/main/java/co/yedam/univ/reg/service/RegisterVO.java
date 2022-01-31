@@ -16,7 +16,6 @@ public class RegisterVO {
 	private int FinalExam;
 	private int grade;
 	private int registerNum;
-	private String registerSemester;
 	
 	private String subjectContents;
 	private String subjectData;
