@@ -43,5 +43,14 @@
 		SET emp_id = #{empId}, a_contents = #{aContents}, a_date = sysdate, q_state = 'Y'
 		WHERE q_no = #{qNo}
 	</update>
+	
+	<!-- 검색하기 -->
+	<select id="qnaSearch" resultType="co.yedam.univ.qna.service.qnaVO">
+		SELECT * FROM qna
+		<where>
+			<if test="qTitle != null">q_title LIKE '%' || #{qTitle} || '%'</if>
+		</where>
+		ORDER BY q_no
+	</select>
 
 </mapper>

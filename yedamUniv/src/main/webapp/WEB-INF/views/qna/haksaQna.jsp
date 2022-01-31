@@ -9,11 +9,24 @@
 
 <!-- font awesome-->
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-
+<!-- toast ui -->
+	<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>
+    <style type="text/css">
 <style>
     .table tr {
             height: 60px;
         }
+        
+    #hQnaGrid div.tui-grid-cell-content {
+		text-align: center;
+	}
+	
+	td{
+	cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -49,60 +62,23 @@
                                 <div class="site-search-area">
                                     <form method="get" id="site-searchform" action="#">
                                         <div>
-                                            <input class="input-text form-control" name="search-k" id="search-k" placeholder="제목을 검색해주세요." type="text">
-                                            <input id="searchsubmit" value="Search" type="submit">
+                                            <input class="input-text form-control" name="qTitle" id="qTitle" placeholder="제목을 검색해주세요." type="text">
+                                            <input id="searchsubmit" value="Search" type="button">
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <div>
-                        <table class="table table-hover">
-                            <thead>
-                                <colgroup>
-                                    <col width="100">
-                                    <col width="100">
-                                    <col>
-                                    <col width="200">
-                                    <col width="150">
-                                </colgroup>
-                                <tr style="background-color: #eea412;;">
-                                    <th>글번호</th>
-                                    <th>말머리</th>
-                                    <th>제목</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            	<c:forEach items="${qnalist }" var="qna" varStatus="status">
-                                    <tr>
-		                                <td><c:out value="${qna.qNo }" /></td>
-		                                <td><c:out value="${qna.qCategory }" /></td>
-		                                <td><a href="/univ/qna/haksaQnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
-		                                <td><c:out value="${qna.stuId }" /></td>
-		                                <td><c:out value="${qna.qDate }" /></td>
-                                    </tr>
-                            	</c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
+            			<div id="qnaTable"></div>
+            		</div>
+            		
                     <div class="row d-flex justify-content-end">
                         <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/haksaQnaWrite.do'">
                         	<i class="fas fa-pen"></i>&nbsp; &nbsp;글쓰기
                         </button>
-                    </div>
-                    <div>
-                        <ul class="pagination justify-content-center p-5" style="color: #eea412;;">
-                            <li class="page-item"><a class="page-link  text-warning" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link text-warning" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link text-warning" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link text-warning" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link text-warning" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link text-warning" href="#">5</a></li>
-                            <li class="page-item"><a class="page-link text-warning" href="#">Next</a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -110,5 +86,82 @@
     </div>
     <!-- 끝 -->
 
+	<script type="text/javascript">
+    
+	createQna(JSON.parse('${qnalist}'));
+	function createQna(dataQna) {
+		let div = document.getElementById('qnaTable');
+		if(div.children.length!=0){
+			div.children[0].remove();
+		}
+	    const hQnaGrid = new tui.Grid({
+	        el: div,
+	        data: dataQna,
+	        scrollX: false,
+	        scrollY: false,
+	        minBodyHeight: 30,
+	        rowHeaders: [{type: 'rowNum', align : 'center', valign : 'middle'}],
+	        pageOptions: {
+	            useClient: true,
+	            perPage: 10
+	        },
+	        pagination: true,
+	        columns: [
+	        	{
+	                header: '말머리',
+	                name: 'qCategory',
+	                width : 'auto',
+		            minWidth :150
+	            },
+	            {
+	                header: '제목',
+	                name: 'qTitle'
+	            },
+	            {
+	                header: '작성일자',
+	                name: 'qDate',
+	                width : 'auto',
+		            minWidth :150
+		         }, 
+	            {
+	                header: '작성자',
+	                name: 'stuId',
+	                width : 'auto',
+		            minWidth :150
+		         }
+	        ]
+	    });
+	 	// 셀 클릭했을 때 글 상세 조회 페이지로 이동
+	    hQnaGrid.on('click', function(event){
+	    	let no = dataQna[event.rowKey].qNo;
+	    	location.href = "haksaQnaRead.do?qNo="+dataQna[event.rowKey].qNo;
+	    });
+	
+	    // 표 테마
+	    tui.Grid.applyTheme('clean');
+	}
+	
+	// 검색
+	document.getElementById('searchsubmit').addEventListener('click', function(){
+		let t = document.getElementById('qTitle').value;
+		
+		let path = 'qnaSearch.do?qTitle='+t;
+		
+		fetch(path)
+		
+		.then(response => response.json())
+		.then(data => {
+			createQna(data);
+		});
+	})
+	document.getElementById('qTitle').addEventListener('keypress', function(event){
+		if(event.keyCode === 13){
+			document.getElementById('searchsubmit').click();
+		}
+	})
+	
+	
+    </script>
+	
 </body>
 </html>

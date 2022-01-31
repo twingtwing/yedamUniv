@@ -17,6 +17,11 @@
     <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+<!-- toast ui -->
+	<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css" />
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <script src="https://uicdn.toast.com/grid/latest/tui-grid.js"></script>    
     <style>
         #noticeListT:hover{cursor: pointer;}
     </style>
@@ -75,9 +80,9 @@
                                                             <option>상태</option>
                                                         </select>
                                                         <input type="text" class="form-control" placeholder="Search">
-                                                        <button class="ti-search btn btn-default btn-flat" id=""></button>
+                                                        <button class="ti-search btn btn-default btn-flat" id="searchQna"></button>
                                                     </div><br><br><br><br>
-                                                    <table class="display table table-borderd table-hover">
+	                                                    <table class="display table table-borderd table-hover">
                                                         <thead>
                                                             <tr>
                                                                 <th>구분</th>
@@ -93,7 +98,7 @@
 	                                                            	<c:choose>
 	                                                            		<c:when test="${qna.qKind eq '학사' }">
 			                                                                <td><c:out value="${qna.qKind }" />/<c:out value="${qna.qCategory }" /></td>
-			                                                                <td><a href="/univ/admin/qna/qnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
+			                                                                <td><a href="/univ/admin/qnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
 			                                                                <td><c:out value="${qna.stuId }" /></td>
 			                                                                <td><c:out value="${qna.qDate }" /></td>          
 			                                                                <c:choose>
@@ -138,7 +143,7 @@
                                                         <input type="text" class="form-control" placeholder="Search">
                                                         <button class="ti-search btn btn-default btn-flat" id=""></button>
                                                     </div><br><br><br><br>
-                                                    <table id="noticeListT" class="display table table-borderd table-hover">
+			                                            	<table id="noticeListT" class="display table table-borderd table-hover">
                                                         <thead>
                                                             <tr>
                                                                 <th>구분</th>
@@ -154,7 +159,7 @@
 	                                                            	<c:choose>
 	                                                            		<c:when test="${qna.qKind eq '장학' }">
 			                                                                <td><c:out value="${qna.qKind }" />/<c:out value="${qna.qCategory }" /></td>
-			                                                                <td><a href="/univ/admin/qna/qnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
+			                                                                <td><a href="/univ/admin/qnaRead.do?qNo=${qna.qNo }"><c:out value="${qna.qTitle }" /></a></td>
 			                                                                <td><c:out value="${qna.stuId }" /></td>
 			                                                                <td><c:out value="${qna.qDate }" /></td>          
 			                                                                <c:choose>
@@ -180,6 +185,7 @@
                                                         <li class="page-item"><a class="page-link" href="#">5</a></li>
                                                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
                                                     </ul>
+                                                    <br>
                                                 </div>
                                             </div>
                                             <!-- <div class="tab-pane  p-20" id="profile" role="tabpanel">2</div>
@@ -208,6 +214,121 @@
             document.querySelector("#HaksaT").style.display = "none";
             document.querySelector("#JanghaksaT").style.display = "block";
         }
+        
+        // 학사 qna grid
+        createhQna(JSON.parse('${qnalist}'));
+		function createhQna(datahQna) {
+			let div = document.getElementById('htable');
+			if(div.children.length!=0){
+				div.children[0].remove();
+			}
+		    const hQnaGrid = new tui.Grid({
+		        el: div,
+		        data: datahQna,
+		        scrollX: false,
+		        scrollY: false,
+		        minBodyHeight: 30,
+		        rowHeaders: [{type: 'rowNum', align : 'center', valign : 'middle'}],
+		        pageOptions: {
+		            useClient: true,
+		            perPage: 10
+		        },
+		        pagination: true,
+		        columns: [
+		        	{
+		                header: '말머리',
+		                name: 'qCategory',
+		                width : 'auto',
+			            minWidth :150
+		            },
+		            {
+		                header: '제목',
+		                name: 'qTitle'
+		            },
+		            {
+		                header: '작성일자',
+		                name: 'qDate',
+		                width : 'auto',
+			            minWidth :150
+			         }, 
+		            {
+		                header: '작성자',
+		                name: 'stuId',
+		                width : 'auto',
+			            minWidth :150
+			         },
+			         {
+			            header: '작성일자',
+			            name: 'qDate',
+			            width : 'auto',
+				        minWidth :150
+				     }
+		        ]
+		    });
+		}
+		    
+		 	// 셀 클릭했을 때 글 상세 조회 페이지로 이동
+		    hQnaGrid.on('click', function(event){
+		    	let no = dataQna[event.rowKey].qNo;
+		    	location.href = "qnaRead.do?qNo="+datahQna[event.rowKey].qNo;
+		    });
+		 	
+		 // 장학 qna grid
+	        createjQna(JSON.parse('${qnalist}'));
+			function createjQna(datajQna) {
+				let div = document.getElementById('jtable');
+				if(div.children.length!=0){
+					div.children[0].remove();
+				}
+			    const jQnaGrid = new tui.Grid({
+			        el: div,
+			        data: datajQna,
+			        scrollX: false,
+			        scrollY: false,
+			        minBodyHeight: 30,
+			        rowHeaders: [{type: 'rowNum', align : 'center', valign : 'middle'}],
+			        pageOptions: {
+			            useClient: true,
+			            perPage: 10
+			        },
+			        pagination: true,
+			        columns: [
+			        	{
+			                header: '말머리',
+			                name: 'qCategory',
+			                width : 'auto',
+				            minWidth :150
+			            },
+			            {
+			                header: '제목',
+			                name: 'qTitle'
+			            },
+			            {
+			                header: '작성일자',
+			                name: 'qDate',
+			                width : 'auto',
+				            minWidth :150
+				         }, 
+			            {
+			                header: '작성자',
+			                name: 'stuId',
+			                width : 'auto',
+				            minWidth :150
+				         },
+				         {
+				            header: '작성일자',
+				            name: 'qDate',
+				            width : 'auto',
+					        minWidth :150
+					     }
+			        ]
+			    });
+		
+		    // 표 테마
+		    tui.Grid.applyTheme('clean');
+		}
+	
+        
     </script>
     
     <!-- jquery vendor -->

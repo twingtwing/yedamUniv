@@ -34,6 +34,13 @@
 </style>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<style>
+.table tr {
+	height: 60px;
+}
+
+</style>
 </head>
 <body>
 	<div class="content-wrap mb-5">
@@ -61,36 +68,42 @@
 											<span id="writer">${qna.stuId }&nbsp;&nbsp;${qna.qDate }</span>
 											<hr class="one">
 											${qna.qContents } <br> <br> <br> <span
-												id="deletebtn" class="ti-trash"> 삭제&nbsp;</span>
+												id="deletebtn" class="ti-trash" onclick="location.href='/univ/admin/QnaDelete.do?qNo=${qna.qNo}'"> 삭제&nbsp;</span>
 										</div>
 									</form>
 								</div>
 							</div>
 							<div class="card">
 								<div class="bootstrap-data-table-panel">
-									<form action="#">
 										<div class="table-responsive">
-											<br> <span class="ti-comments-smiley"
-												style="font-size: large; font-weight: bold;"> 답변 </span><br>
-											<br>
-											<table class="display table table-borderd">
-												<tbody>
-													<tr>
-														<td>${qna.empId }</td>
-														<td>${qna.aContents }</td>
-														<td>${qna.aDate }</td>
-													</tr>
-												</tbody>
-											</table>
-											<br> 답변을 해주세요!
-											<br>
-											<textarea class="mt-3" style="width: 70vw; height: 20vh"></textarea>
-											<input type="hidden" id="empId" name="empId" value="emp01"> <!-- value ${qna.empId}로 바꾸기 -->
-											<br>
-											<button type="button" class="btn btn-warning m-b-10" id="asubmit">답변달기</button>
+											<c:choose>
+												<c:when test="${qna.qState eq 'Y' }">
+													<br> <span class="ti-comments-smiley"
+														style="font-size: large; font-weight: bold;"> 답변 </span><br>
+													<br>
+													<table class="display table table-borderd">
+														<tbody>
+															<tr>
+																<td>${qna.aContents }</td>
+																<td>${qna.aDate }</td>
+															</tr>
+														</tbody>
+													</table>
+												</c:when>
+												<c:when test="${qna.qState eq 'N' }">
+													<br> <span class="ti-comments-smiley"
+														style="font-size: large; font-weight: bold;"> 답변 </span><br>
+													<br>
+													<br> 답변을 해주세요!
+													<br>
+													<textarea class="mt-3" style="width: 70vw; height: 20vh" id="aContents" name="aContents"></textarea>
+													<input type="hidden" id="empId" name="empId">
+													<br>
+													<button type="button" class="btn btn-warning m-b-10" id="asubmit">답변달기</button>
+												</c:when>
+											</c:choose>
 										</div>
 
-									</form>
 
 								</div>
 							</div>
@@ -114,23 +127,22 @@
 				'click',
 				function() {
 					console.log('ㅠㅠ');
-					var data = {
-						qContents : $('#aContents').val().replace(
-								/(?:\r\n|\r|\n)/g, '<br>'),
-						qNo : "${qna.qNo }"
-					};
-
+					
 					$.ajax({
-						url : 'aUpdate.do',
-						data : data,
+						url : '/univ/admin/aUpdate.do',
+						data : {
+							aContents : $('#aContents').val().replace(
+									/(?:\r\n|\r|\n)/g, '<br>'),
+							qNo : "${qna.qNo }",
+							empId : $('#empId').val()
+						},
 						dataType : 'text',
 						method : 'POST',
 						success : function(data) {
 							console.log(data);
 							if (data.trim() === 'Y') {
 								alert("답변작성이 완료되었습니다.");
-								location.href = "qnaRead.do?qNo="+"${qna.qNo }"
-										+ "${qna.qNo }";
+								location.href = "/univ/admin/qnaRead.do?qNo="+"${qna.qNo }";
 							} else if (data.trim() === 'F') {
 								alert("답변작성 중 에러가 발생하였습니다.");
 							}

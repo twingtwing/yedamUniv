@@ -3,6 +3,8 @@ package co.yedam.univ.qna.service;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,10 +15,12 @@ public class qnaVO {
 	private String qCategory;
 	private String qTitle;
 	private String qContents;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date qDate;
 	private String qState;
 	private String empId;
 	private String aContents;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date aDate;
 	
 	private List<qnaFilesVO> qnaFileList;

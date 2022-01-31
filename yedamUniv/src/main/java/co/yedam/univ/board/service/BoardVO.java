@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 //학사,장학사 공지사항
-@Setter
 @Getter
+@Setter
 public class BoardVO {
 	private int boardNo;
 	private String empId;
