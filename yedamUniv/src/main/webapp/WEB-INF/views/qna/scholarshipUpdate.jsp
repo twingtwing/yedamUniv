@@ -32,29 +32,57 @@
                 </div>
             </div>
             <div class="comment-form-main">
-                <form action="#">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input class="form-control" name="commenter-name" id="commenter-name" type="text" value="">
+                                <input class="form-control" name="qTitle" id="qTitle" type="text" value="${qna.qTitle }">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea class="form-control" style="height: 50vh;" name="commenter-message" id="commenter-message" cols="30" rows="2"></textarea>
+                                <textarea class="form-control" style="height: 50vh;" name="qContents" id="qContents" cols="30" rows="2">${qna.qContents }</textarea>
                             </div>
                         </div>
                         <div class="col-md-12 post-btn">
                             <div class="row d-flex justify-content-center">
-                                <button class="hover-btn-new orange"><span>수정완료</span></button>
+                                <button class="hover-btn-new orange" type="button" id="qsubmit"><span>수정완료</span></button>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </div>
     <!-- 끝 -->
+    <script type="text/javascript">
+ // 수정
+	$('#qsubmit').on('click',function(){
+		console.log('hi');
+		var data = {
+			qTitle : $('#qTitle').val(),
+			qContents : $('#qContents').val().replace(/(?:\r\n|\r|\n)/g, '<br>'),
+			qNo :"${qna.qNo }"
+		};
+	
+		$.ajax({
+			url:'hQnaUpdate.do',
+			data: data,
+			dataType: 'text',
+			method: 'POST',
+			success : function(data){
+				console.log(data);
+				if(data.trim() === 'Y'){
+					alert("글수정이 완료되었습니다.");
+					location.href="scholarshipRead.do?qNo="+"${qna.qNo }";
+				}else if(data.trim() === 'F'){
+					alert("글수정 중 에러가 발생하였습니다.");
+				}
+			},
+			error : function(data){
+				console.log(data);
+			}
+		})
+	});
+    </script>
 
 </body>
 </html>

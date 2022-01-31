@@ -11,6 +11,8 @@ public interface qnaService {
 	int qnaInsert(qnaVO vo);
 	int qnaUpdate(qnaVO vo);
 	int qnaDelete(int q_no);
-	int qnaAnswer(qnaVO vo); // 답변달기
+	int qnaAnswer(qnaVO vo); // 답변달기	
+	List<qnaVO> qnaSearch(qnaVO vo); // 검색
+
 
 }

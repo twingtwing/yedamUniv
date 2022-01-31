@@ -9,7 +9,11 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-
+<div class="all-title-box">
+		<div class="container text-center">
+			<h1>장학</h1>
+		</div>
+</div>
 <!-- 시작 -->
     <div id="overviews" class="section wb">
         <div class="container">

@@ -51,4 +51,9 @@ public class qnaServiceImpl implements qnaService {
 		return qnaMapper.qnaAnswer(vo);
 	}
 
+	@Override
+	public List<qnaVO> qnaSearch(qnaVO vo) {
+		return qnaMapper.qnaSearch(vo);
+	}
+
 }

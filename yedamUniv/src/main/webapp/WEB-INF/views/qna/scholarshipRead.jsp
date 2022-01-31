@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,34 +41,47 @@
                         <div class="post-content">
                             <div class="inner-hmv" style="height: 80vh; background-color: white;">
                                 <div class="row d-flex justify-content-center">
-                                    <h1 class="my-2">제목</h1>
+                                    <h1 class="my-2">${qna.qTitle }</h1>
                                 </div>
                                 <div class="row d-flex justify-content-end m-3">
-                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : &nbsp; &nbsp; &nbsp; 
-                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : </h5>
+                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : ${qna.stuId }&nbsp; &nbsp; &nbsp; 
+                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : ${qna.qDate }</h5>
                                 </div>
                                 <hr style="color: #F2F2F2;">
-                                <p class="m-2">공지내용</p>
+                                <p class="m-2">${qna.qContents }</p>
                             </div>
                         </div>
                     </div>
-                    <h3 class="mt-5 ml-4 font-weight-bold"><i class="fas fa-comment-alt"></i>&nbsp; &nbsp;Comment</h3>
-                    <div class="blog-item">
-                        <div class="post-content">
-                            <div class="inner-hmv" style="background-color: white;">
-                                <div class="row d-flex justify-content-start m-2">
-                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : &nbsp; &nbsp; &nbsp; 
-                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : </h5>
-                                    </div>
-                                <p class="m-2">공지사항 댓글 내용</p>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    <!-- 답변-->
+                    <c:choose>
+                    	<c:when test="${qna.qState eq 'Y'}">
+		                    <h3 class="mt-5 ml-4 font-weight-bold"><i class="fas fa-comment-alt"></i>&nbsp; &nbsp;Comment</h3>
+		                    <div class="blog-item">
+		                        <div class="post-content">
+		                            <div class="inner-hmv" style="background-color: white;">
+		                                <div class="row d-flex justify-content-start m-2">
+		                                    <h5><i class="fas fa-user-edit"></i>&nbsp; &nbsp;작성자 : ${qna.empId }&nbsp; &nbsp; &nbsp; 
+		                                        <i class="fas fa-calendar-alt"></i>&nbsp; &nbsp;작성일 : ${qna.aDate }</h5>
+		                                    </div>
+		                                <p class="m-2">${qna.aContents }</p>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </c:when>
+		                <c:when test="${qna.qState eq 'N'}">
+		                	<h3 class="mt-5 ml-4 font-weight-bold"><i class="fas fa-comment-alt"></i>&nbsp; &nbsp;답변 대기 중</h3>
+		                </c:when>
+                    </c:choose>
+                    
                     <div class="row d-flex justify-content-center">
                         <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/scholarshipQna.do'">
                         	<i class="fas fa-list"></i>&nbsp; &nbsp;목록가기</button>
-                        <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/scholarshipUpdate.do'">
+                        <button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/scholarshipUpdate.do?qNo=${qna.qNo}'">
                         	<i class="fas fa-pen"></i>&nbsp; &nbsp;수정하기</button>
+                        <button type="button" id="hdelete" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href='/univ/qna/jQnaDelete.do?qNo=${qna.qNo}'">
+                        	<i class="fas fa-trash-alt"></i>&nbsp; &nbsp;삭제하기
+                        </button>
                     </div>
                 </div>
             </div>

@@ -37,7 +37,7 @@
             <div class="comment-form-main">
                 <!-- <form id="frm" action="#" method="post"> -->
                     <div class="row">
-                    	<div class="col-md-12 my-3">
+                    	<!-- <div class="col-md-12 my-3">
                             <select name="qCategory" id="qCategory" class="form-select" aria-label="Default select example">
                                 <option selected>말머리 선택</option>
                                 <option value="졸업">졸업</option>
@@ -46,7 +46,7 @@
                                 <option value="과목">과목</option>
                                 <option value="기타">기타</option>
                             </select>
-                        </div>
+                        </div>  -->
                         <div class="col-md-12">
                             <div class="form-group">
                                 <input class="form-control" name="qTitle" id="qTitle" type="text" value="${qna.qTitle }">
@@ -70,9 +70,9 @@
     <!-- 끝 -->
     
     <script type="text/javascript">
-    $(function() {
+   /* $(function() {
     	  $("#qCategory").val("<?=$qCategory?>");
-    });
+    }); */
     	
 	// 수정
 	$('#qsubmit').on('click',function(){
