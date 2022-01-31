@@ -103,20 +103,6 @@
                     </div>
                 </div>
            </div>
-            <div class="d-flex justify-content-center mt-5">
-                <button type="button" id="modifyBtn" class="btn btn-outline-primary btn-lg" style="cursor:pointer">수정</button>
-            </div>
         </div>
-        <!-- END PAGE CONTENT-->
-          <script>
-              const btn = document.querySelector("#modifyBtn");
-              const goToTheModifyPage=()=>{
-                  let result=confirm("개인 정보를 수정하시겠습니까?")
-                  if(result){
-                      location.href="/univ/pro/proInfoUpdate.do";
-                  }
-              }
-              btn.addEventListener("click",goToTheModifyPage);
-          </script>
 </body>
 </html>

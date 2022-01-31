@@ -100,8 +100,7 @@ public class SubController {
 		
 		List<CriteriaSub> list = subDao.subjectPagenation(cri);
 		model.addAttribute("subList",list);
-		model.addAttribute("pageMaker", new PageVO(cri, list.size()));
-		;
+		model.addAttribute("pageMaker", new PageVO(cri, list.size()));;
 		int count = subDao.subjectCount(vo);
 		model.addAttribute("subjectCount",5-count);
 		return "pro/sub/subApplyList";
