@@ -20,4 +20,29 @@
 		WHERE STU_ID = #{stuId}
 		GROUP BY S.SUBJECT_DETAIL
 	</select>
+	
+	<update id="stuQnaUpdate" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_qna
+		SET sq_title=#{sqTitle}, sq_contents=#{sqContents},sq_date=sysdate
+		WHERE sq_no=#{sqNo} AND stu_id=#{stuId}
+	</update>
+	
+	<insert id="stuQnaInsert" parameterType="co.yedam.univ.sub.service.SubVO">
+		<selectKey keyProperty="sqNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(sq_no),0)+1 FROM SUBJECT_QNA
+		</selectKey>
+		INSERT INTO subject_qna(sq_no,subject_no,stu_id,sq_title,sq_contents,sq_date,major,pro_id,stu_name)
+		VALUES(#{sqNo},#{subjectNo},#{stuId},#{sqTitle},#{sqContents},sysdate,#{major},#{proId},#{stuName})
+		
+	</insert>
+	
+	<select id="selectProId" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT pro_id FROM subject 
+		WHERE subject_no=#{subjectNo} and subject_name=#{subjectName}
+	</select>
+	
+	<delete id="stuQnaDelete" parameterType="co.yedam.univ.sub.service.SubVO">
+		DELETE FROM subject_qna WHERE sq_no=#{sqNo} and stu_id=#{stuId}
+	
+	</delete>
 </mapper>

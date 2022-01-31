@@ -16,7 +16,7 @@
 		SELECT s.subject_name,b.bs_no,b.pro_id,b.bs_date,b.bs_title,b.bs_contents,b.board_hits
 		FROM subject s JOIN subject_board b
 		ON(s.subject_no = b.subject_no)
-		WHERE s.pro_id=#{proId} AND s.subject_no=#{subjectNo}
+		WHERE s.subject_name=#{subjectName} AND s.subject_no=#{subjectNo}
 		ORDER BY bs_no DESC
 	</select>
 	
@@ -24,7 +24,7 @@
 		SELECT s.subject_no,s.subject_name,q.sq_no,q.stu_id,q.stu_name,q.major,q.sq_date,q.sq_title,q.sq_contents,q.sq_state
 		FROM subject s RIGHT OUTER JOIN  subject_QnA q
 		ON(s.subject_no = q.subject_no)
-		WHERE s.pro_id=#{proId} AND s.subject_no=#{subjectNo}
+		WHERE s.subject_name=#{subjectName} AND s.subject_no=#{subjectNo}
 		ORDER BY q.sq_no DESC
 	</select>
 	
