@@ -50,8 +50,9 @@
                                  </div>
                                  <div class="col-lg-2 d-flex align-items-start">
                                  	<select id="major" class="form-control text-center" style="width: 300px;">
-                                 		<option>데이터학과</option>
-                                 		<option>국어국문학과</option>
+                                 	<c:forEach items="${majorList}" var="majorlist">
+                                 		<option>${majorlist.major}</option>
+                                 	</c:forEach>
                                  	</select>
                                  </div>
                                  <div class="col-lg-1" style="margin : 2%;">
@@ -269,28 +270,55 @@
           					tbody.appendChild(tr);
           					
           					//수강신청 버튼 클릭시
-//           					selectTd.onclick = function(){
-//           						let subNo = event.target.getAttribute("id");
-//           						if(event.target.nodeName == "BUTTON"){
-//           							$.ajax({
-          								
-//           								url : "/univ/stu/AjaxRegisterClass.do",
-//           								data : {
-//           									subNo : subNo,
-//           									day : data.subjectDay,
-//           									time : data.subjectTime
-//           								},
-//           								type : "POST",
-//           								dataType : "json",
-//           								success : function(){
-//           									console.log(data);
-//           								},
-//           								error : function(){
-//           									console.log("아작스실패");
-//           								}
-//           							})
-//           						}
-//           					}
+          					selectTd.onclick = function(){
+          						let subNo = event.target.getAttribute("id");
+          						if(event.target.nodeName == "BUTTON"){
+          							$.ajax({
+          								url : "/univ/stu/AjaxRegisterClass.do",
+          								data : {
+          									subNo : subNo,
+          									day : data.subjectDay,
+          									time : data.subjectTime
+          								},
+          								type : "POST",
+          								dataType : "text",
+          								success : function(text){
+          									if(text=="이미담아둠"){
+          										alert("이미 수강 중인 강의입니다.");
+          									}else if(text=="수강학점초과"){
+          										alert("수강가능학점을 초과했습니다.");
+          									}else if(text=="시간표겹침"){
+          										alert("이미 수강중인 강의와 수업시간이 중복됩니다.");
+          									}else if(text=="여석없음"){
+          										alert("수강여석이 없습니다.");
+          									}else if(text=="수강신청가능"){
+          										$.ajax({
+          											url : "/univ/stu/insertRegister.do",
+          											data : {
+          												subNo : subNo
+          											},
+          											type : "POST",
+          											dataType : "text",
+          											success : function(text){
+          												if(text=="NO"){
+          													alert("수강신청실패\n관리자에게 문의하세요[010-1234-1234]");
+          												}else if(text=="YES"){
+          													alert("수강신청이 완료되었습니다.");
+          													location.href="/univ/stu/enrolment.do";
+          												}
+          											},
+          											error : function(){
+          												console.log("insert 실패")
+          											}
+          										})
+          									}
+          								},
+          								error : function(){
+          									console.log("수강가능여부 아작스 실패");
+          								}
+          							})
+          						}
+          					}
           					
           					num = num+1;
           				}

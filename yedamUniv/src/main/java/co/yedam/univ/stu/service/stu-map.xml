@@ -19,6 +19,7 @@
 		ON R.SUBJECT_NO = S.SUBJECT_NO 
 		WHERE STU_ID = #{stuId}
 		GROUP BY S.SUBJECT_DETAIL
+		ORDER BY 1
 	</select>
 	
 	<update id="stuQnaUpdate" parameterType="co.yedam.univ.sub.service.SubVO">

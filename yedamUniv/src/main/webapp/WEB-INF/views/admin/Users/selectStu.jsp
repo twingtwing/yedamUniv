@@ -1,21 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- ================= Favicon ================== -->
-    <!-- Standard -->
-    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
-    <!-- Retina iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
-    <!-- Retina iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
-    <!-- Standard iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
-    <!-- Standard iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <style>
         #noticeListT:hover{cursor: pointer;}
     </style>
@@ -41,139 +29,131 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <div class="row mr-5 mt-4">
-                                    <div class="col-lg-12 d-flex justify-content-end">
-                                        <button class="btn btn-default m-b-10 m-l-5" 
-                                                style="width:80px">저장</button>
-                                    </div>
-                                </div>
-                                <div class="row mx-5 mb-5">
-                                    <div class="col-lg-12">
-                                        <h5 class="ti-arrow-circle-right"> 인적사항</h5><br>
-                                        <table id="" class="display table table-borderd">
-                                            <tbody>
-                                            <tr>
-                                                <td rowspan="3">
-                                                    <!--<img src="" alt="">-->
-                                                    사진들어올곳~~~
-                                                </td>
-                                                <th>아이디</th>
-                                                <td>eunji_kim97</td>
-                                                <th>전화번호</th>
-                                                <td>
-                                                    <input type="text" value="010-83707-1707" style="width:100%">
-                                                    </td>
-                                            </tr>
-                                            <tr>
-                                                <th>이름</th>
-                                                <td>
-                                                    <input type="text" value="김은지" style="width:100%">
-                                                    </td>
-                                                <th>이메일</th>
-                                                <td>
-                                                    <input type="text" value="eunji_kim97@yedam.com" style="width:100%">
-                                                    </td>
-                                            </tr>
-                                            <tr>
-                                                <th>생년월일</th>
-                                                <td>1997-08-05</td>
-                                                <th>권한</th>
-                                                <td>학생</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table id="" class="display table table-borderd">
-                                            <tbody>
-                                                <tr>
-                                                    <th>주소</th>
-                                                    <td colspan="2">
-                                                        <input type="text" value="대구광역시 중구 태왕아너스 5F" style="width:100%">  
-                                                    </td>
-                                                    <th>입학일</th>
-                                                    <td>2016-03-01</td>
-                                                    <th>상태</th>
-                                                    <td>
-                                                        <input type="text" value="재학/휴학/졸업" style="width:100%"> 
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <br><br><br>
-                                        <h5 class="ti-arrow-circle-right"> 학적조회</h5><br>
-                                        <table id="" class="display table table-borderd">
-                                            <tbody>
-                                            <tr>
-                                                <th>학과/학년</th>
-                                                <td>국어국문학과 / 3학년</td>
-                                                <th>교양이수학점</th>
-                                                <td>60점</td>
-                                            </tr>
-                                            <tr>
-                                                <th>졸업학점</th>
-                                                <td>136점</td>
-                                                <th>전공이수학점</th>
-                                                <td>110점</td>
-                                            </tr>
-                                            <tr>
-                                                <th>취득학점</th>
-                                                <td>82점</td>
-                                                <th>학점</th>
-                                                <td>4.0/4.5</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <br><br><br>
-                                        <h5 class="ti-arrow-circle-right"> 성적조회</h5><br>
-                                        <table id="" class="display table table-borderd">
-                                            <tbody>
-                                            <tr>
-                                                <th>과목코드</th>
-                                                <td>0100</td>
-                                                <th>교수명</th>
-                                                <td>김문주</td>
-                                                <th>중간</th>
-                                                <td>80/100</td>
-                                                <th>성적</th>
-                                                <td>A+</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>과목명</th>
-                                                    <td>현대시론</td>
-                                                    <th>이수구분</th>
-                                                    <td>전공핵심</td>
-                                                    <th>기말</th>
-                                                    <td>95/100</td>
-                                                    <th>수강학기</th>
-                                                    <td>2019-02</td>
-                                            </tr>
-                                            </tbody>
-                                        </table><br>
-                                        <table id="" class="display table table-borderd">
-                                            <tbody>
-                                            <tr>
-                                                <th>과목코드</th>
-                                                <td>0110</td>
-                                                <th>교수명</th>
-                                                <td>서인석</td>
-                                                <th>중간</th>
-                                                <td>80/100</td>
-                                                <th>성적</th>
-                                                <td>A+</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>과목명</th>
-                                                    <td>고전문학사</td>
-                                                    <th>이수구분</th>
-                                                    <td>전공핵심</td>
-                                                    <th>기말</th>
-                                                    <td>95/100</td>
-                                                    <th>수강학기</th>
-                                                    <td>2019-02</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                            	<div class="row">
+                            		<form id="updateFrm">
+		                                <div class="row mx-5 mb-5">
+		                                    <div class="col-lg-12">
+		                                        <h5 class="ti-arrow-circle-right"> 인적사항</h5><br>
+		                                        <table id="" class="display table table-borderd">
+		                                            <tbody>
+		                                            <tr>
+		                                                <th>아이디</th>
+		                                                <td>${stu.stuId }</td>
+		                                                <th>전화번호</th>
+		                                                <td>
+		                                                    <input type="text" value="${stu.stuTel }" name="tel" style="width:100%">
+		                                                    </td>
+		                                            </tr>
+		                                            <tr>
+		                                                <th>이름</th>
+		                                                <td>
+		                                                    <input type="text" value="${stu.stuName }" name="name" style="width:100%">
+		                                                    </td>
+		                                                <th>이메일</th>
+		                                                <td>
+		                                                    <input type="text" value="${stu.stuEmail }" name="email" style="width:100%">
+		                                                    </td>
+		                                            </tr>
+		                                            <tr>
+		                                                <th>생년월일</th>
+		                                                <td class="subDate">${sub.stuBrith }</td>
+		                                                <th>권한</th>
+		                                                <td>학생</td>
+		                                            </tr>
+		                                            </tbody>
+		                                        </table>
+		                                        <table class="display table table-borderd">
+		                                            <tbody>
+		                                            	<tr>
+					                                        <th>우편번호</th>
+					                                        <td>
+					                                            <div class="d-flex align-items-center">
+					                                                <input type="text" name="zipcode" class="form-control" id="stuZipcode" value="${stu.stuZipcode }" placeholder="" aria-label="Phone Number" style="width: 60%;">
+					                                                    <button class="ml-3 btn btn-outline-secondary" id="address_kakao" type="button">검색</button>
+					                                            </div>
+					                                        </td>
+					                                        <th>주소</th>
+					                                        <td><input type="text" class="form-control" id="stuAddr" name="addr" value="${stu.stuAddr }"></td>
+					                                     	<th>상세주소</th>
+					                                     	<td><input type="text" class="form-control" id="stuAddr2" name="addr2" value="${stu.stuAddr2 }"></td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <th>입학일</th>
+		                                                    <td colspan="3" class="subDate">${stu.stuJoin }</td>
+		                                                    <th>상태</th>
+		                                                    <td>
+		                                                    	<select name="rec" class="btn btn-default dropdown-toggle mr-1" style="width: 100px; height: 38px;">
+							                                        <option value="재학" <c:if test="${stu.stuRec eq '재학'}">selected</c:if>>재학</option>
+							                                        <option value="휴학" <c:if test="${stu.stuRec eq '휴학'}">selected</c:if>>휴학</option>
+		                                                        </select>
+		                                                    </td>
+		                                                </tr>
+		                                            </tbody>
+		                                        </table>
+		                                        <br><br><br>
+		                                        <h5 class="ti-arrow-circle-right"> 학적조회</h5><br>
+		                                        <table id="" class="display table table-borderd">
+		                                            <tbody>
+		                                            <tr>
+		                                                <th>학과</th>
+		                                                <td>${stu.major }학과</td>
+		                                                <th>학년</th>
+		                                                <td>${stu.grade }학년</td>
+		                                                <th>학점</th>
+		                                                <td>${list[0].avg }</td>
+		                                            </tr>
+		                                            <tr>
+		                                                <th>졸업학점</th>
+		                                                <td>${stu.graduateNum }점</td>
+		                                                <th>교양이수학점</th>
+		                                                <td>${stu.liberalNum }점</td>
+		                                                <th>전공이수학점</th>
+		                                                <td>${stu.majorNum }점</td>
+		                                                <th>취득학점</th>
+		                                                <td>${(reg[0].score + reg[1].score) }점</td>
+		                                            </tr>
+		                                            </tbody>
+		                                        </table>
+		                                        <br><br><br>
+		                                        <h5 class="ti-arrow-circle-right"> 성적조회</h5><br>
+		                                        <table class="display table table-borderd">
+		                                            <tbody>
+		                                            	<c:forEach items="${list }" var="one">
+				                                            <tr>
+				                                                <th>과목코드</th>
+				                                                <td>${one.subjectNum }</td>
+				                                                <th>교수명</th>
+				                                                <td>${one.proId }</td>
+				                                                <th>중간</th>
+				                                                <td>${one.midExam }/100</td>
+			                                                    <th>기말</th>
+			                                                    <td>${one.finalExam }/100</td>
+			                                                </tr>
+			                                                <tr>
+			                                                    <th>과목명</th>
+			                                                    <td>${one.subjectName }</td>
+			                                                    <th>이수구분</th>
+			                                                    <td>${one.subjectDetail}</td>
+				                                                <th>성적</th>
+				                                                <td>${one.grade }</td>
+			                                                    <th>수강학기</th>
+			                                                    <td>${one.registerSemester }</td>
+			                                            	</tr>
+		                                            	</c:forEach>
+		                                            </tbody>
+		                                        </table><br>
+		                                    </div>
+		                                </div>
+		                                <input type="hidden" name="id" value="${stu.stuId}">
+                            		</form>
+                            	</div>
+                            	<div class="row"> 
+		               	        	<div class="col-lg-12">
+			                          	<div class="d-flex justify-content-end">
+				                            <button id="upBtn" class="btn btn-default m-b-30 m-l-5 m-r-50" style="width:80px;">저장</button>
+				               	        </div>
+		               	        	</div>
+		                        </div>
                             </div>
                             <!-- /# card -->
                         </div>
@@ -184,28 +164,57 @@
             </div>
         </div>
     </div>
+   	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript">
+	    window.onload = function () {
+	        document
+	          .getElementById("address_kakao")
+	          .addEventListener("click", function () {
+	            //주소입력칸을 클릭하면
+	            //카카오 지도 발생
+	            new daum.Postcode({
+	              oncomplete: function (data) {
+	                //선택시 입력값 세팅
+	                document.getElementById("stuZipcode").value = data.zonecode;
+	                document.getElementById("stuAddr").value = data.roadAddress; // 주소 넣기
+	                document.querySelector("input[name=stuAddr2]").focus(); //상세입력 포커싱
+	              },
+	            }).open();
+	          });
+	      };
+	      
+		    (function(){
+			const dateList =  $('.subDate');
+				for(date of dateList){
+					date.innerHTML = (date.innerHTML).slice(0,10);
+				}
+			})()
+		
+			$('#upBtn').click(function(){
+				for ( var input of $('#updateFrm input') ) {
+					if(input.value===''){
+						alert('값을 모두 채워주세요.');
+						input.focus();
+						return;
+					}
+				}
+				$.ajax({
+					url :'/univ/admin/updateStu.do',
+					data : $('#updateFrm').serialize(),
+					type:'post'
+				})
+				.done(data=>{
+					if(data==='Y'){
+						alert('해당 직원정보가 수정이 정상적으로 완료되었습니다.');
+						location.href='/univ/admin/selectStu.do?stuId='+'${stu.stuId}';
+					}else if(data==='N'){
+						laert('정보 수정 중에 오류가 발생하였습니다.');
+					}
+				})
+				
+			})				
+		
     
-     <!-- jquery vendor -->
-    <script src="assets/js/lib/jquery.min.js"></script>
-    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
-    <!-- nano scroller -->
-    <script src="assets/js/lib/menubar/sidebar.js"></script>
-    <script src="assets/js/lib/preloader/pace.min.js"></script>
-    <!-- sidebar -->
-    
-    <!-- bootstrap -->
-
-    <script src="assets/js/lib/bootstrap.min.js"></script><script src="assets/js/scripts.js"></script>
-    <!-- scripit init-->
-    <script src="assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="assets/js/lib/data-table/pdfmake.min.js"></script>
-    <script src="assets/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="assets/js/lib/data-table/datatables-init.js"></script>
-    
+    </script>
 </body>
 </html>

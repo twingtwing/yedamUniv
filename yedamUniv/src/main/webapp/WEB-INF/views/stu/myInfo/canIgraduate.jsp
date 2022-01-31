@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
  <div class="page-content fade-in-up main_bar">
             <div class="row">
                 <div class="col-lg-12 m-t-8 p-b-10 p-t-10" style="border-bottom: 2px solid rgba(119, 119, 121, 0.11);">
@@ -68,23 +68,44 @@
                                <tr>
                                    <td>1</td>
                                    <td>졸업학점</td>
-                                   <td>90</td>
-                                   <td>51</td>
-                                   <td><span class="text-danger">불합격</span></td> 
+                                   <td>${stu.graduateNum }</td>
+                                   <td>${reg[0].score + reg[1].score}</td>
+                                   <td class="score">
+	                                    <c:if test="${stu.graduateNum le (reg[0].score + reg[1].score)}">
+	                                    	<span class="text-primary">합격</span>
+	                                    </c:if>
+	                                    <c:if test="${stu.graduateNum gt (reg[0].score + reg[1].score)}">
+	                                  		<span class="text-danger">불합격</span>
+	                                   	</c:if>
+                                   </td> 
                                </tr>
                                 <tr>
                                    <td>2</td>
                                    <td>교양이수학점</td>
-                                   <td>10</td>
-                                   <td>9</td>
-                                   <td><span class="text-danger">불합격</span></td> 
+                                   <td>${stu.liberalNum }</td>
+                                   <td>${reg[0].score}</td>
+                                   <td class="score">
+	                                    <c:if test="${stu.liberalNum le reg[0].score}">
+	                                    	<span class="text-primary">합격</span>
+	                                    </c:if>
+	                                    <c:if test="${stu.liberalNum gt reg[0].score}">
+	                                  		<span class="text-danger">불합격</span>
+	                                   	</c:if>
+                                   </td> 
                                </tr>
                                <tr>
                                     <td>3</td>
                                     <td>전공이수학점</td>
-                                    <td>0</td>
-                                    <td>42</td>
-                                    <td><span class="text-primary">합격</span></td> 
+                                    <td>${stu.majorNum }</td>
+                                    <td>${reg[1].score}</td>
+                                    <td class="score">
+	                                    <c:if test="${stu.majorNum le reg[1].score}">
+	                                    	<span class="text-primary">합격</span>
+	                                    </c:if>
+	                                    <c:if test="${stu.majorNum gt reg[1].score}">
+	                                  		<span class="text-danger">불합격</span>
+	                                   	</c:if>
+                                   </td> 
                                 </tr>
                                <tr>
                                    <td colspan="5" style="height: 120px;"></td>
@@ -94,7 +115,7 @@
                              <thead class="thead-default">
                              	<tr>
 	                                <th colspan="4">총 건수 : [3] 건</th>
-	                                <th>결과 : <span class="text-danger">불합격</span></th>
+	                                <th>결과 : <span class="text-danger score-result">불합격</span></th>
                              	</tr>
                              </thead>
                          </table>
@@ -102,11 +123,6 @@
                 </div>
             </div>
         </div>
-            
-            
-     
-      
-          
           <style>
             .visitors-table tbody tr td:last-child {
               display: flex;
@@ -122,4 +138,17 @@
               margin-left: 10px;
             }
           </style>
+          <script type="text/javascript">
+          	(function(){
+          		var str = '합격';
+	          	for ( var score of $('.score span')) {
+					if(score.innerHTML ==='불합격'){
+						str = '불합격';
+					}
+				}
+	          	$('.score-result').text(str);
+          		
+          	})();
+          
+          </script>
         </div>

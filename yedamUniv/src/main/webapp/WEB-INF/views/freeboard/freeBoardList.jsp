@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
 </head>
 <body>
 <div class="all-title-box">
@@ -19,7 +21,7 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">대학 생활 </a>
 						<div class="dropdown-menu" aria-labelledby="dropdown-a" style="width: 10vw;">
-							<a class="dropdown-item" href="/univ/board/freeBoardList.do">자유게시판 </a>
+							<a class="dropdown-item" href="/univ/freeboard/freeBoardList.do">자유게시판 </a>
 						</div>
 				</li>
 			</ul>
@@ -55,19 +57,25 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr align="center">
-								<td width="70">1</th>
-								<td width="300">제목 예시</th>
-								<td width="100">admin</th>
-								<td width="100">20220101</th>
-								<td width="100">300</th>
+							<c:forEach items="${freeboards}" var="freeboard">					
+							<tr align="center" onclick="freeBoardRead('${freeboard.cNo }')">								
+								<td width="70">${freeboard.cNo }</td>
+								<td width="300">${freeboard.cTitle }</td>
+								<td width="100">${freeboard.cWriter }</td>
+								<td width="100">${freeboard.cDate }</td>
+								<td width="100">${freeboard.cHits }</td>								
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
+					<form id="readfrm" action="/univ/freeboard/freeBoardRead.do" method="post">
+						<input type="hidden" id="cNo" name="cNo">
+					</form>
 				</div>
 				<div class="row d-flex justify-content-end">
-				<button type="button" class="btn btn-outline-warning m-3" style="background-color: white;"><i class="fas fa-pen" onclick="location.href ='freeBoardInsert.do'"></i>&nbsp; &nbsp;글쓰기</button>
+				<button type="button" class="btn btn-outline-warning m-3" style="background-color: white;" onclick="location.href ='freeBoardInsert.do'"><i class="fas fa-pen"></i>&nbsp; &nbsp;글쓰기</button>
 				</div>
+				
 				<div>
 					<ul class="pagination justify-content-center p-5" style="color: #eea412;;">
 						<li class="page-item"><a class="page-link  text-warning" href="#">Previous</a></li>
@@ -80,7 +88,13 @@
 					</ul>
 				</div>
 			</div>
-        </div><!-- end container -->
-    </div><!-- end section --> 
+        </div>
+    </div>
+<script>
+	function freeBoardRead(str) {
+		readfrm.cNo.value = str;
+		readfrm.submit();
+	}
+</script>
 </body>
 </html>

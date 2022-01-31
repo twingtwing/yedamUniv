@@ -136,22 +136,6 @@
                     </div>
                 </div>
             </div>
-            <!-- 수정 삭제 -->
-<!--             <div class="d-flex justify-content-center mt-5">
-                <button type="button" id="modifyBtn" class="btn btn-outline-primary btn-lg" style="cursor:pointer">수정</button>
-            </div>
-            
-        
-          <script>
-              const btn = document.querySelector("#modifyBtn");
-              const goToTheModifyPage=()=>{
-                  let result=confirm("개인 정보를 수정하시겠습니까?")
-                  if(result){
-                      location.href="/univ/stu/modifyStudent.do";
-                  }
-              }
-              btn.addEventListener("click",goToTheModifyPage);
-          </script>
           
           <style>
             .visitors-table tbody tr td:last-child {
@@ -167,7 +151,7 @@
               text-align: right;
               margin-left: 10px;
             }
-          </style> -->
+          </style> 
         </div>
         <!-- END PAGE CONTENT-->
         
