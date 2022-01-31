@@ -52,7 +52,7 @@
 								<a class="dropdown-item" href="/univ/board/haksaBoardList.do">학사공지</a>
 								<a class="dropdown-item" href="/univ/qna/haksaQna.do">학사QnA </a>
 								<a class="dropdown-item" href="/univ/faq/haksaFaq.do">학사FAQ</a>
-								<a class="dropdown-item" href="/univ/board/freeBoardList.do">자유게시판</a>
+								<a class="dropdown-item" href="/univ/freeboard/freeBoardList.do">자유게시판</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
