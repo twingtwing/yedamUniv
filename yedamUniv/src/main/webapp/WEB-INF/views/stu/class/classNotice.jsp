@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <style>
   .back_link {
     color: #4c5a7d;
@@ -31,7 +33,7 @@ pageEncoding="UTF-8"%>
       <i class="fa fa-chevron-right"></i
       ><span class="m-l-10 m-r-10"> 수강목록</span>
       <i class="fa fa-chevron-right"></i>
-      <span class="m-l-10 main_bar_span">(수업이름) 공지사항</span>
+      <span class="m-l-10 main_bar_span">${subName } 공지사항</span>
     </div>
   </div>
   <hr class="mt-1" />
@@ -39,8 +41,8 @@ pageEncoding="UTF-8"%>
     <div class="row mt-4 ml-1">
       <i class="ti-book text-warning" style="font-size: 30px"></i>
       <div class="ml-2 d-flex align-items-center">
-        <a href="#" alt="my subject" class="back_link">
-          <h4 class="mb-0 font-weight-bold">강의이름 | 강의번호</h4>
+        <a href="/univ/stu/classHome.do?subNo=${subNo }&&subName=${subName}" alt="my subject" class="back_link">
+          <h4 class="mb-0 font-weight-bold">${subName } | ${subNo }</h4>
         </a>
       </div>
     </div>
@@ -60,35 +62,26 @@ pageEncoding="UTF-8"%>
             <div class="row mt-3">
               <div class="col-lg-12 board-div">
                 <div class="row bg-silver-100 pt-2 pb-1 pl-2">
-                  <h6>제목 : 제목</h6>
+                  <h6>제목 : ${board.bsTitle }</h6>
                 </div>
                 <div
                   class="row d-flex justify-content-between bg-silver-100 pt-2 pb-1 pl-2 pr-2"
                 >
-                  <h6>글쓴이 : 글쓴이</h6>
+                  <h6>글쓴이 : ${board.proId }</h6>
                   <div class="row">
-                    <h6 class="mr-3">등록일 : 등록일</h6>
-                    <h6 class="mr-4">조회 : 조회</h6>
+                    <h6 class="mr-3">등록일 : <c:out
+                          value="${fn:substring(board.bsDate,0,10) }"
+                        ></c:out></h6>
+                    <h6 class="mr-4">조회 : ${board.boardHits }</h6>
                   </div>
                 </div>
                 <div class="row pt-3 pb-1 px-2">
                   <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Tenetur a minima cupiditate ullam veniam officiis doloribus
-                    possimus, nobis porro quam eligendi ipsam, vel nostrum
-                    corrupti adipisci amet ea maiores neque. Lorem, ipsum dolor
-                    sit amet consectetur adipisicing elit. Tenetur a minima
-                    cupiditate ullam veniam officiis doloribus possimus, nobis
-                    porro quam eligendi ipsam, vel nostrum corrupti adipisci
-                    amet ea maiores neque. Lorem, ipsum dolor sit amet
-                    consectetur adipisicing elit. Tenetur a minima cupiditate
-                    ullam veniam officiis doloribus possimus, nobis porro quam
-                    eligendi ipsam, vel nostrum corrupti adipisci amet ea
-                    maiores neque.
+                  ${board.bsContents }
                   </p>
                 </div>
                 <!-- 첨부파일이 있을 경우에만 -->
-                <div class="row bg-silver-100 pt-2">
+                <!-- <div class="row bg-silver-100 pt-2">
                   <ul class="board-ul mb-0 pl-0 text-muted">
                     <li>
                       <div class="row ml-4 pr-2">
@@ -115,7 +108,7 @@ pageEncoding="UTF-8"%>
                       </div>
                     </li>
                   </ul>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="row d-flex justify-content-between mt-3">

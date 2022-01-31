@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -210,9 +213,8 @@ public class StudentController {
   //수강목록 - 선택한 년도,학기에 수강한 강의리스트 보내줌
   @ResponseBody
   @RequestMapping("stu/AjaxClassListSearch.do")
-  public List<RegisterVO> AjaxClassListSearch(@RequestParam("year") int year,
-		  										 @RequestParam("term") String term,
-		  										 HttpSession session){
+  public List<RegisterVO> AjaxClassListSearch(HttpSession session,@RequestParam("year") int year,
+		  										 @RequestParam("term") String term){
 	  int semester = Integer.parseInt(term.substring(0,1)); 
 	  RegisterVO vo = new RegisterVO();
 	  vo.setStuId((String)session.getAttribute("id"));
@@ -228,19 +230,125 @@ public class StudentController {
   
   //강의실(공지사항, QnA)
   @RequestMapping("stu/classHome.do")
-  public String classHome() {
-	 return "stu/class/classHome";
+  public String classHome(HttpSession session,SubVO vo,@Param("subNo")int subNo, @Param("subName") String subName,Model model) {
+	 vo.setSubjectNo(subNo);
+	 vo.setSubjectName(subName);
+	 model.addAttribute("subName", vo.getSubjectName());
+	 model.addAttribute("subNo", vo.getSubjectNo());
+	 model.addAttribute("postLists", subDao.subjectPostList(vo)); 
+	 
+	 SubVO vo2 = new SubVO();
+	 vo2.setSubjectName(subName);
+	 vo2.setSubjectNo(subNo);
+	 model.addAttribute("qnaLists", subDao.subjectQnAList(vo2));
+	  return "stu/class/classHome";
 	}
   //강의실 - 공지사항 상세페이지
   @RequestMapping("stu/classNotice.do")
-  public String classNotice() {
-	 return "stu/class/classNotice";
+  public String classNotice(SubVO vo,@Param("bsNo") int bsNo,@Param("subNo")int subNo, @Param("subName") String subName,Model model) {
+	  
+		vo.setSubjectNo(subNo);
+		vo.setSubjectName(subName);
+		vo.setBsNo(bsNo);
+		model.addAttribute("subNo", vo.getSubjectNo());
+		model.addAttribute("subName", vo.getSubjectName());
+		model.addAttribute("bsNo", vo.getBsNo());
+		model.addAttribute("board", subDao.subjectBoardSelect(vo));
+		subDao.updateBoardHit(vo);	
+	  
+	  return "stu/class/classNotice";
   }
   //강의실 - 묻고답하기 상세페이지
   @RequestMapping("stu/classQna.do")
-  public String classQna() {
+  public String classQna(@Param("sqNo") int sqNo, SubVO vo, @Param("subNo") int subNo, @Param("subName")String subName,Model model) {
+		vo.setSubjectNo(subNo);
+		vo.setSubjectName(subName);
+		vo.setSqNo(sqNo);
+		model.addAttribute("subNo", vo.getSubjectNo());
+		model.addAttribute("subName", vo.getSubjectName());
+		model.addAttribute("sqNo", vo.getSqNo());
+		model.addAttribute("qnaList", subDao.subjectQnaSelect(vo));
 	  return "stu/class/classQna";
   }
+  
+  //강의실 - 묻고답하기 수정폼
+  @RequestMapping("stu/qnaUpdate.do")
+  public String qnaUpdate(@Param("sqNo") int sqNo, SubVO vo, @Param("subNo") int subNo, @Param("subName")String subName,Model model) {
+		vo.setSubjectNo(subNo);
+		vo.setSubjectName(subName);
+		vo.setSqNo(sqNo);
+		model.addAttribute("subNo", vo.getSubjectNo());
+		model.addAttribute("subName", vo.getSubjectName());
+		model.addAttribute("sqNo", vo.getSqNo());
+		model.addAttribute("qnaList", subDao.subjectQnaSelect(vo));
+	  
+	  return "stu/class/qnaUpdate";
+  }
+  
+  //강의실 - 묻고답하기 수정 ajax
+  @RequestMapping("stu/qnaUpdateAjax.do")
+  @ResponseBody
+  public String qnaUpdateAjax(HttpSession session,SubVO vo,@RequestParam("sqTitle") String sqTtitle, @RequestParam("sqContents") String content,@RequestParam("sqNo")int sqNo) {
+	  String result="N";
+	  vo.setSqTitle(sqTtitle);
+	  vo.setSqContents(content);
+	  vo.setSqNo(sqNo);
+	  vo.setStuId((String)session.getAttribute("id"));
+	  int n=stuDAO.stuQnaUpdate(vo);
+	  if(n!=0) {
+		  result="Y";
+		  return result;
+	  }
+	  return result;
+  }
+  
+  //강의실 - 묻고답하기 등록
+ @GetMapping("stu/qnaInsert.do")
+ public String qnaInsert(@Param("subNo")int subNo, @Param("subName")String subName,SubVO vo,Model model) {
+	 vo.setSubjectName(subName);
+	 vo.setSubjectNo(subNo);
+	 model.addAttribute("proId", stuDAO.selectProId(vo));
+	 model.addAttribute("subNo", vo.getSubjectNo());
+	 model.addAttribute("subName", vo.getSubjectName());
+	 return "stu/class/qnaInsert";
+ }
+ 
+ //강의실 - 묻고답하기 등록 ajax
+ @PostMapping("stu/qnaInsertAjax.do")
+ @ResponseBody
+ public String qnaInsertAjax(@RequestParam("proId")String proId,@RequestParam("title")String title,@RequestParam("content")String content,@RequestParam("subNo")int subNo,@RequestParam("subName")String subName,HttpSession session,SubVO vo) {
+	 String result="N";
+	 vo.setStuId((String)session.getAttribute("id"));
+	 vo.setMajor((String)session.getAttribute("major"));
+	 vo.setSubjectNo(subNo);
+	 vo.setSubjectName(subName);
+	 vo.setSqTitle(title);
+	 vo.setSqContents(content);
+	 vo.setProId(proId);
+	 vo.setStuName((String)session.getAttribute("name"));
+	 int n= stuDAO.stuQnaInsert(vo);
+	 if(n!=0) {
+		 result="Y";
+		 return result;
+	 }
+	 return result;
+ }
+ 
+ //강의실-qna 묻고답하기 삭제
+ @RequestMapping("stu/qnaDelete.do")
+ @ResponseBody
+ public String qnaDelete(SubVO vo,@RequestParam("sqNo")int sqNo,@RequestParam("stuId")String stuId) {
+	 String result="N";
+	 vo.setSqNo(sqNo);
+	 vo.setStuId(stuId);
+	 int n=stuDAO.stuQnaDelete(vo);
+	 if(n!=0) {
+		 result="Y";
+		 return result;
+			
+	 }
+	 return result;
+ }
   //강의평가목록
   @RequestMapping("stu/rateClassList.do")
   public String rateClassList() {

@@ -333,6 +333,16 @@
         				  barogagi.setAttribute("class","btn btn-outline-warning btn-sm");
         				  barogagi.innerHTML = "바로가기"
         				  buttonTDtwo.appendChild(barogagi);
+        				  
+        				  
+        				   //버튼 누르면 해강강의 이동
+       		           
+      		            function goToTheClassHome() {
+      		              location.href ="/univ/stu/classHome.do?subNo=" +data.subjectNo + "&&subName=" +data.subjectName;
+      		            }
+      		          barogagi.addEventListener("click", goToTheClassHome);
+        				  
+        		       
         					
         				  tr.appendChild(num);
         				  tr.appendChild(detail);
