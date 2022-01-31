@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.freeboard.service.FreeboardMapper">
+	<select id="freeBoardList" resultType="co.yedam.univ.freeboard.service.FreeboardVO">
+		SELECT * FROM COMMUNITY
+		ORDER BY C_NO DESC
+	</select>
+	
+	<insert id="freeBoardInsert" parameterType="co.yedam.univ.freeboard.service.FreeboardVO">
+		<selectKey keyProperty="cNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(C_NO),0)+1 FROM COMMUNITY      
+		</selectKey>
+		INSERT INTO COMMUNITY (C_NO, C_TITLE, C_CONTENTS, C_WRITER)
+		VALUES(#{cNo},#{cTitle},#{cContents},#{cWriter})
+	</insert>
+	
+	<select id="freeBoardSelect" resultType="co.yedam.univ.freeboard.service.FreeboardVO">
+		SELECT * FROM COMMUNITY WHERE C_NO = #{cNo}
+	</select>
+	
+	<insert id="cmtInsert" parameterType="co.yedam.univ.freeboard.service.FreeboardVO">
+		<selectKey keyProperty="cmtNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(CMT_NO),0)+1 FROM COMMENTING      
+		</selectKey>
+		INSERT INTO COMMENTING (CMT_NO, C_NO, CMT_WRITER, CMT_CONTENTS)
+		VALUES(#{cmtNo},#{cNo},#{cmtWriter},#{cmtContents})
+	</insert>
+	
+	<select id="cmtList" resultType="co.yedam.univ.freeboard.service.FreeboardVO">
+		SELECT * FROM COMMENTING
+		WHERE C_NO = #{cNo}
+	</select>
+</mapper>

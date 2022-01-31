@@ -31,10 +31,6 @@ public class boardController {
 		return "board/scholarshipBoardRead";
 	}
 	
-	// 자유게시판 리스트
-	@RequestMapping("board/freeBoardList.do")
-	public String freeBoardList() {
-		return "board/freeBoardList";
-	}
+	
 	
 }
