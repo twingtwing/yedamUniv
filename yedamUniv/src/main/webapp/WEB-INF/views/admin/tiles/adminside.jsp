@@ -9,7 +9,7 @@
 	<div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
         <div class="nano">
             <div class="nano-content">
-                <div class="logo"><a href="/univ/admin/admin.do"><!-- <img src="assets/images/logo.png" alt="" /> --><span>YDU</span></a></div>
+                <div class="logo"><a href="/univ/all/home.do"><!-- <img src="assets/images/logo.png" alt="" /> --><span>YDU</span></a></div>
                 <ul>
                     <li><a class="sidebar-sub-toggle"><i class="ti-announcement"></i>공지사항<span class="badge badge-primary">2</span> <span class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
@@ -24,7 +24,7 @@
                             <li><a href="/univ/admin/listEmp.do">교직원</a></li>
                             <li><a href="/univ/admin/listProf.do">교수</a></li>
                             <li><a href="/univ/admin/listStu.do">학생</a></li>
-                            <li><a href="/univ/admin/listPapers.do">휴·복학/자퇴 신청 관리</a></li>
+                            <li><a href="/univ/admin/listLeave.do">휴·복학/자퇴 신청 관리</a></li>
                         </ul>
                     </li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-heart"></i>자유게시판<span class="badge badge-primary"></span> <span class="sidebar-collapse-icon ti-angle-down"></span></a>

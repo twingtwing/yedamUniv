@@ -35,4 +35,20 @@ public class qnaServiceImpl implements qnaService {
 		return qnaMapper.qnaDelete(q_no);
 	}
 
+
+	@Override
+	public List<qnaVO> hSelectList() {
+		return qnaMapper.hSelectList();
+	}
+
+	@Override
+	public List<qnaVO> jSelectList() {
+		return qnaMapper.jSelectList();
+	}
+
+	@Override
+	public int qnaAnswer(qnaVO vo) {
+		return qnaMapper.qnaAnswer(vo);
+	}
+
 }

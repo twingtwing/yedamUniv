@@ -13,7 +13,7 @@ import co.yedam.univ.board.service.BoardVO;
 public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardMapper map;
-	
+
 	@Override
 	public List<BoardVO> boardList(BoardVO vo) {
 		return map.boardList(vo);
@@ -37,6 +37,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int boardDelete(BoardVO vo) {
 		return map.boardDelete(vo);
+	}
+
+	@Override
+	public int boardHitsUP(BoardVO vo) {
+		return map.boardHitsUP(vo);
+	}
+
+	@Override
+	public int boardLastNum() {
+		return map.boardLastNum();
+	}
+
+	@Override
+	public List<BoardVO> searchBoardNo(BoardVO vo) {
+		return map.searchBoardNo(vo);
+	}
+
+	@Override
+	public List<BoardVO> searchBoardTitle(BoardVO vo) {
+		return map.searchBoardTitle(vo);
 	}
 
 }

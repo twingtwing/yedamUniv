@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,9 @@
     .table tr {
             height: 60px;
         }
+    #listbody:hover{
+			cursor : pointer;
+		}
 </style>
 </head>
 
@@ -38,8 +42,9 @@
                             <div class="site-search-area">
                                 <form method="get" id="site-searchform" action="#">
                                     <div>
-                                        <input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
-                                        <input id="searchsubmit" value="Search" type="submit">
+                                        <input class="input-text form-control" name="search-k" 
+                                        id="search-k" placeholder="제목" type="text">
+                                        <input id="searchsubmit" value="Search">
                                     </div>
                                 </form>
                             </div>
@@ -56,7 +61,7 @@
                                 <col width="150">
                                 <col width="150">
                             </colgroup>
-                            <tr style="background-color: #eea412;;">
+                            <tr style="background-color: #eea412;">
                                 <th>글번호</th>
                                 <th>제목</th>
                                 <th>작성자</th>
@@ -64,14 +69,17 @@
                                 <th>조회수</th>
                             </tr>
                         </thead>
-                        <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><a href="scholarship_noticeRead.html">제목</a></td>
-                                    <td>staff</td>
-                                    <td>2022.01.11</td>
-                                    <td>1</td>
-                                </tr>
+                        <tbody id="listbody">
+                        	<c:forEach items="${JangHaksa}" var="JangHaksa">
+								<c:set var="i" value="${i+1}"/>
+									<tr onclick="selectJangHaksa(${JangHaksa.boardNo})" class="origin">
+										<td>${i}</td>
+										<td>${JangHaksa.boardTitle}</td>
+										<td>관리자</td>
+										<td>${JangHaksa.boardDate}</td>
+										<td>${JangHaksa.boardHits}</td>
+									</tr>
+							</c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -93,4 +101,69 @@
 
 
 </body>
+
+<script type="text/javascript">
+	function selectJangHaksa(boardNo){
+		location.href="/univ/board/scholarshipBoardRead.do?boardNo="+boardNo
+	}
+	document.querySelector("#searchsubmit").onclick=function(){
+		let searchVal = document.querySelector("#search-k").value;
+		document.querySelector("#search-k").value="";
+		if(searchVal == ""){
+			alert("검색조건을 입력해주세요.");
+		}else{
+			$.ajax({
+                url : "/univ/admin/AjaxSelectList.do",
+                data : {
+                   selector : "제목",
+                   searchVal : searchVal,
+                   boardKind : "JangHaksa"
+                },
+                type : "POST",
+                dataType : "json",
+                success : function(datas){
+             		$('.origin').remove();
+                 	
+     	            let listbody = document.querySelector("#listbody");
+                 	for(let data of datas){
+     	            	var contents = document.createElement("tr");
+     	            	contents.setAttribute("id",data.boardNo);
+     	            	contents.setAttribute("class","origin");
+     	            	var no = document.createElement("td");
+     	            	no.innerHTML = data.boardNo;
+     	            	var title = document.createElement("td");
+     	            	title.innerHTML = data.boardTitle;
+     	            	var writer = document.createElement("td");
+     	            	writer.innerHTML = "관리자";
+     	            	var wdate = document.createElement("td");
+     	            	var timestamp = data.boardDate;
+                 		var date = new Date(timestamp);
+     	            	wdate.innerHTML = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+     	            	var hitup = document.createElement("td");
+     	            	hitup.innerHTML = data.boardHits;
+     	            	
+     	            	contents.appendChild(no);
+     	            	contents.appendChild(title);
+     	            	contents.appendChild(writer);
+     	            	contents.appendChild(wdate);
+     	            	contents.appendChild(hitup);
+     	            	
+     	            	listbody.appendChild(contents);
+                 	}
+                 	document.querySelector(".origin").onclick=function(){
+                 		let boardno = $(this).closest('tr').attr("id");
+                 		selectJangHaksa(boardno);
+                 	}
+                 	function selectJangHaksa(boardno){
+                 		location.href="/univ/board/scholarshipBoardRead.do?boardNo="+boardno
+                    }
+                },
+                error : function(){
+                   alert("검색결과를 불러오는데 실패했습니다.\n관리자에게 문의하세요.[010-1234-1234]");
+                }
+             })
+		}
+		
+	}
+</script>
 </html>
