@@ -16,7 +16,13 @@ public class RegisterVO {
 	private int FinalExam;
 	private int grade;
 	private int registerNum;
+	private String registerSemester;
 	
+	private String subjectContents;
+	private String subjectData;
+	private String subjectGoal;
+	private String subjectSum;
+	private int subjectTotal;
 	private String proName;
 	private String subjectDetail;
 	private int subjectNum;
@@ -26,6 +32,7 @@ public class RegisterVO {
 	private String subjectDay;
 	private String subjectTime;
 	private String subjectRoom;
+	private String subjectSemester;
 	
 	private int year;
 	private int term;
@@ -34,4 +41,5 @@ public class RegisterVO {
 	private String proId;
 	
 	private int result;
+
 }
