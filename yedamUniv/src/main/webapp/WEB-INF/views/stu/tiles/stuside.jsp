@@ -8,18 +8,9 @@
             </div>
             <div class="admin-info">
               <div class="font-strong">${name }</div>
-              <div>${major}학과 ${grade}학년</div>
+              <div>${major} ${grade}학년</div>
             </div>
           </div>
-          <div class="row mb-3 d-flex justify-content-center align-items-center">
-            <div class="col-lg-5" style="color: white">
-              <a href="#"><i class="ti-email mr-2"></i>쪽지함</a>
-            </div>
-            <div class="col-lg-6" style="color: white">
-              <a href="/univ/stu/myPost.do"><i class="ti-comment-alt mr-2"></i>내가 쓴 글</a>
-            </div>
-          </div>
-
           <ul class="side-menu metismenu">
             <li>
               <a class="active" href="/univ/stu/stu.do"
@@ -62,9 +53,6 @@
                 <li>
                   <a href="/univ/stu/classList.do">수강목록</a>
                 </li>
-                <li>
-                  <a href="/univ/stu/rateClassList.do">강의평가</a>
-                </li>
               </ul>
             </li>
             <li>
@@ -79,9 +67,6 @@
                 </li>
                 <li>
                   <a href="/univ/stu/lookAllGrades.do">전체성적조회</a>
-                </li>
-                <li>
-                  <a href="/univ/stu/helpMyGrade.do">성적이의신청</a>
                 </li>
               </ul>
             </li>

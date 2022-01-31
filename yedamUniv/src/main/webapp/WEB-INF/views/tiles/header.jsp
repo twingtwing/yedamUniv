@@ -49,11 +49,10 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">학사소개 </a>
 							<div class="dropdown-menu" aria-labelledby="dropdown-a">
-								<a class="dropdown-item" href="/univ/schedule/schedule.do">학사일정</a>
 								<a class="dropdown-item" href="/univ/board/haksaBoardList.do">학사공지</a>
 								<a class="dropdown-item" href="/univ/qna/haksaQna.do">학사QnA </a>
 								<a class="dropdown-item" href="/univ/faq/haksaFaq.do">학사FAQ</a>
-								<a class="dropdown-item" href="/univ/board/freeBoardList.do">자유게시판</a>
+								<a class="dropdown-item" href="/univ/freeboard/freeBoardList.do">자유게시판</a>
 							</div>
 						</li>
 						<li class="nav-item dropdown">
@@ -77,10 +76,10 @@
 							<li class="nav-item"><a class="nav-link" href="/univ/admin/admin.do">관리자</a></li>
 						<c:if test="${author eq 'STU'}">
 						</c:if>
-							<li class="nav-item"><a class="nav-link" href="/univ/stu/stu.do">학생페이지</a></li>
+							<li class="nav-item"><a class="nav-link" href="/univ/stu/classList.do">학생페이지</a></li>
 						<c:if test="${author eq 'PRO'}">
 						</c:if>										
-							<li class="nav-item"><a class="nav-link" href="/univ/pro/pro.do">교수페이지</a></li>
+							<li class="nav-item"><a class="nav-link" href="/univ/pro/mySub.do">교수페이지</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<c:if test="${empty id}">
@@ -105,9 +104,11 @@
 			})
 			.done(data=>{
 				console.log(data);
-				if(data !=''){
+				if(data !='N'){
 					alert(data+'님 안녕히가세요.')
 					location.href='/univ/all/home.do';
+				}else if(data !='Y'){
+					alert(data+'로그인에 실패하셨습니다.');
 				}
 			});	
 		});

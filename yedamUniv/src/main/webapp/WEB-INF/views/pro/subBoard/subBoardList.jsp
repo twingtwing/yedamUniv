@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +33,9 @@
             top: 1px;
             right: 50px;
         }
+        tr{
+        	cursor:pointer;
+        }
     </style>
 </head>
 <body>
@@ -42,7 +47,7 @@
                         <i class="fa fa-angle-right mx-1"></i>
                         <a href="/univ/pro/mySub.do" alt="my room" class="back_link"><small class="font-weight-bold">나의 강의실</small></a>
                         <i class="fa fa-angle-right mx-1"></i>
-                        <a href="/univ/pro/mySubDetail.do?subNo=" alt="my subject" class="back_link"><small class="font-weight-bold">강의이름넣어야함</small></a>
+                        <a href="/univ/pro/mySubDetail.do?subNo=" alt="my subject" class="back_link"><small class="font-weight-bold">${subName }</small></a>
                         <i class="fa fa-angle-right mx-1"></i>
                         <small class="font-weight-bold">공지사항</small>
                     </div>
@@ -52,8 +57,8 @@
                     <div class="row mt-4 ml-1">
                         <i class="ti-book text-warning" style="font-size: 30px;"></i>
                         <div class="ml-2 d-flex align-items-center">
-                            <a href="/univ/pro/mySubDetail.do?subNo=" alt="my subject" class="back_link">
-                                <h4 class="mb-0 font-weight-bold">강의이름 | 강의번호</h4>
+                            <a href="/univ/pro/mySubDetail.do?subNo=${subNo }&&subName=${subName}" alt="my subject" class="back_link">
+                                <h4 class="mb-0 font-weight-bold">${subName } | ${subNo }</h4>
                             </a>
                         </div>
                     </div>
@@ -86,6 +91,7 @@
                                         <table class="table list-table mt-4 text-center">
                                             <thead class="list-thead">
                                                 <tr>
+                                               
                                                     <th class="text-center" width='100'>번호</th>
                                                     <th class="text-center">제목</th>
                                                     <th class="text-center">작성자</th>
@@ -95,16 +101,24 @@
                                             </thead>
                                             <tbody class="list-tbody">
                                                 <!-- 10줄 -->
-                                                <tr id="bsno">
-                                                    <td>1</td>
-                                                    <td>
-                                                        첨부파일이 있을경우
-                                                        <i class="fa ti-file ml-1 text-warning"></i>
-                                                    </td>
-                                                    <td>sdsd</td>
-                                                    <td>sdsd</td>
-                                                    <td>sdsd</td>
-                                                </tr>
+                                                
+                                                <c:forEach var="postList" items="${postLists }"> 
+	                                                <tr id="${postList.bsNo }"  onclick='location.href="/univ/pro/subBoardSelect.do?bsNo=${postList.bsNo }&&subName=${subName}&&subNo=${subNo}"'>
+	                                                    <td>${postList.bsNo }</td>
+	                                                    
+	                                                    <td>
+	                                                    ${postList.bsTitle }
+	                                                    
+	                                                    
+	                                                        <c:if test="${not empty postList.pBsfile }">
+	                                                        	<i class="fa ti-file ml-1 text-warning"></i>
+	                                                        </c:if>
+	                                                    </td> 
+	                                                    <td>${id }</td>
+	                                                    <td><c:out value="${fn:substring(postList.bsDate,0,10) }"></c:out></td>
+	                                                    <td>${postList.boardHits }</td>
+	                                                </tr>
+                                                </c:forEach>
                                                 <!-- 
                                             <tr>
                                                 글이 없을 경우
@@ -141,7 +155,7 @@
                                                 </li>
                                             </ul>
                                         </nav>
-                                        <button onclick="location.href='/univ/pro/subBoardInsert.do'" class="btn btn-default board-btn" style="height: 33px; width: 80px;">작성</button>
+                                        <button onclick="location.href='/univ/pro/subBoardInsert.do?subName=${subName}&&subNo=${subNo}'" class="btn btn-default board-btn" style="height: 33px; width: 80px;">작성</button>
                                     </div>
                                 </div>
                             </div>
@@ -150,9 +164,9 @@
                 </div>
             </div>
 	<script type="text/javascript">
-		$('.list-tbody > tr').click(function(){
-			location.href="/univ/pro/subBoardSelect.do?bsNo="+$(this).attr('id');
-		});
+	 /* 	$('.list-tbody > tr').click(function(){
+			location.href="/univ/pro/subBoardSelect.do?bsNo="+$(this).attr('id')+"&&subName="+"${subName}"+"&&subNo="+"${subNo}";
+		});  */
 	</script>
 </body>
 </html>

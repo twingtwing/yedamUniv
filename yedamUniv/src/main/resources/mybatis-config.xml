@@ -7,8 +7,9 @@
 		<!-- null -->
 		<setting name="cacheEnabled" value="false" />
 		<setting name="jdbcTypeForNull" value="NULL" />
-		
+
 		<!-- CamelCase 형태로 자동변환 -->
-		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+
 	</settings>
 </configuration>

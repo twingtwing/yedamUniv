@@ -36,6 +36,11 @@
 		</beans:property>
 	</beans:bean>
 	
+	<!-- multipartResolver -->
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<beans:property name="maxUploadSize" value="100000000"></beans:property>
+	</beans:bean>
+	
 	<context:component-scan base-package="co.yedam.univ" />
 	
 </beans:beans>

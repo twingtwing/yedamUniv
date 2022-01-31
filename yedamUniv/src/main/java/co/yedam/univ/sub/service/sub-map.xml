@@ -12,6 +12,74 @@
 		AND subject_semester=#{subjectSemester}
 	</select>
 	
+	<select id="subjectPostList" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT s.subject_name,b.bs_no,b.pro_id,b.bs_date,b.bs_title,b.bs_contents,b.board_hits
+		FROM subject s JOIN subject_board b
+		ON(s.subject_no = b.subject_no)
+		WHERE s.subject_name=#{subjectName} AND s.subject_no=#{subjectNo}
+		ORDER BY bs_no DESC
+	</select>
+	
+	<select id="subjectQnAList" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT s.subject_no,s.subject_name,q.sq_no,q.stu_id,q.stu_name,q.major,q.sq_date,q.sq_title,q.sq_contents,q.sq_state
+		FROM subject s RIGHT OUTER JOIN  subject_QnA q
+		ON(s.subject_no = q.subject_no)
+		WHERE s.subject_name=#{subjectName} AND s.subject_no=#{subjectNo}
+		ORDER BY q.sq_no DESC
+	</select>
+	
+	<select id="subjectQnaSelect" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT * FROM subject_qna WHERE sq_no=#{sqNo}
+	</select>
+	
+	<select id="subjectBoardSelect" resultType="co.yedam.univ.sub.service.SubVO">
+	 	SELECT * FROM subject_board
+		WHERE bs_no=${bsNo}
+	</select>
+	
+	<update id="updateBoardHit" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_board
+		SET board_hits= board_hits+1
+		WHERE bs_no=${bsNo}
+	</update>
+	
+	<insert id="insertBoard" parameterType="co.yedam.univ.sub.service.SubVO">
+		<selectKey keyProperty="bsNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(bs_no),0)+1 FROM SUBJECT_BOARD
+		</selectKey>
+		INSERT INTO subject_board(bs_no,subject_no,pro_id,bs_title,bs_contents)
+		values(#{bsNo},#{subjectNo},#{proId},#{bsTitle},#{bsContents})
+	</insert>
+	
+	<update id="updateBoard" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_board
+		SET bs_title=#{bsTitle}, bs_contents=#{bsContents}
+		WHERE bs_no=#{bsNo}
+	
+	</update>
+	
+	<delete id="deleteBoard" parameterType="co.yedam.univ.sub.service.SubVO">
+		DELETE FROM subject_board WHERE bs_no=#{bsNo}
+	</delete>
+	
+	<update id="qnaAnswerUpdate" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_qna
+		SET sa_contents=#{saContents},sa_date=sysdate
+		WHERE sq_no=#{sqNo} AND pro_id=#{proId}
+	</update>
+	
+	<update id="qnaAnswerInsert" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_qna
+		SET sa_contents=#{saContents},sa_date=sysdate,sq_state='Y'
+		WHERE sq_no=#{sqNo} AND pro_id=#{proId} and subject_no=#{subjectNo}
+	</update>
+	
+	<update id="qnaAnswerDelete" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE subject_qna
+		SET sa_contents='',sa_date='',sq_state='N'
+		WHERE sq_no=#{sqNo} AND pro_id=#{proId} AND subject_no=#{subjectNo}
+	</update>
+	
 	<select id="subjectSelect" resultType="co.yedam.univ.sub.service.SubVO">
 		SELECT * FROM SUBJECT 
 		WHERE SUBJECT_NO = #{subjectNo}
@@ -28,14 +96,16 @@
 		WHERE rn &gt; (#{pageNum}-1)*#{amount}
 	</select>
 	
-	<select id="subjectNum" resultType="int" parameterType="co.yedam.univ.sub.service.SubVO">
-		SELECT AVG(R.REGISTER_NUM) AS REGISTER_NUM
-		FROM REGISTER R JOIN SUBJECT S
-		ON R.SUBJECT_NO = S.SUBJECT_NO
-		WHERE S.PRO_ID = #{proId}
-		AND S.SUBJECT_SEMESTER = #{subjectSemester}
-		AND R.REGISTER_SEMESTER = #{subjectSemester}
-		GROUP BY S.SUBJECT_NO
+	<select id="subAdminPage" parameterType="co.yedam.univ.sub.service.CriteriaSub" resultType="co.yedam.univ.sub.service.CriteriaSub">
+		SELECT * FROM(
+			SELECT ROWNUM AS RN, S.SUBJECT_NO, S.SUBJECT_NAME, S.SUBJECT_SCORE,P.PRO_NAME,S.SUBJECT_DATE,S.SUBJECT_PERMIT,S.SUBJECT_STATUS,S.SUBJECT_DETAIL
+			FROM SUBJECT S JOIN USER_PRO P
+			ON S.PRO_ID =  P.PRO_ID
+			WHERE ROWNUM &lt;= #{pageNum} * #{amount}
+			<if test="subjectName != ''">AND S.SUBJECT_NAME like '%' ||  #{subjectName} || '%'</if>
+			<if test="subjectStatus != ''">AND S.SUBJECT_STATUS = #{subjectStatus}</if> 
+			)
+		WHERE rn &gt; (#{pageNum}-1)*#{amount}
 	</select>
 	
 	<select id="subjectCount" resultType="int" parameterType="co.yedam.univ.sub.service.SubVO">
@@ -57,7 +127,7 @@
 		<selectKey keyProperty="subjectNo" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(subject_no),0)+1 FROM SUBJECT
 		</selectKey>
-		INSERT INTO SUBJECT(SUBJECT_NO,SUBJECT_NUM,PRO_ID,SUBJECT_NAME,SUBJECT_DETAIL,SUBJECT_MAJOR,SUBJECT_SCORE,SUBJECT_ROOM,SUBJECT_DATE
+		INSERT INTO SUBJECT(SUBJECT_NO,SUBJECT_NUM,PRO_ID,SUBJECT_NAME,SUBJECT_DETAIL,SUBJECT_MAJOR,SUBJECT_SCORE,SUBJECT_ROOM,SUBJECT_DATE,
 		SUBJECT_DAY,SUBJECT_TIME,SUBJECT_SEMESTER,SUBJECT_TOTAL,SUBJECT_CNT,SUBJECT_SUM,SUBJECT_GOAL,SUBJECT_DATA,SUBJECT_CONTENTS,SUBJECT_STATUS,SUBJECT_PERMIT)
 		VALUES(#{subjectNo},(SELECT NVL(MAX(subject_num),0)+1 FROM SUBJECT WHERE subject_semester=#{subjectSemester}),
 		#{proId},#{subjectName},#{subjectDetail},#{subjectMajor},#{subjectScore},#{subjectRoom},SYSDATE,#{subjectDay},
@@ -75,5 +145,28 @@
 		DELETE FROM SUBJECT 
 		WHERE SUBJECT_NO = #{subjectNo}
 	</delete>
+	
+	<update id="subjectStatus" parameterType="co.yedam.univ.sub.service.SubVO">
+		UPDATE SUBJECT
+		SET SUBJECT_PERMIT = SYSDATE, SUBJECT_STATUS = #{subjectStatus}
+		WHERE SUBJECT_NO = #{subjectNo}
+	</update>
 
+	<select id="enrolmentMajorList"
+	parameterType="co.yedam.univ.sub.service.SubVO"
+	resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT  P.PRO_NAME, S.*
+		FROM SUBJECT S, USER_PRO P
+		WHERE S.PRO_ID = P.PRO_ID
+		AND SUBJECT_MAJOR LIKE '%'||#{subjectMajor}||'%'
+	</select>
+	
+	<select id="enrolmentSubNameList"
+	parameterType="co.yedam.univ.sub.service.SubVO"
+	resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT  P.PRO_NAME, S.*
+		FROM SUBJECT S, USER_PRO P
+		WHERE S.PRO_ID = P.PRO_ID
+		AND SUBJECT_NAME LIKE '%'||#{subjectName}||'%'
+	</select>
 </mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yedam.univ.leaveDrop.service.LeaveDropMapper">
+
+	<select id="leaveDropList" resultType="co.yedam.univ.leaveDrop.service.LeaveDropVO" parameterType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		SELECT LD.* 
+		FROM
+			(SELECT LEAVE_DETAIL AS DETAIL, '휴학' "CATEGORY", LEAVE_REASON AS REASON,LEAVE_DATE "DATE",LEAVE_PROCESS AS PROCESS
+			FROM LEAVE
+			WHERE STU_ID = #{stuId}
+			UNION
+			SELECT DROP_DETAIL,'자퇴',DROP_REASON,DROP_DATE, DROP_PROCESS
+			FROM DROPING
+			WHERE STU_ID = #{stuId}
+			) LD
+		ORDER BY 3
+	</select>
+	
+	<select id="leaveDropState" parameterType="co.yedam.univ.leaveDrop.service.LeaveDropVO" resultType="int">
+		SELECT COUNT(*)
+		FROM(
+		    SELECT STU_ID FROM LEAVE WHERE BACK_STETE ='N'
+		    UNION
+		    SELECT STU_ID FROM DROPING
+		)
+	</select>
+	
+	<select id="ldList" resultType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		SELECT * FROM(
+			SELECT ROWNUM AS RN,LD.* 
+			FROM
+				(SELECT TO_CHAR(L.LEAVE_NO) AS NUM, L.LEAVE_DETAIL AS DETAIL, '휴학' "CATEGORY", L.LEAVE_REASON AS REASON, L.LEAVE_DATE "DATE", 
+                L.LEAVE_PROCESS AS PROCESS,S.STU_NAME,S.MAJOR,S.STU_ID
+				FROM LEAVE L JOIN USER_STU S
+                ON L.STU_ID = S.STU_ID
+				UNION
+				SELECT D.STU_ID, D.DROP_DETAIL,'자퇴', D.DROP_REASON, D.DROP_DATE, D.DROP_PROCESS,S.STU_NAME,S.MAJOR,S.STU_ID
+				FROM DROPING D  JOIN USER_STU S
+                ON D.STU_ID = S.STU_ID
+				) LD
+			WHERE ROWNUM &lt;= #{pageNum} * #{amount} 
+			ORDER BY 6 DESC	
+			)
+		WHERE rn &gt; (#{pageNum}-1)*#{amount}	
+	</select>
+	
+	<select id="leaveList" resultType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		SELECT * FROM(
+			SELECT ROWNUM AS RN, L.*, S.STU_NAME,S.GRADE,S.MAJOR
+			FROM LEAVE L JOIN USER_STU S
+            ON L.STU_ID = S.STU_ID
+			WHERE ROWNUM &lt;= #{pageNum} * #{amount} 
+			<if test="num == '1'">AND BACK_DATE IS NOT NULL</if>
+			<if test="grade != ''">AND S.GRADE = #{grade}</if>
+			<if test="leaveProcess != ''">AND L.LEAVE_PROCESS = #{leaveProcess}</if>
+			<if test="backStete != ''">AND L.BACK_STETE = #{backStete}</if>
+			<if test="stuId != ''">AND S.STU_ID  like '%' || #{stuId} || '%'</if>
+			<if test="stuName != ''">AND S.STU_NAME like '%' || #{stuName} || '%'</if>
+			ORDER BY L.LEAVE_DATE
+			)
+		WHERE rn &gt; (#{pageNum}-1)*#{amount}	
+	</select>
+	
+	<select id="dropList" resultType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		SELECT * FROM(
+			SELECT ROWNUM AS RN, D.* , S.STU_NAME,S.GRADE,S.MAJOR
+			FROM DROPING D  JOIN USER_STU S
+            ON D.STU_ID = S.STU_ID
+			WHERE ROWNUM &lt;= #{pageNum} * #{amount} 
+			<if test="num == '1'">AND BACK_DATE IS NOT NULL</if>
+			<if test="grade != '' ">AND S.GRADE = #{grade}</if>
+			<if test="dropProcess != ''">AND L.LEAVE_PROCESS = #{leaveProcess}</if>
+			<if test="stuId != '' ">AND S.STU_ID like '%' || #{stuId} || '%'</if>
+			<if test="stuName != ''">AND S.STU_NAME like '%' || #{stuName} || '%'</if>
+			ORDER BY D.DROP_DATE
+			)
+		WHERE rn &gt; (#{pageNum}-1)*#{amount}		
+	</select>
+	
+	<select id="leaveSelect" resultType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		SELECT * FROM LEAVE 
+		WHERE STU_ID = #{stuId}
+		AND BACK_STETE ='N'
+		AND LEAVE_PROCESS = 'C'
+	</select>
+	
+	<select id="leavePrADSelect" resultType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		SELECT L.*  , S.STU_NAME , S.STU_TEL, S.STU_BIRTH, S.STU_EMAIL, S.AUTHOR
+		FROM LEAVE L JOIN USER_STU S
+		ON L.STU_ID = S.STU_ID
+		WHERE L.LEAVE_NO = #{leaveNo}
+	</select>
+	
+	<select id="dropPrADSelect" resultType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		SELECT D.* ,S.STU_NAME, S.STU_TEL, S.STU_BIRTH, S.STU_EMAIL, S.AUTHOR
+		FROM DROPING D  JOIN USER_STU S
+		ON D.STU_ID = S.STU_ID
+		WHERE D.STU_ID = #{stuId}
+	</select>
+
+	<insert id="leaveInsert" parameterType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		<selectKey keyProperty="leaveNo" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(LEAVE_NO),0)+1 FROM LEAVE
+		</selectKey>
+		INSERT INTO LEAVE(LEAVE_NO,STU_ID,LEAVE_DETAIL,LEAVE_REASON,LEAVE_DATE,LEAVE_PROCESS,BACK_SCHEDULE,BACK_STETE)
+		VALUES(#{leaveNo},#{stuId},#{leaveDetail},#{leaveReason},SYSDATE,'N',TO_DATE(#{backSchedule},'YYYY-MM'),'N')
+	</insert>
+	
+	<insert id="dropInsert" parameterType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		INSERT INTO DROPING(STU_ID,DROP_DETAIL,DROP_REASON,DROP_DATE,DROP_PROCESS)
+		VALUES(#{stuId},#{dropDetail},#{dropReason},SYSDATE,'N')
+	</insert>
+	
+	<update id="leaveProcess" parameterType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		UPDATE LEAVE
+		SET LEAVE_PROCESS = #{leaveProcess}
+		WHERE LEAVE_NO = #{leaveNo}
+	</update>
+	
+	<update id="dropProcess" parameterType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		UPDATE DROPING
+		SET DROP_PROCESS = #{dropProcess}
+		WHERE STU_ID = #{stuId}
+	</update>
+	
+	<update id="stuRecUp" parameterType="co.yedam.univ.stu.service.StuVO">
+		UPDATE USER_STU
+		SET STU_REC = #{stuRec}
+		WHERE STU_ID = #{stuId}
+	</update>
+	
+	<update id="stuChg" parameterType="co.yedam.univ.stu.service.StuVO">
+		UPDATE USER_STU
+		SET STU_CHG = #{stuChg} , STU_STATE = #{stuState}
+		WHERE STU_ID = #{stuId}	
+	</update>
+	
+	<update id="leaveBack" parameterType="co.yedam.univ.leaveDrop.service.LeaveDropVO">
+		UPDATE LEAVE
+		SET 
+		<if test="backStete != null">
+			BACK_STETE = 'Y'
+		</if>
+		<if test="backStete == null">
+			BACK_DATE = SYSDATE
+		</if>
+		WHERE LEAVE_NO = #{leaveNo}
+	</update>
+	
+</mapper>

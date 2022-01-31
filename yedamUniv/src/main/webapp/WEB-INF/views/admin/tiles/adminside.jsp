@@ -24,7 +24,7 @@
                             <li><a href="/univ/admin/listEmp.do">교직원</a></li>
                             <li><a href="/univ/admin/listProf.do">교수</a></li>
                             <li><a href="/univ/admin/listStu.do">학생</a></li>
-                            <li><a href="/univ/admin/listPapers.do">휴·복학/자퇴 신청 관리</a></li>
+                            <li><a href="/univ/admin/listLeave.do">휴·복학/자퇴 신청 관리</a></li>
                         </ul>
                     </li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-heart"></i>자유게시판<span class="badge badge-primary"></span> <span class="sidebar-collapse-icon ti-angle-down"></span></a>

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +28,7 @@
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <span>강의등록 </span>
+                            	<span>강의등록 </span>
                                 <span class="ti-angle-right"></span>
                                 <span> 강의등록처리</span>
                                 <h1 class="ti-stamp"> 강의신청조회</h1>
@@ -42,14 +42,8 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="row mr-5 mt-4">
-                                    <div class="col-lg-12 d-flex justify-content-end">
-                                        <button class="btn btn-default m-b-10 m-l-5">등록</button>
-                                        <button class="btn btn-danger m-b-10 m-l-5">반려</button>
-                                    </div>
-                                </div>
-                                <div class="row mr-5 mt-4">
                                     <div class="col-lg-12"  style="text-align: center;">
-                                        <span style="font-size: 40px; font-weight: bold;">강의 제목</span>
+                                        <span style="font-size: 40px; font-weight: bold;">${sub.subjectName}</span>
                                     </div>
                                 </div>
                                 <div class="row mr-5 mt-4 ml-4">
@@ -65,9 +59,9 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>3</td>
-                                                    <td>전공핵심</td>
-                                                    <td>30</td>
+                                                    <td>${sub.subjectStatus }</td>
+                                                    <td>${sub.subjectDetail }</td>
+                                                    <td>${sub.subjectTotal }명</td>
                                                 </tr>
                                             </tbody>
                                             <thead>
@@ -79,9 +73,9 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>2강의실</td>
-                                                    <td>월요일</td>
-                                                    <td>09:00~09:50</td>
+                                                    <td>${sub.subjectRoom }강의실</td>
+                                                    <td class="subDay"></td>
+                                                    <td class="subTime"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -90,25 +84,37 @@
                                 <div class="row mr-5 mt-4 ml-4">
                                     <div class="col-lg-12">
                                         <h5 class="ti-arrow-circle-right"> 수업개요</h5><br>
-                                        <textarea style="width:100%; font-size: larger;" rows="5" readonly>수업개요내용</textarea>
+                                        <p>${sub.subjectSum }</p>
                                     </div>
                                 </div>
                                 <div class="row mr-5 mt-4 ml-4">
                                     <div class="col-lg-12">
                                         <h5 class="ti-arrow-circle-right"> 수업목표</h5><br>
-                                        <textarea style="width:100%; font-size: larger;" rows="5" readonly>수업목표내용</textarea>
+                                        <p>${sub.subjectGoal }</p>
                                     </div>
                                 </div>
                                 <div class="row mr-5 mt-4 ml-4">
                                     <div class="col-lg-12">
                                         <h5 class="ti-arrow-circle-right"> 수업자료</h5><br>
-                                        <textarea style="width:100%; font-size: larger;" rows="5" readonly>수업자료내용</textarea>
+                                        <p>${sub.subjectData }</p>
                                     </div>
                                 </div>
                                 <div class="row mr-5 mt-4 mb-5 ml-4">
                                     <div class="col-lg-12">
                                         <h5 class="ti-arrow-circle-right"> 수업내용</h5><br>
-                                        <textarea style="width:100%; font-size: larger;" rows="5" readonly>수업내용</textarea>
+                                        <p>${sub.subjectContents }</p>
+                                    </div>
+                                </div>
+                                <!-- 뒤로가기 버튼 -->
+                                 <div class="row mr-5 mt-4">
+                                    <div class="col-lg-12 d-flex justify-content-between">
+                                    	<button onclick="location.href='history.back()'" class="btn btn-default m-b-10 m-l-20">뒤로 가기</button>
+                                    	<c:if test="${sub.subjectStatus eq 'N' or sub.subjectStatus eq ''}">
+	                                    	<div class="row">
+		                                        <button id="Y" data-msg="승인" class="statusBtn btn btn-default m-b-10 m-l-10" style="width: 70px">등록</button>
+		                                        <button id="X" data-msg="반려" class="statusBtn btn btn-danger m-b-10 m-l-10" style="width: 70px">반려</button>
+	                                    	</div>
+                                    	</c:if>
                                     </div>
                                 </div>
                             </div>
@@ -122,26 +128,35 @@
         </div>
     </div>
     
-    <!-- jquery vendor -->
-    <script src="assets/js/lib/jquery.min.js"></script>
-    <script src="assets/js/lib/jquery.nanoscroller.min.js"></script>
-    <!-- nano scroller -->
-    <script src="assets/js/lib/menubar/sidebar.js"></script>
-    <script src="assets/js/lib/preloader/pace.min.js"></script>
-    <!-- sidebar -->
-    
-    <!-- bootstrap -->
-
-    <script src="assets/js/lib/bootstrap.min.js"></script><script src="assets/js/scripts.js"></script>
-    <!-- scripit init-->
-    <script src="assets/js/lib/data-table/datatables.min.js"></script>
-    <script src="assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="assets/js/lib/data-table/jszip.min.js"></script>
-    <script src="assets/js/lib/data-table/pdfmake.min.js"></script>
-    <script src="assets/js/lib/data-table/vfs_fonts.js"></script>
-    <script src="assets/js/lib/data-table/buttons.html5.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.print.min.js"></script>
-    <script src="assets/js/lib/data-table/buttons.colVis.min.js"></script>
-    <script src="assets/js/lib/data-table/datatables-init.js"></script>
+   <script type="text/javascript">
+	   const days = {1 : '월',2 : '화',3 : '수',4 : '목',5 : '금',6 : '토'};
+	   const times = {1: '9:00 - 9:50',2: '10:00 - 10:50',3: '11:00 - 11:50',4: '12:00 - 12:50'
+	         ,5: '1:00 - 1:50',6: '2:00 - 2:50',7: '3:00 - 3:50',8: '4:00 - 4:50',9: '5:00 - 5:50'};
+	   
+	   	$('#subDay').text(days['${sub.subjectDay}']+'요일');
+		$('#subTime').text(times['${sub.subjectTime}']);
+		
+		$('.statusBtn').click(function(){
+			let flag = confirm("정말 "+$(this).attr('data-msg')+'하시겠습니까?');
+			if(flag){
+				$.ajax({
+					url:'/univ/admin/subjectStatus.do',
+					type:'post',
+					data : {
+						subjectNo : '${sub.subjectNo}',
+						subjectStatus:$(this).attr('id')
+					}
+				})
+				.done(data=>{
+					if(data==='Y'){
+						location.href="/univ/admin/listAddClass.do";
+						alert('성공적으로 처리되었습니다.');
+					}else if(data==='N'){
+						alert('업데이트 과정중에 오류가 발생하였습니다.');
+					}
+				})
+			}
+		})
+   </script>
 </body>
 </html>

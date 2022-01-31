@@ -6,6 +6,7 @@
 		FROM USER_STU
 		WHERE STU_ID = #{id}
 		AND STU_PW = #{pw}
+		AND STU_STATE != 'D'
 	</select>
 	
 	<select id="loginPro" resultType="co.yedam.univ.user.service.UserVO">
@@ -13,12 +14,99 @@
 		FROM USER_PRO
 		WHERE PRO_ID = #{id}
 		AND PRO_PW = #{pw}
+		AND PRO_STATE != 'D'
 	</select>
 	
 	<select id="loginEmp" resultType="co.yedam.univ.user.service.UserVO">
-		SELECT EMP_ID AS ID, EMP_PW AS PW, EMP_NAME AS NAME,AUTHOR
+		SELECT EMP_ID AS ID, EMP_PW AS PW, EMP_NAME AS NAME , AUTHOR
 		FROM USER_EMP
 		WHERE EMP_ID = #{id}
 		AND EMP_PW = #{pw}
+		AND EMP_STATE != 'D'
 	</select>
+	
+	<select id="stuList" resultType="co.yedam.univ.user.service.UserVO">
+		SELECT STU_ID AS ID, STU_NAME AS NAME, STU_TEL AS TEL, STU_REC AS REC, STU_CHG AS CHG
+		FROM USER_STU
+		<where>
+			<if test="chg != null">STU_CHG = #{chg}</if>
+			<if test="id != null">STU_ID LIKE '%' ||  #{id} || '%'</if>
+			<if test="name != null">AND STU_NAME LIKE '%' ||  #{name} || '%'</if>
+			<if test="tel != null">AND STU_TEL LIKE '%' ||  #{tel} || '%'</if>
+			<if test="rec != null">AND STU_REC LIKE '%' ||  #{rec} || '%'</if>
+		</where>
+	</select>
+		
+	<select id="profList" resultType="co.yedam.univ.user.service.UserVO">
+		SELECT PRO_ID AS ID, PRO_NAME AS NAME, PRO_TEL AS TEL, PRO_REC AS REC, PRO_HIRE AS HIREDATE
+		FROM USER_PRO	
+		<where>
+			<if test="id != null">PRO_ID LIKE '%' ||  #{id} || '%'</if>
+			<if test="name != null">AND PRO_NAME LIKE '%' ||  #{name} || '%'</if>
+			<if test="tel != null">AND PRO_TEL LIKE '%' ||  #{tel} || '%'</if>
+			<if test="rec != null">AND PRO_REC LIKE '%' ||  #{rec} || '%'</if>
+		</where>
+	</select>
+		
+	<select id="empList" resultType="co.yedam.univ.user.service.UserVO">
+		SELECT EMP_ID AS ID, EMP_NAME AS NAME, EMP_TEL AS TEL, EMP_REC AS REC
+		FROM USER_EMP	
+		<where>
+			<if test="id != null">EMP_ID LIKE '%' ||  #{id} || '%'</if>
+			<if test="name != null">AND EMP_NAME LIKE '%' ||  #{name} || '%'</if>
+			<if test="tel != null">AND EMP_TEL LIKE '%' ||  #{tel} || '%'</if>
+			<if test="rec != null">AND EMP_REC LIKE '%' ||  #{rec} || '%'</if>
+		</where>
+	</select>
+	
+	<select id="reglist" resultType="co.yedam.univ.reg.service.RegisterVO">
+		SELECT R.* , S.* , AVG(R.GRADE) OVER() AS AVG , P.PRO_NAME
+		FROM register R JOIN SUBJECT S
+		ON R.SUBJECT_NO = S.SUBJECT_NO
+		JOIN USER_PRO P
+		ON S.PRO_ID = P.PRO_ID
+		WHERE STU_ID = #{stuId}
+	</select>
+	
+	<select id="profSelect" resultType="co.yedam.univ.user.service.UserVO">
+		SELECT PRO_ID AS ID, PRO_NAME AS NAME, PRO_TEL AS TEL, PRO_EMAIL AS EMAIL,PRO_BIRTH AS BIRTHDATE
+		, PRO_HIRE AS HIREDATE, PRO_ZIPCODE AS ZIPCODE, PRO_ADDR AS ADDR, PRO_ADDR2 AS ADDR2, PRO_REC AS REC
+		,MAJOR
+		FROM USER_PRO
+		WHERE PRO_ID = #{id}	
+	</select>
+	
+	<select id="empSelect" resultType="co.yedam.univ.user.service.UserVO">
+		SELECT EMP_ID AS ID, EMP_NAME AS NAME, EMP_TEL AS TEL, EMP_EMAIL AS EMAIL, EMP_BIRTH AS BIRTHDATE 
+		, EMP_HIRE AS HIREDATE,EMP_ZIPCODE AS ZIPCODE, EMP_ADDR AS ADDR, EMP_ADDR2 AS ADDR2, EMP_REC AS REC
+		FROM USER_EMP
+		WHERE EMP_ID = #{id}	
+	</select>
+	
+	<select id="sublist" resultType="co.yedam.univ.sub.service.SubVO">
+		SELECT * 
+		FROM SUBJECT
+		WHERE PRO_ID = #{proId}
+	</select>
+	
+	<update id="stuUpdate" parameterType="co.yedam.univ.user.service.UserVO">
+		UPDATE USER_STU
+		SET STU_TEL = #{tel}, STU_NAME = #{name}, STU_EMAIL = #{email}, STU_ZIPCODE = #{zipcode},
+		STU_ADDR = #{addr}, STU_ADDR2 = #{addr2}, STU_REC = #{rec}
+		WHERE STU_ID = #{id}
+	</update>
+	
+	<update id="profUpdate" parameterType="co.yedam.univ.user.service.UserVO">
+		UPDATE USER_PRO
+		SET PRO_TEL = #{tel}, PRO_NAME = #{name}, PRO_EMAIL = #{email}, PRO_ZIPCODE = #{zipcode},
+		PRO_ADDR = #{addr}, PRO_ADDR2 = #{addr2}, PRO_REC = #{rec}
+		WHERE PRO_ID = #{id}	
+	</update>
+	
+	<update id="empUpdate" parameterType="co.yedam.univ.user.service.UserVO">
+		UPDATE USER_EMP
+		SET EMP_TEL = #{tel}, EMP_NAME = #{name}, EMP_EMAIL = #{email}, EMP_ZIPCODE = #{zipcode},
+		EMP_ADDR = #{addr}, EMP_ADDR2 = #{addr2}, EMP_REC = #{rec}
+		WHERE EMP_ID = #{id}	
+	</update>
 </mapper>

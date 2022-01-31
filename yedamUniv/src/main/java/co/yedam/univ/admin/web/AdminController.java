@@ -307,30 +307,6 @@ public class AdminController {
       return "admin/Notice/addFAQ";
    }
    
-   //멤버관리메뉴-교직원 목록
-   @RequestMapping("/admin/listEmp.do")
-   public String listEmp() {
-      return "admin/Users/listEmp";
-   }
-   
-   //멤버관리메뉴-교수 목록
-   @RequestMapping("/admin/listProf.do")
-   public String listProf() {
-      return "admin/Users/listProf";
-   }
-   
-   //멤버관리메뉴-학생 목록
-   @RequestMapping("/admin/listStu.do")
-   public String listStu() {
-      return "admin/Users/listStu";
-   }
-   
-   //멤버관리메뉴-휴·복학/자퇴 신청 관리
-   @RequestMapping("/admin/listPapers.do")
-   public String listPapers() {
-      return "admin/Users/listPapers";
-   }
-   
    //자유게시판메뉴-자유게시판 관리
    @RequestMapping("/admin/listBoard.do")
    public String listBoard() {
@@ -354,4 +330,5 @@ public class AdminController {
    public String listAddClass() {
       return "admin/AddClass/listAddClass";
    }
+
 }

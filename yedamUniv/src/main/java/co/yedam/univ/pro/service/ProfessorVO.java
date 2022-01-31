@@ -1,8 +1,10 @@
 package co.yedam.univ.pro.service;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ProfessorVO {
 	private String proId;
 	private String proPw;
@@ -20,6 +22,5 @@ public class ProfessorVO {
 	private String major;
 	private String proRec;
 	private String proAuthor; 
-	private String proTop; //교수총장
 	
 }

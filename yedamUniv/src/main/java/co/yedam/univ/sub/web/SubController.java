@@ -29,6 +29,14 @@ public class SubController {
 	@GetMapping("pro/mySub.do")
 	public String mySub(HttpSession session,SubVO vo, Model model) {
 		
+		vo.setProId((String)session.getAttribute("id"));
+		model.addAttribute("subList", subDao.subjectList(vo.getProId()));
+		return "pro/sub/mySub";
+	}
+	
+	@GetMapping("pro/pro.do")
+	public String pro(HttpSession session,SubVO vo, Model model) {
+		
 		vo.setProId((String)session.getAttribute("proId"));
 		model.addAttribute("subList", subDao.subjectList(vo.getProId()));
 		return "pro/sub/mySub";
@@ -39,19 +47,33 @@ public class SubController {
 	@RequestMapping("/pro/mySubListAjax.do")
 	public List<SubVO> mySubList(HttpSession session, @RequestParam("semester") String subjectSemester,SubVO vo,Model model) {
 		System.out.println(subjectSemester);
-		vo.setProId((String)session.getAttribute("proId"));
+		vo.setProId((String)session.getAttribute("id"));
 		vo.setSubjectSemester(subjectSemester);
-		System.out.println(vo.getProId());
-		System.out.println(vo.getSubjectSemester());
-		System.out.println(subDao.subjectSelectList(vo));		
+		
 		return subDao.subjectSelectList(vo);
 
 	}
 	
 	//강의목록 상세
 	@RequestMapping("pro/mySubDetail.do")
-	public String mySubDetail(@Param("subNo") int subNo, SubVO vo, Model model) {
+	public String mySubDetail(HttpSession session,@Param("subNo") int subNo,@Param("subName") String subName, SubVO vo, Model model) {
+		//공지사항
+		vo.setProId((String)session.getAttribute("id"));
 		vo.setSubjectNo(subNo);
+		vo.setSubjectName(subName);
+		model.addAttribute("subNo", vo.getSubjectNo());
+		model.addAttribute("subName", vo.getSubjectName());
+		model.addAttribute("postLists", subDao.subjectPostList(vo)); 
+	
+		
+		//묻고답하기
+		SubVO vo2 = new SubVO();
+		vo2.setProId((String)session.getAttribute("id"));
+		vo2.setSubjectNo(subNo);
+		model.addAttribute("qnaLists", subDao.subjectQnAList(vo2));
+		
+		
+		//묻고답하기
 		
 		return "pro/sub/mySubDetail";
 	}
@@ -72,16 +94,15 @@ public class SubController {
 	@GetMapping("pro/subApplyList.do")
 	public String subApplyList(Model model,CriteriaSub cri,SubVO vo,HttpSession session) {
 		cri.setProId((String)session.getAttribute("id"));
+		
 		vo.setProId((String)session.getAttribute("id"));
 		vo.setSubjectSemester("2022-01");
+		
 		List<CriteriaSub> list = subDao.subjectPagenation(cri);
 		model.addAttribute("subList",list);
-		model.addAttribute("pageMaker", new PageVO(cri, list.size()));
-		
-		int num = subDao.subjectNum(vo);
+		model.addAttribute("pageMaker", new PageVO(cri, list.size()));;
 		int count = subDao.subjectCount(vo);
-		model.addAttribute("registerNum", num);
-		model.addAttribute("subjectCount",num-count);
+		model.addAttribute("subjectCount",5-count);
 		return "pro/sub/subApplyList";
 	}
 	
@@ -161,5 +182,38 @@ public class SubController {
 		}
 		return result;
 	}
-
+	
+	//ADMIN
+		
+	//강의등록메뉴-강의등록처리
+	@GetMapping("/admin/listAddClass.do")
+	public String listAddClass(CriteriaSub cri,Model model) {
+		if(cri.getSubjectStatus() == null) {
+			cri.setSubjectStatus("");
+		}
+		List<CriteriaSub> list = subDao.subAdminPage(cri);
+		model.addAttribute("subList",list);
+		model.addAttribute("pageMaker", new PageVO(cri, list.size()));
+		return "admin/AddClass/listAddClass";
+	}
+	
+	//강의등록 상세화면
+	@GetMapping("/admin/selectAddClass.do")
+	public String selectAddClass(SubVO vo, Model model) {
+		model.addAttribute("sub",subDao.subjectSelect(vo));
+		return "admin/AddClass/selectAddClass";
+	}
+	
+	//승인처리
+	@ResponseBody
+	@PostMapping("/admin/subjectStatus.do")
+	public String subjectStatus(SubVO vo) {
+		String result = "N";
+		int r = subDao.subjectStatus(vo);
+		if(r!=0) {
+			result = "Y";
+		}
+		return result;
+	}
+	
 }
